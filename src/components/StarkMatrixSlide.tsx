@@ -1,9 +1,18 @@
 import { motion } from 'framer-motion';
 
+// Splits a quadrant string on the first ':' into {label, desc}
+function splitQuadrant(text: string) {
+    const idx = text.indexOf(':');
+    if (idx === -1) return { label: text, desc: '' };
+    return { label: text.slice(0, idx).trim(), desc: text.slice(idx + 1).trim() };
+}
+
 export function StarkMatrixSlide({ slide }: { slide: any }) {
-    // Expects slide to have a `matrix` object with axes and quadrants
-    // matrix: { xAxis: string, yAxis: string, q1: string, q2: string, q3: string, q4: string }
     const m = slide.matrix || { xAxis: 'X Axis', yAxis: 'Y Axis', q1: 'Q1', q2: 'Q2', q3: 'Q3', q4: 'Q4' };
+    const q1 = splitQuadrant(m.q1);
+    const q2 = splitQuadrant(m.q2);
+    const q3 = splitQuadrant(m.q3);
+    const q4 = splitQuadrant(m.q4);
 
     return (
         <div className="flex flex-col h-full w-full justify-center items-center py-12 px-8">
@@ -20,26 +29,28 @@ export function StarkMatrixSlide({ slide }: { slide: any }) {
                     </div>
 
                     {/* Matrix Grid Core */}
-                    <div className="grid grid-cols-2 grid-rows-2 w-full aspect-square md:aspect-video border-[2px] border-ink">
+                    <div className="grid grid-cols-2 grid-rows-2 w-full aspect-[4/3] md:aspect-video border-[2px] border-ink">
 
                         {/* Top Left - Q2 */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.4, delay: 0.1 }}
-                            className="border-r-[1px] border-b-[1px] border-ink p-6 md:p-12 flex items-center justify-center text-center bg-gray-50/50"
+                            className="border-r-[1px] border-b-[1px] border-ink p-4 md:p-8 flex flex-col items-center justify-center text-center bg-gray-50/50 overflow-hidden"
                         >
-                            <span className="text-lg md:text-2xl font-serif text-ink">{m.q2}</span>
+                            <span className="text-sm md:text-lg font-mono uppercase tracking-wider text-ink-soft mb-1">{q2.label}</span>
+                            {q2.desc && <span className="text-xs md:text-base font-sans text-ink-soft/70 leading-snug">{q2.desc}</span>}
                         </motion.div>
 
-                        {/* Top Right - Q1 */}
+                        {/* Top Right - Q1 (Target) */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.4, delay: 0.2 }}
-                            className="border-b-[1px] border-l-[1px] border-ink p-6 md:p-12 flex items-center justify-center text-center"
+                            className="border-b-[1px] border-l-[1px] border-ink p-4 md:p-8 flex flex-col items-center justify-center text-center overflow-hidden"
                         >
-                            <span className="text-lg md:text-2xl font-serif font-bold text-ink">{m.q1}</span>
+                            <span className="text-sm md:text-lg font-mono uppercase tracking-wider font-bold text-ink mb-1">{q1.label}</span>
+                            {q1.desc && <span className="text-xs md:text-base font-serif font-bold text-ink leading-snug">{q1.desc}</span>}
                         </motion.div>
 
                         {/* Bottom Left - Q3 */}
@@ -47,19 +58,21 @@ export function StarkMatrixSlide({ slide }: { slide: any }) {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.4, delay: 0.3 }}
-                            className="border-r-[1px] border-t-[1px] border-ink p-6 md:p-12 flex items-center justify-center text-center"
+                            className="border-r-[1px] border-t-[1px] border-ink p-4 md:p-8 flex flex-col items-center justify-center text-center overflow-hidden"
                         >
-                            <span className="text-lg md:text-2xl font-serif text-ink-soft">{m.q3}</span>
+                            <span className="text-sm md:text-lg font-mono uppercase tracking-wider text-ink-soft mb-1">{q3.label}</span>
+                            {q3.desc && <span className="text-xs md:text-base font-sans text-ink-soft/70 leading-snug">{q3.desc}</span>}
                         </motion.div>
 
-                        {/* Bottom Right - Q4 */}
+                        {/* Bottom Right - Q4 (Danger) */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.4, delay: 0.4 }}
-                            className="border-l-[1px] border-t-[1px] border-ink p-6 md:p-12 flex items-center justify-center text-center bg-gray-50/50"
+                            className="border-l-[1px] border-t-[1px] border-ink p-4 md:p-8 flex flex-col items-center justify-center text-center bg-gray-50/50 overflow-hidden"
                         >
-                            <span className="text-lg md:text-2xl font-serif text-ink">{m.q4}</span>
+                            <span className="text-sm md:text-lg font-mono uppercase tracking-wider text-ink-soft mb-1">{q4.label}</span>
+                            {q4.desc && <span className="text-xs md:text-base font-sans text-ink-soft/70 leading-snug">{q4.desc}</span>}
                         </motion.div>
 
                     </div>

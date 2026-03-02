@@ -6,6 +6,7 @@ import { StarkMatrixSlide } from './components/StarkMatrixSlide';
 import { StarkPillarSlide } from './components/StarkPillarSlide';
 import { StarkGridSlide } from './components/StarkGridSlide';
 import { StarkDataSlide } from './components/StarkDataSlide';
+import { StarkCardSlide } from './components/StarkCardSlide';
 
 // @ts-ignore
 import rawSlidesData from '../pipelines/common/slides.json';
@@ -64,6 +65,10 @@ function App() {
 
     if (slideType === 'data') {
       return <StarkDataSlide slide={currentSlide} />;
+    }
+
+    if (slideType === 'card') {
+      return <StarkCardSlide slide={currentSlide} />;
     }
 
     // Default to the versatile Text Slide for now

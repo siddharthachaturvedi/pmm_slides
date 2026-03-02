@@ -218,6 +218,47 @@
       ]
     },
     {
+      "title": "Example Claim Card",
+      "type": "card",
+      "phase": "path",
+      "lead": "Every high-impact claim must be attached to a verifiable, reproducible card before publication.",
+      "card": {
+        "type": "Claim Card",
+        "id": "CC-2026-0042",
+        "claim": "Our platform reduces customer churn by 34% within the first 90 days of deployment.",
+        "fields": [
+          {
+            "label": "Source",
+            "value": "Internal A/B test, Q4 2025 cohort (n=2,400)"
+          },
+          {
+            "label": "Scope",
+            "value": "Enterprise SaaS, NA region only",
+            "highlight": true
+          },
+          {
+            "label": "Reproducibility",
+            "value": "Reproducible under controlled conditions"
+          },
+          {
+            "label": "Harm Tier",
+            "value": "Medium — competitor may challenge",
+            "danger": true
+          },
+          {
+            "label": "Owner",
+            "value": "J. Park, Sr. PMM"
+          },
+          {
+            "label": "Expiry",
+            "value": "2026-09-30"
+          }
+        ],
+        "verdict": "⚠ Requires Legal Review Before External Use",
+        "verdictPass": false
+      }
+    },
+    {
       "title": "Tension 2: Personalization vs manipulation",
       "phase": "path",
       "bullets": [
