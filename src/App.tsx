@@ -8,6 +8,7 @@ import { StarkGridSlide } from './components/StarkGridSlide';
 import { StarkDataSlide } from './components/StarkDataSlide';
 import { StarkCardSlide } from './components/StarkCardSlide';
 import { StarkSplitSlide } from './components/StarkSplitSlide';
+import { SlideSorter } from './components/SlideSorter';
 
 // @ts-ignore
 import rawSlidesData from '../pipelines/common/slides.json';
@@ -16,18 +17,31 @@ const slidesData = rawSlidesData.slides;
 function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
+  const [sorterOpen, setSorterOpen] = useState(false);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger slide navigation if sorter is open
+      if (sorterOpen) {
+        if (e.key === 'Escape') {
+          setSorterOpen(false);
+        }
+        return;
+      }
+
       if (e.key === 'ArrowRight' || e.key === ' ') {
         setCurrentSlideIndex((prev) => Math.min(slidesData.length - 1, prev + 1));
       } else if (e.key === 'ArrowLeft') {
         setCurrentSlideIndex((prev) => Math.max(0, prev - 1));
+      } else if (e.key === 'g' || e.key === 'G') {
+        // Optional quick shortcut to open sorter
+        setSorterOpen(true);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [sorterOpen]);
 
   // Use URL hash for routing
   useEffect(() => {
@@ -81,14 +95,24 @@ function App() {
   };
 
   return (
-    <Layout
-      currentSlide={currentSlideIndex}
-      totalSlides={slidesData.length}
-      phase={currentSlide.phase?.toUpperCase() || "PRESENTATION"}
-      slide={currentSlide}
-    >
-      {renderSlideContent()}
-    </Layout>
+    <>
+      <Layout
+        currentSlide={currentSlideIndex}
+        totalSlides={slidesData.length}
+        phase={currentSlide.phase?.toUpperCase() || "PRESENTATION"}
+        slide={currentSlide}
+        onOpenSorter={() => setSorterOpen(true)}
+      >
+        {renderSlideContent()}
+      </Layout>
+      <SlideSorter
+        slides={slidesData}
+        isOpen={sorterOpen}
+        onClose={() => setSorterOpen(false)}
+        onSelectSlide={(idx: number) => setCurrentSlideIndex(idx)}
+        currentSlideIndex={currentSlideIndex}
+      />
+    </>
   );
 }
 

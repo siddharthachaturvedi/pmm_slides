@@ -9,13 +9,15 @@ export function Layout({
     currentSlide,
     totalSlides,
     phase = "INTRO",
-    slide
+    slide,
+    onOpenSorter
 }: {
     children: ReactNode,
     currentSlide: number,
     totalSlides: number,
     phase?: string,
-    slide?: any
+    slide?: any,
+    onOpenSorter?: () => void
 }) {
     const [commentsPanelOpen, setCommentsPanelOpen] = useState(false);
 
@@ -29,9 +31,13 @@ export function Layout({
                         {phase}
                     </span>
                 </div>
-                <div className="font-mono text-xs md:text-sm tracking-widest shrink-0 ml-4">
+                <button
+                    onClick={onOpenSorter}
+                    className="font-mono text-xs md:text-sm tracking-widest shrink-0 ml-4 hover:text-vermillion transition-colors border-b border-transparent hover:border-vermillion cursor-pointer"
+                    aria-label="Open slide sorter"
+                >
                     Page {currentSlide + 1} / {totalSlides}
-                </div>
+                </button>
             </header>
 
             {/* Slide Lead / Kicker: Hard Synthesizing Assertion */}
