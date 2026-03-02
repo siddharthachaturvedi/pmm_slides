@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import type { ReactNode } from 'react';
+import { MessageSquare } from 'lucide-react';
+import { CommentPanel } from './CommentPanel';
 
 export function Layout({
     children,
@@ -13,6 +16,8 @@ export function Layout({
     phase?: string,
     slide?: any
 }) {
+    const [commentsPanelOpen, setCommentsPanelOpen] = useState(false);
+
     return (
         <div className="flex flex-col w-screen h-[100dvh] bg-white overflow-hidden">
             {/* Top Navigation Bar: Severe, Data-driven */}
@@ -65,12 +70,29 @@ export function Layout({
                             SOURCE: {slide.source}
                         </div>
                     )}
-                    <span className="uppercase">© 2026 Built with RovoDev & Claude Skills</span>
+                    <span className="uppercase">© 2026 Built with RovoDev &amp; Claude Skills</span>
                 </div>
-                <a href="https://sidc.ai" target="_blank" rel="noreferrer" className="uppercase whitespace-nowrap ml-4 hover:text-ink transition-colors border-b border-ink-soft hover:border-ink">
-                    Siddhartha Chaturvedi
-                </a>
+                <div className="flex items-center gap-4 ml-4 shrink-0">
+                    <button
+                        onClick={() => setCommentsPanelOpen(true)}
+                        className="flex items-center gap-2 uppercase whitespace-nowrap hover:text-ink transition-colors border-b border-ink-soft hover:border-ink py-1 cursor-pointer"
+                        aria-label="Open comments"
+                    >
+                        <MessageSquare size={14} strokeWidth={2.5} />
+                        <span className="hidden sm:inline">Comments</span>
+                    </button>
+                    <a href="https://sidc.ai" target="_blank" rel="noreferrer" className="uppercase whitespace-nowrap hover:text-ink transition-colors border-b border-ink-soft hover:border-ink">
+                        Siddhartha Chaturvedi
+                    </a>
+                </div>
             </footer>
+
+            {/* Comment Panel Overlay */}
+            <CommentPanel
+                slideIndex={currentSlide}
+                isOpen={commentsPanelOpen}
+                onClose={() => setCommentsPanelOpen(false)}
+            />
         </div>
     );
 }
