@@ -24,7 +24,7 @@ export function Layout({
             <header className="flex justify-between items-center px-6 md:px-16 py-4 md:py-8 border-b-[2px] border-ink shrink-0">
                 <div className="flex items-baseline space-x-4 md:space-x-6">
                     <span className="font-serif text-lg md:text-2xl font-bold tracking-tight">The PMM's Hippocratic Oath</span>
-                    <span className="font-sans text-xs md:text-sm tracking-widest uppercase text-vermillion font-bold border-l border-ink pl-4 md:pl-6">
+                    <span className={`font-sans text-xs md:text-sm tracking-widest uppercase font-bold border-l border-ink pl-4 md:pl-6 ${phase?.toLowerCase() === 'peril' ? 'text-vermillion' : phase?.toLowerCase() === 'path' || phase?.toLowerCase() === 'promise' ? 'text-forest' : 'text-ink-soft'}`}>
                         {phase}
                     </span>
                 </div>
@@ -71,7 +71,7 @@ export function Layout({
                         </div>
                     )}
                     <span className="uppercase">
-                        © 2026 Built with <a href="https://www.atlassian.com/software/rovo-dev" target="_blank" rel="noreferrer" className="hover:text-vermillion transition-colors border-b border-transparent hover:border-vermillion">RovoDev</a> &amp; <a href="https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design" target="_blank" rel="noreferrer" className="hover:text-vermillion transition-colors border-b border-transparent hover:border-vermillion">Claude Skills</a>
+                        © 2026 Built with <a href="https://www.atlassian.com/software/rovo-dev" target="_blank" rel="noreferrer" className="hover:text-forest transition-colors border-b border-transparent hover:border-forest">RovoDev</a> &amp; <a href="https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design" target="_blank" rel="noreferrer" className="hover:text-forest transition-colors border-b border-transparent hover:border-forest">Claude Skills</a>
                     </span>
                 </div>
                 <div className="flex items-center gap-4 ml-4 shrink-0">
@@ -83,7 +83,7 @@ export function Layout({
                         <MessageSquare size={14} strokeWidth={2.5} />
                         <span className="hidden sm:inline">Comments</span>
                     </button>
-                    <a href="https://sidc.ai" target="_blank" rel="noreferrer" className="uppercase whitespace-nowrap hover:text-vermillion transition-colors border-b border-ink-soft hover:border-vermillion">
+                    <a href="https://sidc.ai" target="_blank" rel="noreferrer" className="uppercase whitespace-nowrap hover:text-forest transition-colors border-b border-ink-soft hover:border-forest">
                         Siddhartha Chaturvedi
                     </a>
                 </div>
