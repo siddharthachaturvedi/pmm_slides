@@ -150,6 +150,8 @@
       "type": "split",
       "phase": "path",
       "source": "FT: ft.com | AP: apnews.com",
+      "leftTheme": "tension",
+      "rightTheme": "resolution",
       "split": {
         "left": {
           "label": "Ships without a Claim Card",
@@ -238,6 +240,8 @@
       "title": "Personalization vs manipulation — before / after",
       "type": "split",
       "phase": "path",
+      "leftTheme": "tension",
+      "rightTheme": "resolution",
       "split": {
         "left": {
           "label": "Optimized for the company",
@@ -278,6 +282,8 @@
       "footnotes": [
         "IEA: U.S. data centers ~183 TWh (2024), projected ~426 TWh (2030)"
       ],
+      "leftTheme": "tension",
+      "rightTheme": "resolution",
       "split": {
         "left": {
           "label": "Always Deep Research mode",
@@ -328,6 +334,8 @@
       "title": "'Sounds like us' vs 'is us' — before / after",
       "type": "split",
       "phase": "path",
+      "leftTheme": "tension",
+      "rightTheme": "resolution",
       "split": {
         "left": {
           "label": "Fails the Brand Signature Test",
@@ -363,6 +371,8 @@
       "title": "Who converts vs who gets erased — before / after",
       "type": "split",
       "phase": "path",
+      "leftTheme": "tension",
+      "rightTheme": "resolution",
       "split": {
         "left": {
           "label": "Default-only persona coverage",
@@ -401,6 +411,8 @@
       "type": "split",
       "phase": "path",
       "source": "Waits v. Frito-Lay | OpenAI Sora System Card",
+      "leftTheme": "tension",
+      "rightTheme": "resolution",
       "split": {
         "left": {
           "label": "Named imitation",

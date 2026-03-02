@@ -6,6 +6,10 @@
   --color-ink-soft: #333333;
   --color-line: rgba(0, 0, 0, 0.15);
   --color-line-strong: #000000;
+  
+  /* Brand Accents */
+  --color-vermillion: #e64a19;
+  --color-forest: #2e7d32;
 
   --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-serif: "Georgia", "Merriweather", "Playfair Display", serif;
