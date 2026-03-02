@@ -5,191 +5,128 @@
     {
       "title": "The PMM's Hippocratic Oath",
       "phase": "intro",
-      "subtitle": "How to scale AI marketing without destroying your brand's soul.",
+      "subtitle": "Responsible GenAI in an era of infinite persuasion.",
       "bullets": [
-        "The Elephant: AI can write 10,000 lies a second. Who catches them?",
-        "The Desire: We want the speed, but we also want to not get fired.",
-        "The Goal: Ship stupid fast, but sleep soundly at night."
+        "Promise → Peril → Path"
       ]
     },
     {
-      "title": "What you're getting today",
+      "title": "Persuasion scaled. Verification didn't.",
       "phase": "intro",
+      "lead": "We hired an intern who can write 10,000 ads a minute… and cannot be deposed.",
       "bullets": [
-        "The Reality Check (a.k.a brands that fired up AI and immediately regretted it)",
-        "Five wildly uncomfortable truths about AI in marketing",
-        "A 7-day survival guide so we don't become the next cautionary tale"
+        "GenAI turns messaging into an always-on persuasion machine — volume, personalization, experimentation, all at once.",
+        "The question isn't whether we use it. The question is whether we've built the check engine light.",
+        "You leave with a repeatable pre-publish scaffolding you can pilot on Monday. Not next quarter. Monday."
       ]
     },
     {
-      "title": "We built a Ferrari engine with bicycle brakes",
-      "phase": "intro",
-      "bullets": [
-        "AI lets us write 8x more content. Hooray?",
-        "Our legal review team is still just Bob and Steve. Not hooray.",
-        "The bottleneck isn't creating content anymore. It's knowing if it's true."
-      ]
-    },
-    {
-      "title": "The Promise: The AI Flywheel",
+      "title": "The AI flywheel is real",
       "phase": "promise",
+      "lead": "We went from 'launch in a quarter' to 'launch in a browser tab.' That's genuine leverage.",
       "bullets": [
-        "Drafting: Write the first draft while making coffee",
-        "Testing: A/B/C/D/E/F testing without begging design for banners",
-        "Enablement: Turn a launch brief into sales scripts in roughly 4 seconds"
+        "Battlecards: 12 variants drafted in 2 hours. Previously: 2 weeks.",
+        "Launch messaging: A/B tested 8 positioning angles in one sprint. Previously: 2.",
+        "Enablement: Turned a 40-page product spec into 6 customer-facing one-pagers overnight.",
+        "Localization: Adapted messaging for 4 regions in a day, not a quarter."
       ]
     },
     {
-      "title": "Why we are doing this",
-      "phase": "promise",
-      "bullets": [
-        "Pre-launch: Actually testing narrative angles instead of just guessing",
-        "Launch week: Spitting out assets faster than sales can ask for them",
-        "Post-launch: Handling competitor objections before the webinar ends"
-      ]
-    },
-    {
-      "title": "Failure map of infinite persuasion",
-      "type": "data",
-      "lead": "The rate of unverified claims scales exponentially with output volume, generating massive hidden liability debt.",
+      "title": "The failure modes of infinite persuasion",
+      "type": "matrix",
       "phase": "peril",
-      "source": "Internal Content Production Analysis, 2024",
-      "footnotes": [
-        "Represents projected compounding error rate without verification gates.",
-        "Model assumes standard ChatGPT output parity without rigorous retrieval safeguards."
-      ],
-      "chartData": [
-        {
-          "label": "Manual Era",
-          "value": 5,
-          "suffix": "x"
-        },
-        {
-          "label": "Augmented Writer",
-          "value": 15,
-          "suffix": "x"
-        },
-        {
-          "label": "Prompt Template",
-          "value": 120,
-          "suffix": "x"
-        },
-        {
-          "label": "Full Automation",
-          "value": 1500,
-          "suffix": "x",
-          "sublabel": "(Danger Zone)"
-        }
-      ]
+      "lead": "These aren't edge cases. They're default bugs. The system ships them unless you design them out.",
+      "matrix": {
+        "xAxis": "Automation Level",
+        "yAxis": "Trust Exposure",
+        "q1": "Liability Laundering: 'The chatbot said it' doesn't reduce liability. Your brand published it.",
+        "q2": "Hallucinated Authority: AI drafts 'evidence posture' faster than review can verify.",
+        "q3": "Authenticity Breaks: Voice consistency is easy. Values consistency is hard.",
+        "q4": "Erasure: AI defaults to the majority persona. Edge-case customers get optimized away."
+      }
     },
     {
       "title": "Receipt 1: Deloitte",
-      "lead": "Deloitte's credibility collapsed after a paid report included completely fabricated citations.",
       "phase": "peril",
-      "link": "https://www.ft.com/content/099307b9-6296-41fb-936d-1579ff90d959",
-      "source": "Financial Times, 2024",
+      "lead": "The citations were… aspirational.",
+      "source": "Financial Times + Associated Press, 2024",
+      "link": "https://www.ft.com/content/934cc94b-32c4-497e-9718-d87d6a7835ca",
       "footnotes": [
-        "Represents highly public failure of unverified generative text rendering.",
-        "Auditable evidence posture is now a firm-level mandate."
+        "Deloitte partially refunded an Australian government contract after a report contained erroneous references."
       ],
       "bullets": [
-        "Fabricated references in a paid report",
-        "Credibility collapsed before trust could recover",
-        "Lesson: evidence posture must be auditable"
-      ]
-    },
-    {
-      "title": "Receipt 1 deep dive",
-      "phase": "peril",
-      "bullets": [
-        "One bad citation propagates through sales narrative",
-        "Executive buyer validates and trust alarms spread",
-        "Deals stall before technical proof starts"
+        "AI drafted footnotes, references, the whole academic aesthetic — faster than anyone could verify.",
+        "The output looked like evidence. It shipped like evidence. Until they checked the links.",
+        "Lesson: if you show citations, maintain them. They're a product feature, not decoration."
       ]
     },
     {
       "title": "Receipt 2: Air Canada",
       "phase": "peril",
-      "link": "https://www.bbc.com/travel/article/20240222-air-canada-chatbot-misinformation-what-to-know",
+      "lead": "A chatbot is a salesperson who never sleeps… until it freelances your refund policy.",
+      "source": "DWT + WeirFoulds Legal Analysis",
+      "link": "https://www.dww.com/articles/bc-tribunal-finds-air-canada-liable-for-inaccurate-advice-given-by-website-chatbot",
+      "footnotes": [
+        "A tribunal found Air Canada liable for inaccurate chatbot advice about bereavement fares."
+      ],
       "bullets": [
-        "Incorrect chatbot policy guidance",
-        "Brand still held liable by tribunal",
-        "Lesson: channel changed, accountability did not"
-      ]
-    },
-    {
-      "title": "Receipt 2 deep dive",
-      "phase": "peril",
-      "bullets": [
-        "Missing policy classifier gate",
-        "Missing legal-approved answer bank",
-        "Missing escalation fallback path"
+        "Chatbot made a promise the airline's actual policy didn't support.",
+        "Air Canada's defense: 'The chatbot is a separate legal entity.' Tribunal: No.",
+        "Lesson: if your AI can make a promise — about pricing, capability, or policy — define who signs off."
       ]
     },
     {
       "title": "Receipt 3: Coca-Cola",
       "phase": "peril",
-      "link": "https://www.theverge.com/2024/11/20/24301552/coca-cola-generative-ai-christmas-ad-controversy",
+      "lead": "The internet's review: 'This ad has the emotional range of a spreadsheet.'",
+      "source": "The Verge + People, 2025",
+      "link": "https://www.theverge.com/news/812559/coca-cola-ai-holiday-christmas-commercial-2025",
+      "footnotes": [
+        "Coca-Cola's AI holiday ads drew backlash as 'soulless' — even as the company highlighted production speed."
+      ],
       "bullets": [
-        "Style cues matched, authenticity perception dropped",
-        "Audience called output emotionally synthetic",
-        "Lesson: voice parity is not value parity"
-      ]
-    },
-    {
-      "title": "Receipt 3 deep dive",
-      "phase": "peril",
-      "bullets": [
-        "Track voice consistency vs value consistency",
-        "Review with lawsuit / regulator / front-page lenses",
-        "Trust gap is where brand risk compounds"
-      ]
-    },
-    {
-      "title": "Counter-receipt: licensed-data positioning",
-      "phase": "peril",
-      "bullets": [
-        "Commercial-safe narrative can reduce trust anxiety",
-        "Provenance should be headline-level information",
-        "Transferable pattern: truth + clarity + confidence"
+        "The output sounded like Coca-Cola. Had the colors, the typography, the jingle.",
+        "But people could feel the gap between voice match and values match.",
+        "You can nail every item in the style guide and still lose the customer. Ask Coke's CMO."
       ]
     },
     {
       "title": "Not bans. Held tensions.",
       "phase": "path",
+      "lead": "Policies are like gym memberships. Buying one isn't the workout.",
       "bullets": [
-        "Keep velocity, add discipline",
-        "Codify decisions before publish",
-        "Move from policy theater to operational behavior"
+        "Bans don't scale. People route around them.",
+        "Doctors have the Hippocratic Oath. It doesn't say 'don't use scalpels.' It says 'first, do no harm.'",
+        "We need the same thing for product marketing."
       ]
     },
     {
       "title": "The oath",
       "type": "pillar",
-      "lead": "The mandate is not to ban generative AI, but to institutionalize specific behavioral tensions.",
+      "lead": "When persuasion scales infinitely, I will protect trust.",
       "phase": "path",
-      "roof": "Infinite Velocity Requires Infinite Accountability",
-      "foundation": "Core Product Marketing Standard Operating Procedure",
+      "roof": "When persuasion scales infinitely, I will protect trust.",
+      "foundation": "A PMM Code of Conduct — not rules, a practice.",
       "pillars": [
         {
-          "title": "Verification Pivot",
+          "title": "Verification",
           "items": [
-            "Speed vs Verification",
-            "Personalization vs Manipulation"
+            "I will not publish what I have not checked.",
+            "I will enhance relevance, not exploit vulnerability."
           ]
         },
         {
-          "title": "Resource Discipline",
+          "title": "Stewardship",
           "items": [
-            "Efficiency vs Stewardship",
-            "Model vs Function Match"
+            "Tokens are not free — not to my company, not to the planet.",
+            "Simpler approach first. Always."
           ]
         },
         {
-          "title": "Brand Cohesion",
+          "title": "Integrity",
           "items": [
-            "Sounds like us vs Is us",
-            "Targeting vs Erasure"
+            "I will not let AI speak words my brand would not stand behind.",
+            "I will notice whose pain points get erased."
           ]
         }
       ]
@@ -198,7 +135,7 @@
       "title": "Tension 1: Speed vs verification",
       "type": "matrix",
       "phase": "path",
-      "lead": "A generated claim without a verifiable and reproducible source is a direct liability vector.",
+      "lead": "I will not publish what I have not checked.",
       "matrix": {
         "xAxis": "Speed of Creation",
         "yAxis": "Confidence in Output",
@@ -209,12 +146,39 @@
       }
     },
     {
-      "title": "Claim Card snapshot",
+      "title": "Speed vs verification — before / after",
+      "type": "split",
       "phase": "path",
+      "source": "FT: ft.com | AP: apnews.com",
+      "split": {
+        "left": {
+          "label": "Ships without a Claim Card",
+          "body": "Our platform will reduce your incident response time by 40%.",
+          "details": [
+            "No source. No scope. No conditions.",
+            "Sales sends it → prospect quotes it in a contract",
+            "POC disproves it → trust lost before onboarding starts"
+          ]
+        },
+        "right": {
+          "label": "Ships with a Claim Card",
+          "body": "Teams using [feature] can reduce mean incident response time by up to 40% in [environment], based on [study].",
+          "details": [
+            "Source: linked. Scope: bounded.",
+            "Sales can quote it. Legal can defend it.",
+            "Pro tip: rewrite 'will' as 'can' + conditions."
+          ]
+        }
+      }
+    },
+    {
+      "title": "Claim Card — let GenAI draft it for you",
+      "phase": "path",
+      "lead": "A claim without evidence is just vibes with punctuation.",
       "bullets": [
-        "Fields: source, scope, reproducibility, harm tier",
-        "Attach on battlecards, datasheets, launch narratives",
-        "Escalate when harm tier is medium/high"
+        "Prompt: 'Review [this asset]. Extract every claim. For each, fill a Claim Card: source, scope, reproducibility, harm tier. Flag anything unverifiable.'",
+        "Attach output to battlecards, datasheets, launch narratives, analyst briefs.",
+        "If the asset makes a claim that could be quoted in a contract — it needs a card. Let AI find them; humans verify them."
       ]
     },
     {
@@ -261,80 +225,246 @@
     {
       "title": "Tension 2: Personalization vs manipulation",
       "phase": "path",
+      "lead": "I will enhance relevance, not exploit vulnerability.",
+      "source": "FTC AI Deception Guidance, 2023",
+      "link": "https://www.ftc.gov/business-guidance/blog/2023/03/chatbots-deepfakes-voice-clones-ai-deception-sale",
       "bullets": [
-        "Do not optimize for anxiety exploitation",
-        "Design prompts that reduce confusion",
-        "Apply Benefit Alignment Test before publish"
+        "If you wouldn't say the targeting logic out loud to the customer, don't put it in a prompt.",
+        "Vulnerability zones: health, finance, grief, addiction, minors, time pressure + fear language",
+        "Benefit Alignment Test: Who benefits? What vulnerability? Would you disclose? What would a regulator call this?"
       ]
+    },
+    {
+      "title": "Personalization vs manipulation — before / after",
+      "type": "split",
+      "phase": "path",
+      "split": {
+        "left": {
+          "label": "Optimized for the company",
+          "body": "Write 20 urgency-driven nurture emails for users who visited pricing 3+ times. Emphasize that prices increase Friday. Reference competitor switching data.",
+          "details": [
+            "'Prices increase Friday' — true or manufactured urgency?",
+            "'Teams like yours are switching' — social proof or a pressure tactic?",
+            "Optimizing for conversion anxiety, not customer clarity"
+          ]
+        },
+        "right": {
+          "label": "Optimized for the customer",
+          "body": "Write 5 helpful variants for pricing-page visitors. Focus on clarifying the pricing model, linking the ROI calculator, and offering a 15-min walkthrough.",
+          "details": [
+            "Same audience. Same goal — convert.",
+            "But the prompt answers the question the prospect actually has.",
+            "Offers a conversation, not a countdown timer."
+          ]
+        }
+      }
     },
     {
       "title": "Tension 3: Efficiency vs stewardship",
       "phase": "path",
+      "lead": "Tokens are like Pringles. The can says 'share size.' It is lying.",
+      "source": "IEA Energy & AI Report + Pew Research, 2024–25",
+      "link": "https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai",
       "bullets": [
-        "Brute-force prompting inflates cost and review debt",
-        "Use smallest model that delivers required quality",
-        "Diff-based review improves throughput and trust"
+        "Simpler approach first — escalate as complexity increases",
+        "Three modes: Fast (chat, templates) → Think Deeper (reasoning, multi-step) → Deep Research (synthesis, multi-source)",
+        "U.S. data center electricity could more than double by 2030 (IEA). Every unnecessary escalation contributes."
       ]
     },
     {
-      "title": "Tension 4: Sounds like us vs is us",
+      "title": "Efficiency vs stewardship — before / after",
+      "type": "split",
       "phase": "path",
+      "footnotes": [
+        "IEA: U.S. data centers ~183 TWh (2024), projected ~426 TWh (2030)"
+      ],
+      "split": {
+        "left": {
+          "label": "Always Deep Research mode",
+          "body": "15 calls to a frontier model. 3 usable emails. ~$4.50. No human reviewed the final versions.",
+          "details": [
+            "'Be creative, surprise me' — every single time",
+            "Full system context on every call. 20% hit rate.",
+            "Like using a helicopter to go to the corner store."
+          ]
+        },
+        "right": {
+          "label": "Right mode for the job",
+          "body": "Fast: 1 golden template. Think Deeper: adapt for 12 regions. Total: ~$0.40. Human reviewed diffs.",
+          "details": [
+            "Human writes the positioning (Fast). Model adapts it (Think Deeper).",
+            "Deep Research only when synthesizing multiple conflicting sources.",
+            "10x cheaper. 4x more output. And someone actually read it."
+          ]
+        }
+      }
+    },
+    {
+      "title": "Tension 4: 'Sounds like us' vs 'is us'",
+      "phase": "path",
+      "lead": "I will not let AI speak words my brand would not stand behind.",
+      "preamble": "Brand Signature Test — one question, thirty seconds:",
+      "preambleBody": "If this sentence is quoted in a lawsuit, a regulator letter, or a front-page story — do we stand by it without backpedaling?",
       "bullets": [
-        "Avoid autonomy over-claims and certainty theater",
-        "Rewrite to bounded, testable, defensible language",
-        "Brand Signature Test: lawsuit/regulator/front-page"
+        {
+          "title": "Legal",
+          "description": "Is it defensible?"
+        },
+        {
+          "title": "Compliance",
+          "description": "Is it accurate?"
+        },
+        {
+          "title": "Customer",
+          "description": "Is it honest?"
+        },
+        {
+          "title": "Press",
+          "description": "Does it hold up to scrutiny?"
+        }
       ]
+    },
+    {
+      "title": "'Sounds like us' vs 'is us' — before / after",
+      "type": "split",
+      "phase": "path",
+      "split": {
+        "left": {
+          "label": "Fails the Brand Signature Test",
+          "body": "Our AI-powered security engine autonomously detects and eliminates threats in real time — so your team never has to worry about breaches again.",
+          "details": [
+            "Lawsuit? Indefensible.",
+            "Regulator? 'Autonomously' is a promise.",
+            "Front page? 'Never worry' is a dare to every pen tester alive."
+          ]
+        },
+        "right": {
+          "label": "Passes the Brand Signature Test",
+          "body": "Our AI-assisted detection surfaces potential threats faster — so your security team can respond with better context.",
+          "details": [
+            "Lawsuit? Bounded. Sourced.",
+            "Regulator? 'Assisted,' not 'autonomous.'",
+            "'In testing, mean detection time improved by [X]% under [conditions].' Your GC can live with this."
+          ]
+        }
+      }
     },
     {
       "title": "Tension 5a: Who converts vs who gets erased",
       "phase": "path",
+      "lead": "I will notice whose pain points AI amplifies — and whose get erased.",
       "bullets": [
-        "Default outputs over-represent majority personas",
-        "Require explicit edge-case coverage in prompts",
-        "Flag product limitations by segment honestly"
+        "AI defaults to the majority persona. Non-technical teams, regulated industries, accessibility — they don't show up.",
+        "Coverage review: tell the model who to include, and ask it to flag where the product falls short.",
+        "When you optimize for aggregate conversion, you smooth away the customers who don't fit the default. That's not optimization. That's deletion."
       ]
+    },
+    {
+      "title": "Who converts vs who gets erased — before / after",
+      "type": "split",
+      "phase": "path",
+      "split": {
+        "left": {
+          "label": "Default-only persona coverage",
+          "body": "Generate customer stories for our project management tool.",
+          "details": [
+            "AI output: 3 stories. All 50-person eng teams, US-based, English-speaking.",
+            "Missing: non-technical teams, regulated industries, accessibility, small orgs.",
+            "It's not malicious — it's statistical. But the result is the same."
+          ]
+        },
+        "right": {
+          "label": "Coverage-reviewed",
+          "body": "Generate customer stories. Ensure coverage: a 5-person non-profit ops team, a regulated healthcare workflow, a team using assistive technology.",
+          "details": [
+            "Ask the model to flag where the product falls short for each persona.",
+            "That's coverage, not cosplay.",
+            "Inclusive by design. Honest about edges."
+          ]
+        }
+      }
     },
     {
       "title": "Tension 5b: Style laundering",
       "phase": "path",
+      "lead": "If you borrow a living person's commercial craft: license, attribute, or translate into explicit constraints.",
+      "source": "OpenAI Sora System Card + US Copyright Office + WIPO + Waits v. Frito-Lay",
+      "link": "https://copyright.gov/what-is-copyright/",
       "bullets": [
-        "Avoid named imitation of living creators",
-        "Use style cards: tone, structure, devices, constraints",
-        "License, attribute, or translate into explicit constraints"
+        "'Write in the style of [living writer]' is plagiarism with extra steps.",
+        "Style Card: Tone, structure, devices, constraints. No names. No laundering.",
+        "The legal floor is not the ethical ceiling. Reputational risk is entirely predictable."
       ]
     },
     {
-      "title": "Decision architecture",
+      "title": "Style laundering — before / after",
+      "type": "split",
+      "phase": "path",
+      "source": "Waits v. Frito-Lay | OpenAI Sora System Card",
+      "split": {
+        "left": {
+          "label": "Named imitation",
+          "body": "Write this launch narrative in the style of Simon Sinek.",
+          "details": [
+            "Commercial value extracted from a living person's craft.",
+            "No credit. No consent. No license.",
+            "One tweet from the creator and you've lost the argument before Legal picks up the phone."
+          ]
+        },
+        "right": {
+          "label": "Style Card — explicit constraints",
+          "body": "Tone: earnest, plainspoken, slightly provocative. Structure: start with purpose, expand to evidence, close with action. Devices: rhetorical questions, short parallelism, contrast pairs.",
+          "details": [
+            "Same creative output. No ethical debt.",
+            "Constraints are yours. The voice is yours.",
+            "If an approach heavily shaped the work, disclose influences — the way research cites sources."
+          ]
+        }
+      }
+    },
+    {
+      "title": "Post-GenAI decision architecture",
       "type": "grid",
       "phase": "path",
-      "lead": "Escalation paths must be mapped against capability maturity before a crisis occurs.",
+      "lead": "Ethics without architecture is personal heroics. Personal heroics don't survive headcount changes.",
+      "source": "Pre-Publish Workflow v2 — GenAI-Augmented",
       "gridData": {
         "columns": [
           "Draft",
-          "Verify",
-          "Review",
-          "Approve",
+          "AI Verify",
+          "Consensus",
+          "Human Review",
           "Monitor"
         ],
         "rows": [
           {
-            "name": "Content Producer",
+            "name": "GenAI (Fast)",
             "scores": [
               4,
               4,
-              2,
               0,
-              1
+              0,
+              3
+            ]
+          },
+          {
+            "name": "GenAI (Deep)",
+            "scores": [
+              1,
+              3,
+              4,
+              0,
+              2
             ]
           },
           {
             "name": "PMM Lead",
             "scores": [
+              2,
               1,
               2,
               4,
-              4,
-              3
+              2
             ]
           },
           {
@@ -344,15 +474,15 @@
               0,
               2,
               4,
-              2
+              1
             ]
           },
           {
-            "name": "Automation Gate",
+            "name": "Self-Learning",
             "scores": [
-              3,
-              1,
               0,
+              2,
+              3,
               0,
               4
             ]
@@ -361,12 +491,13 @@
       }
     },
     {
-      "title": "Toolkit + 7-day challenge",
-      "phase": "path",
+      "title": "What you leave with",
+      "phase": "close",
+      "lead": "Yes, we're marketers. We don't do vows. Except brand promises — which are vows with better typography.",
       "bullets": [
-        "Pilot one launch asset this week",
-        "Run all five gates before publish",
-        "Ship an internal retrospective by day seven"
+        "Five held tensions — not rules. A practice you run every time you ship.",
+        "A toolkit — Claim Card, Benefit Alignment Test, Brand Signature Test, Coverage Review, Style Card. All promptable.",
+        "A decision architecture — GenAI-augmented pre-publish checklist with multi-model consensus and self-learning feedback loops."
       ]
     },
     {
@@ -374,9 +505,142 @@
       "phase": "close",
       "subtitle": "Where does this break in your org?",
       "bullets": [
-        "What is your highest-risk claim in market now?",
+        "What is your highest-risk claim in market right now?",
         "Where does verification fail in your workflow?",
+        "Which tension is hardest in your org?",
         "What can you pilot by next week?"
+      ]
+    },
+    {
+      "title": "Toolkit: Claim Card",
+      "type": "card",
+      "phase": "appendix",
+      "lead": "Prompt: 'Review [this asset]. Extract every claim. For each, fill a Claim Card: source, scope, repro, harm tier. Flag anything unverifiable.'",
+      "card": {
+        "type": "Tool Template",
+        "id": "T-001",
+        "claim": "Claim Card — Pre-Publish Evidence Gate",
+        "fields": [
+          {
+            "label": "Claim Type",
+            "value": "Capability | Reliability | Autonomy"
+          },
+          {
+            "label": "Evidence Links",
+            "value": "Source URL(s) — verified, not hallucinated"
+          },
+          {
+            "label": "Scope & Edge Cases",
+            "value": "Works when: ___ / Fails when: ___"
+          },
+          {
+            "label": "Customer Harm",
+            "value": "Low | Med | High",
+            "danger": true
+          },
+          {
+            "label": "Required Reviewers",
+            "value": "PMM · Eng · Legal/Policy · Trust/Sec"
+          },
+          {
+            "label": "Decision",
+            "value": "Approve | Revise | Escalate",
+            "highlight": true
+          }
+        ],
+        "verdict": "✓ Copy-Paste Ready",
+        "verdictPass": true
+      }
+    },
+    {
+      "title": "Toolkit: Benefit Alignment Test",
+      "type": "card",
+      "phase": "appendix",
+      "lead": "Prompt: 'Evaluate [this campaign brief]. For each targeting rule, run the Benefit Alignment Test. Flag any vulnerability targeting.'",
+      "card": {
+        "type": "Tool Template",
+        "id": "T-002",
+        "claim": "Benefit Alignment Test — Personalization Ethics Gate",
+        "fields": [
+          {
+            "label": "Who Benefits?",
+            "value": "User | Company | Both"
+          },
+          {
+            "label": "Vulnerability Targeted",
+            "value": "None | Health | Finance | Grief | Addiction | Minors | Time Pressure"
+          },
+          {
+            "label": "Disclose Targeting?",
+            "value": "Would you explain the logic to the person being targeted?"
+          },
+          {
+            "label": "Regulator Label",
+            "value": "Personalization | Dark Pattern | Deceptive Practice",
+            "danger": true
+          }
+        ],
+        "verdict": "If any answer is 'No' or 'Unsure' → Revise before shipping",
+        "verdictPass": false
+      }
+    },
+    {
+      "title": "Toolkit: Brand Signature Test",
+      "type": "card",
+      "phase": "appendix",
+      "lead": "Prompt: 'Take [this asset]. For every sentence making a promise, run the Brand Signature Test against all four audiences. Rewrite anything that fails.'",
+      "card": {
+        "type": "Tool Template",
+        "id": "T-003",
+        "claim": "Brand Signature Test — Would you stand by this line?",
+        "fields": [
+          {
+            "label": "In a Lawsuit?",
+            "value": "Is it defensible?"
+          },
+          {
+            "label": "In a Regulator Letter?",
+            "value": "Is it accurate?"
+          },
+          {
+            "label": "On the Front Page?",
+            "value": "Does it hold up to scrutiny?"
+          },
+          {
+            "label": "In a Support Ticket?",
+            "value": "Is it honest?",
+            "highlight": true
+          }
+        ],
+        "verdict": "If any answer is No → Rewrite with bounded scope + conditions",
+        "verdictPass": false
+      }
+    },
+    {
+      "title": "Starter prompts — use GenAI for all of this",
+      "phase": "appendix",
+      "lead": "The whole point is that these tools are promptable. Copy, paste, adapt.",
+      "bullets": [
+        {
+          "title": "Claim Extraction",
+          "description": "Review [asset]. List every factual claim. For each: source URL, scope, reproducibility, harm tier."
+        },
+        {
+          "title": "Benefit Alignment",
+          "description": "Audit [campaign]. Per segment: who benefits? Vulnerability targeted? Would we disclose the logic to the recipient?"
+        },
+        {
+          "title": "Brand Signature",
+          "description": "Read [asset] as four people: plaintiff's attorney, FTC reviewer, journalist, customer. Flag lines that change across readings."
+        },
+        {
+          "title": "Coverage Review",
+          "description": "Generate 5 customer stories for [product]. Audit: which personas are missing? Where does it fall short for non-default users?"
+        },
+        {
+          "title": "Style Card",
+          "description": "Decompose [doc]'s writing style into: tone, structure, rhetorical devices, constraints. No named persons. Output a reusable Style Card."
+        }
       ]
     }
   ]

@@ -7,6 +7,7 @@ import { StarkPillarSlide } from './components/StarkPillarSlide';
 import { StarkGridSlide } from './components/StarkGridSlide';
 import { StarkDataSlide } from './components/StarkDataSlide';
 import { StarkCardSlide } from './components/StarkCardSlide';
+import { StarkSplitSlide } from './components/StarkSplitSlide';
 
 // @ts-ignore
 import rawSlidesData from '../pipelines/common/slides.json';
@@ -69,6 +70,10 @@ function App() {
 
     if (slideType === 'card') {
       return <StarkCardSlide slide={currentSlide} />;
+    }
+
+    if (slideType === 'split') {
+      return <StarkSplitSlide slide={currentSlide} />;
     }
 
     // Default to the versatile Text Slide for now
