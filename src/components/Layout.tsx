@@ -70,7 +70,9 @@ export function Layout({
                             SOURCE: {slide.source}
                         </div>
                     )}
-                    <span className="uppercase">© 2026 Built with RovoDev &amp; Claude Skills</span>
+                    <span className="uppercase">
+                        © 2026 Built with <a href="https://www.atlassian.com/software/rovo-dev" target="_blank" rel="noreferrer" className="hover:text-ink transition-colors border-b border-transparent hover:border-ink">RovoDev</a> &amp; <a href="https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design" target="_blank" rel="noreferrer" className="hover:text-ink transition-colors border-b border-transparent hover:border-ink">Claude Skills</a>
+                    </span>
                 </div>
                 <div className="flex items-center gap-4 ml-4 shrink-0">
                     <button
