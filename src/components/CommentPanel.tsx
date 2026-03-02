@@ -88,7 +88,16 @@ export function CommentPanel({
     };
 
     const handleDelete = async (commentId: number) => {
-        const pwd = window.prompt("Enter Admin Password to delete this comment:");
+        const funPrompts = [
+            "Oops, made a boo boo? We've all been there. Password please:",
+            "Deploying the 'Undo' button. What's the secret code?",
+            "Deleting history like a pro. Password, my good admin?",
+            "Mistakes happen. That's why we have passwords. What's yours?",
+            "Let's sweep this under the rug. Password needed:"
+        ];
+        const randomPrompt = funPrompts[Math.floor(Math.random() * funPrompts.length)];
+
+        const pwd = window.prompt(randomPrompt);
         if (!pwd) return;
 
         setDeletingId(commentId);
