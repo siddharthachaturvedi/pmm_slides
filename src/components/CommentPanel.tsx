@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../supabaseClient';
-import { MessageSquare, X, Send, Loader2 } from 'lucide-react';
+import { MessageSquare, X, Send, Loader2, Trash2 } from 'lucide-react';
 
 interface Comment {
     id: number;
@@ -22,6 +22,7 @@ export function CommentPanel({
     const [comments, setComments] = useState<Comment[]>([]);
     const [loading, setLoading] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [deletingId, setDeletingId] = useState<number | null>(null);
     const [authorName, setAuthorName] = useState('');
     const [body, setBody] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -84,6 +85,32 @@ export function CommentPanel({
             setBody('');
         }
         setSubmitting(false);
+    };
+
+    const handleDelete = async (commentId: number) => {
+        const pwd = window.prompt("Enter Admin Password to delete this comment:");
+        if (!pwd) return;
+
+        setDeletingId(commentId);
+        setError(null);
+
+        // Call the secure RPC function
+        const { data, error: deleteError } = await supabase.rpc('delete_comment_secure', {
+            p_comment_id: commentId,
+            p_password: pwd
+        });
+
+        if (deleteError) {
+            setError('Error connecting to delete comment.');
+            console.error(deleteError);
+        } else if (data === false) {
+            setError('Incorrect admin password.');
+        } else if (data === true) {
+            // Delete successful, remove from local state
+            setComments(comments.filter(c => c.id !== commentId));
+        }
+
+        setDeletingId(null);
     };
 
     const formatTime = (iso: string) => {
@@ -156,16 +183,31 @@ export function CommentPanel({
                     )}
 
                     {comments.map((c) => (
-                        <div key={c.id} className="border-b border-line pb-3 last:border-b-0">
+                        <div key={c.id} className="group border-b border-line pb-3 last:border-b-0 relative">
                             <div className="flex items-baseline justify-between mb-1">
                                 <span className="font-sans text-sm font-bold tracking-tight">
                                     {c.author_name}
                                 </span>
-                                <span className="font-mono text-[10px] tracking-widest text-ink-soft uppercase">
-                                    {formatTime(c.created_at)}
-                                </span>
+                                <div className="flex items-center gap-2">
+                                    <span className="font-mono text-[10px] tracking-widest text-ink-soft uppercase">
+                                        {formatTime(c.created_at)}
+                                    </span>
+                                    <button
+                                        onClick={() => handleDelete(c.id)}
+                                        disabled={deletingId === c.id}
+                                        className="opacity-0 group-hover:opacity-100 transition-opacity text-ink-soft hover:text-red-600 ml-1 p-1 disabled:opacity-50"
+                                        aria-label="Delete comment"
+                                        title="Delete comment (Admin only)"
+                                    >
+                                        {deletingId === c.id ? (
+                                            <Loader2 size={12} className="animate-spin" />
+                                        ) : (
+                                            <Trash2 size={12} strokeWidth={2.5} />
+                                        )}
+                                    </button>
+                                </div>
                             </div>
-                            <p className="font-sans text-sm leading-relaxed text-ink-soft">
+                            <p className="font-sans text-sm leading-relaxed text-ink-soft pr-6">
                                 {c.body}
                             </p>
                         </div>
@@ -180,7 +222,7 @@ export function CommentPanel({
                 )}
 
                 {/* Submit form */}
-                <form onSubmit={handleSubmit} className="border-t-2 border-ink px-6 py-4 shrink-0 space-y-3">
+                <form onSubmit={handleSubmit} className="border-t-2 border-ink px-6 py-4 shrink-0 space-y-3 bg-white">
                     <input
                         type="text"
                         placeholder="Your name (optional)"
