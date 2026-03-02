@@ -8,7 +8,7 @@ import { StarkGridSlide } from './components/StarkGridSlide';
 import { StarkDataSlide } from './components/StarkDataSlide';
 
 // @ts-ignore
-import rawSlidesData from '../../pipelines/common/slides.json';
+import rawSlidesData from '../pipelines/common/slides.json';
 const slidesData = rawSlidesData.slides;
 
 function App() {
