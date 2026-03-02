@@ -9,6 +9,7 @@ import { StarkDataSlide } from './components/StarkDataSlide';
 import { StarkCardSlide } from './components/StarkCardSlide';
 import { StarkSplitSlide } from './components/StarkSplitSlide';
 import { SlideSorter } from './components/SlideSorter';
+import { MobileOverlay } from './components/MobileOverlay';
 
 // @ts-ignore
 import rawSlidesData from '../pipelines/common/slides.json';
@@ -96,12 +97,15 @@ function App() {
 
   return (
     <>
+      <MobileOverlay />
       <Layout
         currentSlide={currentSlideIndex}
         totalSlides={slidesData.length}
         phase={currentSlide.phase?.toUpperCase() || "PRESENTATION"}
         slide={currentSlide}
         onOpenSorter={() => setSorterOpen(true)}
+        onNext={() => setCurrentSlideIndex((prev) => Math.min(slidesData.length - 1, prev + 1))}
+        onPrev={() => setCurrentSlideIndex((prev) => Math.max(0, prev - 1))}
       >
         {renderSlideContent()}
       </Layout>
