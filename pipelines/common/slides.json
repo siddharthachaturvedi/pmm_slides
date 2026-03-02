@@ -1,0 +1,342 @@
+{
+  "title": "The PMM's Hippocratic Oath",
+  "subtitle": "Responsible GenAI in an era of infinite persuasion",
+  "slides": [
+    {
+      "title": "The PMM's Hippocratic Oath",
+      "phase": "intro",
+      "subtitle": "How to scale AI marketing without destroying your brand's soul.",
+      "bullets": [
+        "The Elephant: AI can write 10,000 lies a second. Who catches them?",
+        "The Desire: We want the speed, but we also want to not get fired.",
+        "The Goal: Ship stupid fast, but sleep soundly at night."
+      ]
+    },
+    {
+      "title": "What you're getting today",
+      "phase": "intro",
+      "bullets": [
+        "The Reality Check (a.k.a brands that fired up AI and immediately regretted it)",
+        "Five wildly uncomfortable truths about AI in marketing",
+        "A 7-day survival guide so we don't become the next cautionary tale"
+      ]
+    },
+    {
+      "title": "We built a Ferrari engine with bicycle brakes",
+      "phase": "intro",
+      "bullets": [
+        "AI lets us write 8x more content. Hooray?",
+        "Our legal review team is still just Bob and Steve. Not hooray.",
+        "The bottleneck isn't creating content anymore. It's knowing if it's true."
+      ]
+    },
+    {
+      "title": "The Promise: The AI Flywheel",
+      "phase": "promise",
+      "bullets": [
+        "Drafting: Write the first draft while making coffee",
+        "Testing: A/B/C/D/E/F testing without begging design for banners",
+        "Enablement: Turn a launch brief into sales scripts in roughly 4 seconds"
+      ]
+    },
+    {
+      "title": "Why we are doing this",
+      "phase": "promise",
+      "bullets": [
+        "Pre-launch: Actually testing narrative angles instead of just guessing",
+        "Launch week: Spitting out assets faster than sales can ask for them",
+        "Post-launch: Handling competitor objections before the webinar ends"
+      ]
+    },
+    {
+      "title": "Failure map of infinite persuasion",
+      "type": "data",
+      "lead": "The rate of unverified claims scales exponentially with output volume, generating massive hidden liability debt.",
+      "phase": "peril",
+      "source": "Internal Content Production Analysis, 2024",
+      "footnotes": [
+        "Represents projected compounding error rate without verification gates.",
+        "Model assumes standard ChatGPT output parity without rigorous retrieval safeguards."
+      ],
+      "chartData": [
+        {
+          "label": "Manual Era",
+          "value": 5,
+          "suffix": "x"
+        },
+        {
+          "label": "Augmented Writer",
+          "value": 15,
+          "suffix": "x"
+        },
+        {
+          "label": "Prompt Template",
+          "value": 120,
+          "suffix": "x"
+        },
+        {
+          "label": "Full Automation",
+          "value": 1500,
+          "suffix": "x",
+          "sublabel": "(Danger Zone)"
+        }
+      ]
+    },
+    {
+      "title": "Receipt 1: Deloitte",
+      "lead": "Deloitte's credibility collapsed after a paid report included completely fabricated citations.",
+      "phase": "peril",
+      "link": "https://www.ft.com/content/099307b9-6296-41fb-936d-1579ff90d959",
+      "source": "Financial Times, 2024",
+      "footnotes": [
+        "Represents highly public failure of unverified generative text rendering.",
+        "Auditable evidence posture is now a firm-level mandate."
+      ],
+      "bullets": [
+        "Fabricated references in a paid report",
+        "Credibility collapsed before trust could recover",
+        "Lesson: evidence posture must be auditable"
+      ]
+    },
+    {
+      "title": "Receipt 1 deep dive",
+      "phase": "peril",
+      "bullets": [
+        "One bad citation propagates through sales narrative",
+        "Executive buyer validates and trust alarms spread",
+        "Deals stall before technical proof starts"
+      ]
+    },
+    {
+      "title": "Receipt 2: Air Canada",
+      "phase": "peril",
+      "link": "https://www.bbc.com/travel/article/20240222-air-canada-chatbot-misinformation-what-to-know",
+      "bullets": [
+        "Incorrect chatbot policy guidance",
+        "Brand still held liable by tribunal",
+        "Lesson: channel changed, accountability did not"
+      ]
+    },
+    {
+      "title": "Receipt 2 deep dive",
+      "phase": "peril",
+      "bullets": [
+        "Missing policy classifier gate",
+        "Missing legal-approved answer bank",
+        "Missing escalation fallback path"
+      ]
+    },
+    {
+      "title": "Receipt 3: Coca-Cola",
+      "phase": "peril",
+      "link": "https://www.theverge.com/2024/11/20/24301552/coca-cola-generative-ai-christmas-ad-controversy",
+      "bullets": [
+        "Style cues matched, authenticity perception dropped",
+        "Audience called output emotionally synthetic",
+        "Lesson: voice parity is not value parity"
+      ]
+    },
+    {
+      "title": "Receipt 3 deep dive",
+      "phase": "peril",
+      "bullets": [
+        "Track voice consistency vs value consistency",
+        "Review with lawsuit / regulator / front-page lenses",
+        "Trust gap is where brand risk compounds"
+      ]
+    },
+    {
+      "title": "Counter-receipt: licensed-data positioning",
+      "phase": "peril",
+      "bullets": [
+        "Commercial-safe narrative can reduce trust anxiety",
+        "Provenance should be headline-level information",
+        "Transferable pattern: truth + clarity + confidence"
+      ]
+    },
+    {
+      "title": "Not bans. Held tensions.",
+      "phase": "path",
+      "bullets": [
+        "Keep velocity, add discipline",
+        "Codify decisions before publish",
+        "Move from policy theater to operational behavior"
+      ]
+    },
+    {
+      "title": "The oath",
+      "type": "pillar",
+      "lead": "The mandate is not to ban generative AI, but to institutionalize specific behavioral tensions.",
+      "phase": "path",
+      "roof": "Infinite Velocity Requires Infinite Accountability",
+      "foundation": "Core Product Marketing Standard Operating Procedure",
+      "pillars": [
+        {
+          "title": "Verification Pivot",
+          "items": [
+            "Speed vs Verification",
+            "Personalization vs Manipulation"
+          ]
+        },
+        {
+          "title": "Resource Discipline",
+          "items": [
+            "Efficiency vs Stewardship",
+            "Model vs Function Match"
+          ]
+        },
+        {
+          "title": "Brand Cohesion",
+          "items": [
+            "Sounds like us vs Is us",
+            "Targeting vs Erasure"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tension 1: Speed vs verification",
+      "type": "matrix",
+      "phase": "path",
+      "lead": "A generated claim without a verifiable and reproducible source is a direct liability vector.",
+      "matrix": {
+        "xAxis": "Speed of Creation",
+        "yAxis": "Confidence in Output",
+        "q1": "The Goal: Rapid, auditable generation via strict templates",
+        "q2": "The Trap: Slow manual writing disguised as 'safety'",
+        "q3": "Legacy Process: Slow manual writing with poor QA",
+        "q4": "The Danger Zone: Raw ChatGPT output pasted into market"
+      }
+    },
+    {
+      "title": "Claim Card snapshot",
+      "phase": "path",
+      "bullets": [
+        "Fields: source, scope, reproducibility, harm tier",
+        "Attach on battlecards, datasheets, launch narratives",
+        "Escalate when harm tier is medium/high"
+      ]
+    },
+    {
+      "title": "Tension 2: Personalization vs manipulation",
+      "phase": "path",
+      "bullets": [
+        "Do not optimize for anxiety exploitation",
+        "Design prompts that reduce confusion",
+        "Apply Benefit Alignment Test before publish"
+      ]
+    },
+    {
+      "title": "Tension 3: Efficiency vs stewardship",
+      "phase": "path",
+      "bullets": [
+        "Brute-force prompting inflates cost and review debt",
+        "Use smallest model that delivers required quality",
+        "Diff-based review improves throughput and trust"
+      ]
+    },
+    {
+      "title": "Tension 4: Sounds like us vs is us",
+      "phase": "path",
+      "bullets": [
+        "Avoid autonomy over-claims and certainty theater",
+        "Rewrite to bounded, testable, defensible language",
+        "Brand Signature Test: lawsuit/regulator/front-page"
+      ]
+    },
+    {
+      "title": "Tension 5a: Who converts vs who gets erased",
+      "phase": "path",
+      "bullets": [
+        "Default outputs over-represent majority personas",
+        "Require explicit edge-case coverage in prompts",
+        "Flag product limitations by segment honestly"
+      ]
+    },
+    {
+      "title": "Tension 5b: Style laundering",
+      "phase": "path",
+      "bullets": [
+        "Avoid named imitation of living creators",
+        "Use style cards: tone, structure, devices, constraints",
+        "License, attribute, or translate into explicit constraints"
+      ]
+    },
+    {
+      "title": "Decision architecture",
+      "type": "grid",
+      "phase": "path",
+      "lead": "Escalation paths must be mapped against capability maturity before a crisis occurs.",
+      "gridData": {
+        "columns": [
+          "Draft",
+          "Verify",
+          "Review",
+          "Approve",
+          "Monitor"
+        ],
+        "rows": [
+          {
+            "name": "Content Producer",
+            "scores": [
+              4,
+              4,
+              2,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "PMM Lead",
+            "scores": [
+              1,
+              2,
+              4,
+              4,
+              3
+            ]
+          },
+          {
+            "name": "Legal / Trust",
+            "scores": [
+              0,
+              0,
+              2,
+              4,
+              2
+            ]
+          },
+          {
+            "name": "Automation Gate",
+            "scores": [
+              3,
+              1,
+              0,
+              0,
+              4
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "Toolkit + 7-day challenge",
+      "phase": "path",
+      "bullets": [
+        "Pilot one launch asset this week",
+        "Run all five gates before publish",
+        "Ship an internal retrospective by day seven"
+      ]
+    },
+    {
+      "title": "Close + Q&A",
+      "phase": "close",
+      "subtitle": "Where does this break in your org?",
+      "bullets": [
+        "What is your highest-risk claim in market now?",
+        "Where does verification fail in your workflow?",
+        "What can you pilot by next week?"
+      ]
+    }
+  ]
+}

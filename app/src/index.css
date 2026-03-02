@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #ffffff;
+  --color-ink: #000000;
+  --color-ink-soft: #333333;
+  --color-line: rgba(0, 0, 0, 0.15);
+  --color-line-strong: #000000;
+
+  --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Merriweather", "Playfair Display", serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    body {
+      font-size: 26px;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif font-normal;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  /* Consulting slides never have rounded corners or shadows — except circles */
+  *:not(.rounded-full) {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}
