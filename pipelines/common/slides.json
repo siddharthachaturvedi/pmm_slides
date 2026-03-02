@@ -226,8 +226,8 @@
       "title": "Tension 2: Personalization vs manipulation",
       "phase": "path",
       "lead": "I will enhance relevance, not exploit vulnerability.",
-      "source": "FTC AI Deception Guidance, 2023",
-      "link": "https://www.ftc.gov/business-guidance/blog/2023/03/chatbots-deepfakes-voice-clones-ai-deception-sale",
+      "source": "FTC AI Compulsory Process, 2023",
+      "link": "https://www.ftc.gov/news-events/news/press-releases/2023/11/ftc-authorizes-compulsory-process-ai-related-products-services",
       "bullets": [
         "If you wouldn't say the targeting logic out loud to the customer, don't put it in a prompt.",
         "Vulnerability zones: health, finance, grief, addiction, minors, time pressure + fear language",
@@ -466,26 +466,6 @@
               4,
               2
             ]
-          },
-          {
-            "name": "Legal / Trust",
-            "scores": [
-              0,
-              0,
-              2,
-              4,
-              1
-            ]
-          },
-          {
-            "name": "Self-Learning",
-            "scores": [
-              0,
-              2,
-              3,
-              0,
-              4
-            ]
           }
         ]
       }
@@ -508,7 +488,11 @@
         "What is your highest-risk claim in market right now?",
         "Where does verification fail in your workflow?",
         "Which tension is hardest in your org?",
-        "What can you pilot by next week?"
+        "What can you pilot by next week?",
+        {
+          "title": "HBR now asks",
+          "description": "'Did you use Generative AI tools to aid in your submission? If yes, how?' — Should your team?"
+        }
       ]
     },
     {

@@ -65,7 +65,7 @@ export function Layout({
                             SOURCE: {slide.source}
                         </div>
                     )}
-                    <span className="uppercase">© 2026 Product Marketing</span>
+                    <span className="uppercase">© 2026 Built with RovoDev & Claude Skills</span>
                 </div>
                 <a href="https://sidc.ai" target="_blank" rel="noreferrer" className="uppercase whitespace-nowrap ml-4 hover:text-ink transition-colors border-b border-ink-soft hover:border-ink">
                     Siddhartha Chaturvedi
