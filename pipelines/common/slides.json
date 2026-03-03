@@ -46,48 +46,48 @@
       }
     },
     {
-      "title": "Receipt 1: Deloitte",
+      "title": "The citations were… aspirational.",
       "phase": "peril",
-      "lead": "The citations were… aspirational.",
+      "lead": "Case 1: Deloitte",
       "source": "Financial Times + Associated Press, 2024",
       "link": "https://www.ft.com/content/934cc94b-32c4-497e-9718-d87d6a7835ca",
       "footnotes": [
         "Deloitte partially refunded an Australian government contract after a report contained erroneous references."
       ],
       "bullets": [
-        "AI drafted footnotes, references, the whole academic aesthetic — faster than anyone could verify.",
-        "The output looked like evidence. It shipped like evidence. Until they checked the links.",
-        "Lesson: if you show citations, maintain them. They're a product feature, not decoration."
+        "Action: AI drafted footnotes, references, the whole academic aesthetic — faster than anyone could verify.",
+        "Implication: The output looked like evidence. It shipped like evidence. Until they checked the links.",
+        "Lesson: If you show citations, maintain them. They're a product feature, not decoration."
       ]
     },
     {
-      "title": "Receipt 2: Air Canada",
+      "title": "A chatbot is a salesperson who never sleeps… until it freelances your refund policy.",
       "phase": "peril",
-      "lead": "A chatbot is a salesperson who never sleeps… until it freelances your refund policy.",
+      "lead": "Case 2: Air Canada",
       "source": "DWT + WeirFoulds Legal Analysis",
       "link": "https://www.dww.com/articles/bc-tribunal-finds-air-canada-liable-for-inaccurate-advice-given-by-website-chatbot",
       "footnotes": [
         "A tribunal found Air Canada liable for inaccurate chatbot advice about bereavement fares."
       ],
       "bullets": [
-        "Chatbot made a promise the airline's actual policy didn't support.",
-        "Air Canada's defense: 'The chatbot is a separate legal entity.' Tribunal: No.",
-        "Lesson: if your AI can make a promise — about pricing, capability, or policy — define who signs off."
+        "Action: Chatbot made a promise the airline's actual policy didn't support.",
+        "Implication: Air Canada's defense: 'The chatbot is a separate legal entity.' Tribunal: No.",
+        "Lesson: If your AI can make a promise — about pricing, capability, or policy — define who signs off."
       ]
     },
     {
-      "title": "Receipt 3: Coca-Cola",
+      "title": "The internet's review: 'This ad has the emotional range of a spreadsheet.'",
       "phase": "peril",
-      "lead": "The internet's review: 'This ad has the emotional range of a spreadsheet.'",
+      "lead": "Case 3: Coca-Cola",
       "source": "The Verge + People, 2025",
       "link": "https://www.theverge.com/news/812559/coca-cola-ai-holiday-christmas-commercial-2025",
       "footnotes": [
         "Coca-Cola's AI holiday ads drew backlash as 'soulless' — even as the company highlighted production speed."
       ],
       "bullets": [
-        "The output sounded like Coca-Cola. Had the colors, the typography, the jingle.",
-        "But people could feel the gap between voice match and values match.",
-        "You can nail every item in the style guide and still lose the customer. Ask Coke's CMO."
+        "Action: The output sounded like Coca-Cola. Had the colors, the typography, the jingle.",
+        "Implication: But people could feel the gap between voice match and values match.",
+        "Lesson: You can nail every item in the style guide and still lose the customer. Ask Coke's CMO."
       ]
     },
     {
@@ -132,10 +132,10 @@
       ]
     },
     {
-      "title": "Tension 1: Speed vs verification",
+      "title": "I will not publish what I have not checked.",
       "type": "matrix",
       "phase": "path",
-      "lead": "I will not publish what I have not checked.",
+      "lead": "Tension 1: Speed vs verification",
       "matrix": {
         "xAxis": "Speed of Creation",
         "yAxis": "Confidence in Output",
@@ -225,9 +225,9 @@
       }
     },
     {
-      "title": "Tension 2: Personalization vs manipulation",
+      "title": "I will enhance relevance, not exploit vulnerability.",
       "phase": "path",
-      "lead": "I will enhance relevance, not exploit vulnerability.",
+      "lead": "Tension 2: Personalization vs manipulation",
       "source": "FTC AI Compulsory Process, 2023",
       "link": "https://www.ftc.gov/news-events/news/press-releases/2023/11/ftc-authorizes-compulsory-process-ai-related-products-services",
       "bullets": [
@@ -264,9 +264,9 @@
       }
     },
     {
-      "title": "Tension 3: Efficiency vs stewardship",
+      "title": "Tokens are like Pringles. The can says 'share size.' It is lying.",
       "phase": "path",
-      "lead": "Tokens are like Pringles. The can says 'share size.' It is lying.",
+      "lead": "Tension 3: Efficiency vs stewardship",
       "source": "IEA Energy & AI Report + Pew Research, 2024–25",
       "link": "https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai",
       "bullets": [
@@ -306,9 +306,9 @@
       }
     },
     {
-      "title": "Tension 4: 'Sounds like us' vs 'is us'",
+      "title": "I will not let AI speak words my brand would not stand behind.",
       "phase": "path",
-      "lead": "I will not let AI speak words my brand would not stand behind.",
+      "lead": "Tension 4: 'Sounds like us' vs 'is us'",
       "preamble": "Brand Signature Test — one question, thirty seconds:",
       "preambleBody": "If this sentence is quoted in a lawsuit, a regulator letter, or a front-page story — do we stand by it without backpedaling?",
       "bullets": [
@@ -358,9 +358,9 @@
       }
     },
     {
-      "title": "Tension 5a: Who converts vs who gets erased",
+      "title": "I will notice whose pain points AI amplifies — and whose get erased.",
       "phase": "path",
-      "lead": "I will notice whose pain points AI amplifies — and whose get erased.",
+      "lead": "Tension 5a: Who converts vs who gets erased",
       "bullets": [
         "AI defaults to the majority persona. Non-technical teams, regulated industries, accessibility — they don't show up.",
         "Coverage review: tell the model who to include, and ask it to flag where the product falls short.",
@@ -395,9 +395,9 @@
       }
     },
     {
-      "title": "Tension 5b: Style laundering",
+      "title": "If you borrow a living person's commercial craft: license, attribute, or translate into explicit constraints.",
       "phase": "path",
-      "lead": "If you borrow a living person's commercial craft: license, attribute, or translate into explicit constraints.",
+      "lead": "Tension 5b: Style laundering",
       "source": "OpenAI Sora System Card + US Copyright Office + WIPO + Waits v. Frito-Lay",
       "link": "https://copyright.gov/what-is-copyright/",
       "bullets": [
