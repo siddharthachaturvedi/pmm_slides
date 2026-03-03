@@ -128,12 +128,6 @@ export function Layout({
 
     const progressPct = totalSlides > 1 ? (currentSlide / (totalSlides - 1)) * 100 : 100;
 
-    const phaseColorClass = phase?.toLowerCase() === 'peril'
-        ? 'text-vermillion'
-        : (phase?.toLowerCase() === 'path' || phase?.toLowerCase() === 'promise')
-            ? 'text-forest'
-            : 'text-ink-soft';
-
     return (
         <div className="w-screen h-[100dvh] overflow-hidden bg-white">
             <div
@@ -151,10 +145,10 @@ export function Layout({
                         <span className="font-serif text-lg md:text-2xl font-bold tracking-tight">The PMM's Hippocratic Oath</span>
                         <span
                             className={`
-                                font-sans text-xs md:text-sm tracking-widest uppercase font-bold border-l border-ink pl-4 md:pl-6
+                                font-sans text-[10px] md:text-xs tracking-widest uppercase font-bold px-2 py-1 ml-4 md:ml-6 rounded-badge
                                 transition-all duration-300
-                                ${phaseColorClass}
-                                ${phasePulse ? 'scale-110 tracking-[0.2em]' : 'scale-100'}
+                                ${phase?.toLowerCase() === 'peril' ? 'bg-vermillion/10 text-vermillion' : (phase?.toLowerCase() === 'path' || phase?.toLowerCase() === 'promise') ? 'bg-forest/10 text-forest' : 'bg-ink/5 text-ink-soft'}
+                                ${phasePulse ? 'scale-110 tracking-widest' : 'scale-100'}
                             `}
                             style={{ display: 'inline-block', transformOrigin: 'left center' }}
                         >
@@ -173,7 +167,7 @@ export function Layout({
                         </button>
                         <button
                             onClick={onOpenSorter}
-                            className="font-mono text-xs md:text-sm tracking-widest shrink-0 hover:text-vermillion transition-colors border-b border-transparent hover:border-vermillion cursor-pointer"
+                            className="font-mono text-xs md:text-sm tracking-widest shrink-0 hover:bg-ink/5 px-2 py-1 rounded-badge transition-colors border border-transparent cursor-pointer"
                             aria-label="Open slide sorter"
                         >
                             Slide {currentSlide + 1} / {totalSlides}
@@ -196,9 +190,9 @@ export function Layout({
                 )}
 
                 {/* Progress Bar — #2 */}
-                <div className="w-full h-[2px] bg-line shrink-0 relative overflow-hidden">
+                <div className="w-full h-[3px] bg-line shrink-0 relative overflow-hidden">
                     <div
-                        className="absolute left-0 top-0 h-full bg-ink transition-all duration-300 ease-out"
+                        className="absolute left-0 top-0 h-full bg-brand transition-all duration-300 ease-out"
                         style={{ width: `${progressPct}%` }}
                     />
                 </div>

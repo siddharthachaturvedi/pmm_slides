@@ -7,10 +7,21 @@
   --color-ink-soft: var(--ds-text-subtle, #6B778C);
   --color-line: var(--ds-border, #DFE1E6);
   --color-line-strong: var(--ds-border-bold, #7A869A);
-  
+
   /* Brand Accents mapped to Atlassian brand colors */
-  --color-vermillion: var(--ds-icon-danger, #DE350B);
-  --color-forest: var(--ds-icon-success, #00875A);
+  --color-brand: var(--ds-background-brand-bold, #0C66E4);
+  /* Atlassian Blue */
+  --color-vermillion: var(--ds-icon-danger, #E34935);
+  --color-amber: var(--ds-icon-warning, #F5CD47);
+  --color-forest: var(--ds-icon-success, #22A06B);
+
+  /* Atlassian Elevation & Radius */
+  --radius-badge: 3px;
+  --radius-card: 8px;
+  --radius-modal: 12px;
+
+  --shadow-raised: var(--ds-shadow-raised, 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px 1px rgba(9, 30, 66, 0.13));
+  --shadow-overlay: var(--ds-shadow-overlay, 0 8px 12px rgba(9, 30, 66, 0.15), 0 0 1px 1px rgba(9, 30, 66, 0.13));
 
   /* Atlassian Typography */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -47,26 +58,23 @@
     letter-spacing: -0.01em;
     line-height: 1.1;
   }
-
-  /* Consulting slides never have rounded corners or shadows — except circles */
-  *:not(.rounded-full) {
-    border-radius: 0 !important;
-    box-shadow: none !important;
-  }
 }
+
 @media print {
   @page {
-    size: 16in 9in; /* 16:9 aspect ratio */
+    size: 16in 9in;
+    /* 16:9 aspect ratio */
     margin: 0;
   }
-  
+
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
   /* Force landscape and scale exactly to the page if needed */
-  #root, .print\\:hidden {
+  #root,
+  .print\\:hidden {
     /* Tailwind print:hidden usually takes care of this, but we hide UI just in case */
   }
 

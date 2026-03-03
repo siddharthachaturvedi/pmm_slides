@@ -64,6 +64,10 @@ function App() {
   }, []);
 
   const goNext = () => {
+    const event = new CustomEvent('requestNextSlide', { cancelable: true });
+    window.dispatchEvent(event);
+    if (event.defaultPrevented) return; // allows slides to prevent immediate transition to proceed with animation steps
+
     directionRef.current = 1;
     setCurrentSlideIndex((prev) => Math.min(slidesData.length - 1, prev + 1));
   };
