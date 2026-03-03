@@ -86,11 +86,11 @@ export function StarkTextSlide({ slide, isBackward }: { slide: any; isBackward?:
                                         {!isString && title && description && (
                                             <p className="text-lg sm:text-xl md:text-2xl leading-relaxed">
                                                 <span className="font-serif font-bold text-ink">{title}</span>
-                                                <span className="text-ink-soft ml-4">{description}</span>
+                                                <span className="font-serif text-ink-soft ml-4">{description}</span>
                                             </p>
                                         )}
                                         {description && isString && (
-                                            <p className="text-lg sm:text-xl md:text-2xl leading-relaxed text-ink-soft">
+                                            <p className="text-lg sm:text-xl md:text-2xl leading-relaxed font-serif text-ink-soft">
                                                 {description}
                                             </p>
                                         )}
@@ -100,7 +100,7 @@ export function StarkTextSlide({ slide, isBackward }: { slide: any; isBackward?:
                                             </p>
                                         )}
                                         {!description && !isString && (
-                                            <p className="text-lg sm:text-xl md:text-2xl leading-relaxed text-ink">
+                                            <p className="text-lg sm:text-xl md:text-2xl leading-relaxed font-serif text-ink">
                                                 {title}
                                             </p>
                                         )}
