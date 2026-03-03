@@ -13,7 +13,7 @@
     {
       "title": "Persuasion scaled. Verification didn't.",
       "phase": "intro",
-      "lead": "We built a Ferarri, with the brakes of a bicycle",
+      "lead": "We built a Ferrari with the brakes of a bicycle",
       "bullets": [
         "GenAI turns messaging into an always-on persuasion machine — volume, personalization, experimentation, all at once.",
         "The question isn't whether we use it. The question is whether we've built the check engine light.",
@@ -21,14 +21,14 @@
       ]
     },
     {
-      "title": "The AI flywheel is real",
+      "title": "The leverage is real",
       "phase": "promise",
       "lead": "We went from 'launch in a quarter' to 'launch in a browser tab.' That's genuine leverage.",
       "bullets": [
-        "Battlecards: 12 variants drafted in 2 hours. Previously: 2 weeks.",
-        "Launch messaging: A/B tested 8 positioning angles in one sprint. Previously: 2.",
-        "Enablement: Turned a 40-page product spec into 6 customer-facing one-pagers overnight.",
-        "Localization: Adapted messaging for 4 regions in a day, not a quarter."
+        "Battlecards: 12 variants in 2 hours, not 2 weeks",
+        "Positioning: 8 angles tested in one sprint, not 2",
+        "Enablement: 40-page spec converted into 6 customer assets overnight",
+        "Localization: 4 regions in 1 day, not 1 quarter"
       ]
     },
     {
@@ -39,10 +39,10 @@
       "matrix": {
         "xAxis": "Automation Level",
         "yAxis": "Trust Exposure",
-        "q1": "Liability Laundering: 'The chatbot said it' doesn't reduce liability. Your brand published it.",
-        "q2": "Hallucinated Authority: AI drafts 'evidence posture' faster than review can verify.",
-        "q3": "Authenticity Breaks: Voice consistency is easy. Values consistency is hard.",
-        "q4": "Erasure: AI defaults to the majority persona. Edge-case customers get optimized away."
+        "q1": "Liability laundering:   the model said it, but your brand published it",
+        "q2": "Hallucinated authority: evidence posture outpaces evidence checking",
+        "q3": "Authenticity drift: style matches, values do not",
+        "q4": "Persona erasure: optimization smooths away edge users"
       }
     },
     {
@@ -91,44 +91,25 @@
       ]
     },
     {
-      "title": "Not bans. Held tensions.",
+      "title": "The Hippocratic Oath doesn't say 'don't use scalpels.' We need the same thing for product marketing.",
       "phase": "path",
-      "lead": "Policies are like gym memberships. Buying one isn't the workout.",
+      "lead": "The product team builds the capability. Legal defends it. But PMM translates it.",
       "bullets": [
-        "Bans don't scale. People route around them.",
-        "Doctors have the Hippocratic Oath. It doesn't say 'don't use scalpels.' It says 'first, do no harm.'",
-        "We need the same thing for product marketing."
+        "We decide what claims go to market.",
+        "We decide which customer personas get prioritized.",
+        "When words scale infinitely, the people who manage words manage the risk."
       ]
     },
     {
-      "title": "The oath",
-      "type": "pillar",
-      "lead": "When persuasion scales infinitely, I will protect trust.",
+      "title": "When persuasion scales infinitely, I will protect trust.",
       "phase": "path",
-      "roof": "When persuasion scales infinitely, I will protect trust.",
-      "foundation": "A PMM Code of Conduct — not rules, a practice.",
-      "pillars": [
-        {
-          "title": "Verification",
-          "items": [
-            "I will not publish what I have not checked.",
-            "I will enhance relevance, not exploit vulnerability."
-          ]
-        },
-        {
-          "title": "Stewardship",
-          "items": [
-            "Tokens are not free — not to my company, not to the planet.",
-            "Simpler approach first. Always."
-          ]
-        },
-        {
-          "title": "Integrity",
-          "items": [
-            "I will not let AI speak words my brand would not stand behind.",
-            "I will notice whose pain points get erased."
-          ]
-        }
+      "lead": "The oath",
+      "bullets": [
+        "Verify every claim.",
+        "Personalize without exploiting.",
+        "Use the lightest sufficient intelligence.",
+        "Publish only what the brand would defend.",
+        "Design for those the average forgets."
       ]
     },
     {
@@ -146,48 +127,10 @@
       }
     },
     {
-      "title": "Speed vs verification — before / after",
-      "type": "split",
-      "phase": "path",
-      "source": "FT: ft.com | AP: apnews.com",
-      "leftTheme": "tension",
-      "rightTheme": "resolution",
-      "split": {
-        "left": {
-          "label": "Ships without a Claim Card",
-          "body": "Our platform will reduce your incident response time by 40%.",
-          "details": [
-            "No source. No scope. No conditions.",
-            "Sales sends it → prospect quotes it in a contract",
-            "POC disproves it → trust lost before onboarding starts"
-          ]
-        },
-        "right": {
-          "label": "Ships with a Claim Card",
-          "body": "Teams using [feature] can reduce mean incident response time by up to 40% in [environment], based on [study].",
-          "details": [
-            "Source: linked. Scope: bounded.",
-            "Sales can quote it. Legal can defend it.",
-            "Pro tip: rewrite 'will' as 'can' + conditions."
-          ]
-        }
-      }
-    },
-    {
-      "title": "Claim Card — let GenAI draft it for you",
-      "phase": "path",
-      "lead": "A claim without evidence is just vibes with punctuation.",
-      "bullets": [
-        "Prompt: 'Review [this asset]. Extract every claim. For each, fill a Claim Card: source, scope, reproducibility, harm tier. Flag anything unverifiable.'",
-        "Attach output to battlecards, datasheets, launch narratives, analyst briefs.",
-        "If the asset makes a claim that could be quoted in a contract — it needs a card. Let AI find them; humans verify them."
-      ]
-    },
-    {
-      "title": "Example Claim Card",
+      "title": "Claim Card — let GenAI extract and draft it",
       "type": "card",
       "phase": "path",
-      "lead": "Every high-impact claim must be attached to a verifiable, reproducible card before publication.",
+      "lead": "A claim without evidence is just vibes with punctuation. Fast prompt: 'Extract every claim and flag anything unverifiable.'",
       "card": {
         "type": "Claim Card",
         "id": "CC-2026-0042",
@@ -225,13 +168,41 @@
       }
     },
     {
+      "title": "Speed vs verification — before / after",
+      "type": "split",
+      "phase": "path",
+      "source": "FT: ft.com | AP: apnews.com",
+      "leftTheme": "tension",
+      "rightTheme": "resolution",
+      "split": {
+        "left": {
+          "label": "Ships without a Claim Card",
+          "body": "Our platform will reduce your incident response time by 40%.",
+          "details": [
+            "No source. No scope. No conditions.",
+            "Sales sends it → prospect quotes it in a contract",
+            "POC disproves it → trust lost before onboarding starts"
+          ]
+        },
+        "right": {
+          "label": "Ships with a Claim Card",
+          "body": "Teams using [feature] can reduce mean incident response time by up to 40% in [environment], based on [study].",
+          "details": [
+            "Source: linked. Scope: bounded.",
+            "Sales can quote it. Legal can defend it.",
+            "Pro tip: rewrite 'will' as 'can' + conditions."
+          ]
+        }
+      }
+    },
+    {
       "title": "I will enhance relevance, not exploit vulnerability.",
       "phase": "path",
       "lead": "Tension 2: Personalization vs manipulation",
       "source": "FTC AI Compulsory Process, 2023",
       "link": "https://www.ftc.gov/news-events/news/press-releases/2023/11/ftc-authorizes-compulsory-process-ai-related-products-services",
       "bullets": [
-        "If you wouldn't say the targeting logic out loud to the customer, don't put it in a prompt.",
+        "Speak it out: If you wouldn't say the targeting logic out loud to the customer, don't put it in a prompt.",
         "Vulnerability zones: health, finance, grief, addiction, minors, time pressure + fear language",
         "Benefit Alignment Test: Who benefits? What vulnerability? Would you disclose? What would a regulator call this?"
       ]
@@ -264,15 +235,13 @@
       }
     },
     {
-      "title": "Tokens are like Pringles. The can says 'share size.' It is lying.",
+      "title": "Escalate intelligence only when the task deserves it",
       "phase": "path",
-      "lead": "Tension 3: Efficiency vs stewardship",
-      "source": "IEA Energy & AI Report + Pew Research, 2024–25",
-      "link": "https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai",
+      "lead": "Tension 3: Sustainability vs Research Depth.",
       "bullets": [
-        "Simpler approach first — escalate as complexity increases",
-        "Three modes: Fast (chat, templates) → Think Deeper (reasoning, multi-step) → Deep Research (synthesis, multi-source)",
-        "U.S. data center electricity could more than double by 2030 (IEA). Every unnecessary escalation contributes."
+        "Fast: templates, edits, transformations",
+        "Think Deeper: reasoning, adaptation, synthesis within known context",
+        "Deep Research: multi-source synthesis, conflict resolution, high-stakes claims"
       ]
     },
     {
@@ -362,9 +331,9 @@
       "phase": "path",
       "lead": "Tension 5a: Who converts vs who gets erased",
       "bullets": [
-        "AI defaults to the majority persona. Non-technical teams, regulated industries, accessibility — they don't show up.",
+        "Persona: AI defaults to the majority persona. Non-technical teams, regulated industries, accessibility — they don't show up.",
         "Coverage review: tell the model who to include, and ask it to flag where the product falls short.",
-        "When you optimize for aggregate conversion, you smooth away the customers who don't fit the default. That's not optimization. That's deletion."
+        "Bias: When you optimize for aggregate conversion, you smooth away the customers who don't fit the default. That's not optimization. That's deletion."
       ]
     },
     {
@@ -402,7 +371,7 @@
       "link": "https://copyright.gov/what-is-copyright/",
       "bullets": [
         "'Write in the style of [living writer]' is plagiarism with extra steps.",
-        "Style Card: Tone, structure, devices, constraints. No names. No laundering.",
+        "Style Card - Tone, structure, devices, constraints. No names. No laundering.",
         "The legal floor is not the ethical ceiling. Reputational risk is entirely predictable."
       ]
     },
@@ -435,11 +404,15 @@
       }
     },
     {
-      "title": "Post-GenAI decision architecture",
+      "title": "Pre-publish workflow",
       "type": "grid",
       "phase": "path",
-      "lead": "Ethics without architecture is personal heroics. Personal heroics don't survive headcount changes.",
-      "source": "Pre-Publish Workflow v2 — GenAI-Augmented",
+      "lead": "Pre-publish workflow",
+      "bullets": [
+        "What AI does: Extract claims, audit personalization, flag coverage gaps, check brand signature.",
+        "What human owns: Verifying flagged claims, answering subjective alignment questions, final approval.",
+        "Where escalation happens: When claims impact liability, or edge-case users are missing from target output."
+      ],
       "gridData": {
         "columns": [
           "Draft",
@@ -483,29 +456,13 @@
       }
     },
     {
-      "title": "What you leave with",
-      "phase": "close",
-      "lead": "Yes, we're marketers. We don't do vows.",
-      "leadSub": "(Except brand promises — which are vows with better typography.)",
-      "bullets": [
-        "Five held tensions — not rules. A practice you run every time you ship.",
-        "A toolkit — Claim Card, Benefit Alignment Test, Brand Signature Test, Coverage Review, Style Card. All promptable.",
-        "A decision architecture — GenAI-augmented pre-publish checklist with multi-model consensus and self-learning feedback loops."
-      ]
-    },
-    {
       "title": "Close + Q&A",
       "phase": "close",
-      "subtitle": "Where does this break in your org?",
+      "lead": "Your team does not need an AI policy first. It needs a pre-publish discipline.",
       "bullets": [
-        "What is your highest-risk claim in market right now?",
-        "Where does verification fail in your workflow?",
-        "Which tension is hardest in your org?",
-        "What can you pilot by next week?",
-        {
-          "title": "HBR now asks",
-          "description": "'Did you use Generative AI tools to aid in your submission? If yes, how?' — Should your team?"
-        }
+        "What is the riskiest claim in market right now?",
+        "Where can AI publish faster than you can verify?",
+        "What can you pilot next week?"
       ]
     },
     {
@@ -638,6 +595,15 @@
           "title": "Style Card",
           "description": "Decompose [doc]'s writing style into: tone, structure, rhetorical devices, constraints. No named persons. Output a reusable Style Card."
         }
+      ]
+    },
+    {
+      "title": "Harvard Business Review now requires disclosure around AI use.",
+      "phase": "appendix",
+      "lead": "Ethical Disclosure.",
+      "bullets": [
+        "'Did you use Generative AI tools to aid in your submission? If yes, how?'",
+        "Should your team have a similar disclosure policy for high-stakes narratives?"
       ]
     }
   ]

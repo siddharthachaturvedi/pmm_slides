@@ -4,7 +4,6 @@ import CrossIcon from '@atlaskit/icon/core/cross';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 
-// ─── Deep handcrafted insights for each slide ────────────────────────────────────
 const SLIDE_INSIGHTS = [
     "GenAI gives Product Marketers the power of infinite persuasion. But scaling persuasion without scaling verification is how you destroy trust. That's why we need a Hippocratic Oath for PMMs. 👇",
     "We built a Ferrari, but we put bicycle brakes on it. GenAI turns messaging into an always-on persuasion machine—but do we have a check engine light? We need a repeatable, pre-publish scaffolding to catch the bugs of infinite persuasion.",
@@ -16,9 +15,8 @@ const SLIDE_INSIGHTS = [
     "Policies are like gym memberships—buying one isn't the workout. Outright bans on GenAI don't scale because people route around them. Instead, we need to hold the tensions of responsible use. Just like doctors: 'First, do no harm.'",
     "When persuasion scales infinitely, we must protect trust. I propose a PMM Code of Conduct built on three pillars: Verification (I will not publish what I haven't checked), Stewardship (Simpler approach first), and Integrity (I won't let AI erase edge cases).",
     "Fast manual writing is dangerous. Raw ChatGPT output pasted into the market is a disaster. The goal of GenAI isn't unchecked speed—it's rapid, auditable generation via strict templates so we never publish what we haven't verified.",
-    "A claim without evidence is just vibes with punctuation. Stop shipping copy that says 'we reduce incidents by 40%'. Ship copy that says 'Teams using [feature] can reduce incident response by 40% in [environment], based on [study].' Bounded promises build trust.",
     "If a marketing asset makes a claim that could be quoted in a contract, it needs a Claim Card. The secret? Use GenAI to draft the card. Prompt it to extract every claim, its source, scope, and harm tier—then let humans verify.",
-    "Here is what a Claim Card looks like. It documents the source, the scope, the reproducibility, and the harm tier of any major product claim. It's the pre-publish evidence gate that keeps your brand out of the courtroom.",
+    "A claim without evidence is just vibes with punctuation. Stop shipping copy that says 'we reduce incidents by 40%'. Ship copy that says 'Teams using [feature] can reduce incident response by 40% in [environment], based on [study].' Bounded promises build trust.",
     "I will enhance relevance, not exploit vulnerability. If you wouldn't say your targeting logic out loud to a customer, don't put it in a prompt. PMMs must run the Benefit Alignment Test: Who benefits from this personalization?",
     "Optimizing for conversion anxiety is manipulation; optimizing for customer clarity is personalization. Don't use AI to write urgency-driven nurture emails about price increases. Use it to answer the questions the prospect actually has.",
     "Tokens are not free—not to your company, and not to the planet. U.S. data center electricity is skyrocketing. We must practice stewardship: always try the simpler approach first. Don't use a frontier model for a task a simple template can handle.",
@@ -31,11 +29,11 @@ const SLIDE_INSIGHTS = [
     "Instead of named imitation ('Write like Simon Sinek'), use a Style Card. Deconstruct the style into explicit constraints: 'Tone: earnest. Structure: start with purpose. Devices: rhetorical questions.' Same creative output, zero ethical debt.",
     "Ethics without architecture is personal heroics, and personal heroics don't survive headcount changes. We need a post-GenAI decision architecture that inherently checks verification, consensus, and human review before anything ships.",
     "Responsible Product Marketing isn't about arbitrary rules; it's about holding five core tensions every time you ship. And you don't do it alone—you build a toolkit of Claim Cards, Benefit Tests, and Style Cards to automate the verification.",
-    "HBR now asks authors if they used Generative AI. Should your team? What is your highest-risk claim in market right now, and where does verification fail in your workflow? Let's talk about how to fix it.",
     "Dropping a free template for your GenAI workflow: The Claim Card. Use this pre-publish evidence gate to force GenAI to extract and document the source, scope, and harm tier of every claim you make in market.",
     "Free template: The Benefit Alignment Test. Before shipping a personalized campaign, force your AI to answer: Who benefits? What vulnerability is targeted? Would we disclose this logic? If the answer is murky, rewrite it.",
     "Free template: The Brand Signature Test. Run your copy through this prompt to check if it's legally defensible, regulatory accurate, honest to customers, and ready for front-page scrutiny. Don't ship without it.",
-    "Tools are only as good as the prompts that wield them. Here are five starter prompts to implement Claim Extraction, Benefit Alignment, Brand Signature, Coverage Review, and Style Cards into your team's workflow."
+    "Tools are only as good as the prompts that wield them. Here are five starter prompts to implement Claim Extraction, Benefit Alignment, Brand Signature, Coverage Review, and Style Cards into your team's workflow.",
+    "HBR now asks authors if they used Generative AI. Should your team? What is your highest-risk claim in market right now, and where does verification fail in your workflow? Let's talk about how to fix it."
 ];
 
 function generateLinkedInCopy(slideNumber: number): string {
