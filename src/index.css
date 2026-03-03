@@ -52,3 +52,25 @@
     box-shadow: none !important;
   }
 }
+@media print {
+  @page {
+    size: 16in 9in; /* 16:9 aspect ratio */
+    margin: 0;
+  }
+  
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Force landscape and scale exactly to the page if needed */
+  #root, .print\\:hidden {
+    /* Tailwind print:hidden usually takes care of this, but we hide UI just in case */
+  }
+
+  /* Ensure the main presentation container fills the page */
+  main {
+    height: 100vh !important;
+    overflow: hidden !important;
+  }
+}

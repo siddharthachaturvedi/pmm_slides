@@ -80,7 +80,7 @@ export function Layout({
                         className="font-mono text-xs md:text-sm tracking-widest shrink-0 ml-4 hover:text-vermillion transition-colors border-b border-transparent hover:border-vermillion cursor-pointer"
                         aria-label="Open slide sorter"
                     >
-                        Page {currentSlide + 1} / {totalSlides}
+                        Slide {currentSlide + 1} / {totalSlides}
                     </button>
                 </header>
 
@@ -148,15 +148,29 @@ export function Layout({
                         </span>
                     </div>
                     <div className="flex items-center gap-4 ml-4 shrink-0">
+                        {currentSlide === totalSlides - 1 && (
+                            <button
+                                onClick={() => window.print()}
+                                className="flex items-center gap-2 uppercase whitespace-nowrap hover:text-forest transition-colors border-b border-ink-soft hover:border-forest py-1 cursor-pointer text-forest font-bold print:hidden"
+                                aria-label="Export to PDF"
+                            >
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <span className="hidden sm:inline">Export PDF</span>
+                            </button>
+                        )}
                         <button
                             onClick={() => setCommentsPanelOpen(true)}
-                            className="flex items-center gap-2 uppercase whitespace-nowrap hover:text-vermillion transition-colors border-b border-ink-soft hover:border-vermillion py-1 cursor-pointer"
+                            className="flex items-center gap-2 uppercase whitespace-nowrap hover:text-vermillion transition-colors border-b border-ink-soft hover:border-vermillion py-1 cursor-pointer print:hidden"
                             aria-label="Open comments"
                         >
                             <MessageSquare size={14} strokeWidth={2.5} />
                             <span className="hidden sm:inline">Comments</span>
                         </button>
-                        <a href="https://sidc.ai" target="_blank" rel="noreferrer" className="uppercase whitespace-nowrap hover:text-forest transition-colors border-b border-ink-soft hover:border-forest">
+                        <a href="https://sidc.ai" target="_blank" rel="noreferrer" className="uppercase whitespace-nowrap hover:text-forest transition-colors border-b border-ink-soft hover:border-forest print:hidden">
                             Siddhartha Chaturvedi
                         </a>
                     </div>

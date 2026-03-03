@@ -47,75 +47,95 @@ function App() {
   // Use URL hash for routing
   useEffect(() => {
     const hash = window.location.hash.replace('#/', '');
-    const idx = parseInt(hash, 10);
-    if (!isNaN(idx) && idx >= 0 && idx < slidesData.length) {
-      setCurrentSlideIndex(idx);
+    const num = parseInt(hash, 10);
+    if (!isNaN(num) && num >= 1 && num <= slidesData.length) {
+      setCurrentSlideIndex(num - 1);
+    } else if (hash === '0') {
+      setCurrentSlideIndex(0);
     }
   }, []);
 
   useEffect(() => {
-    window.location.hash = `/${currentSlideIndex}`;
+    window.location.hash = `/${currentSlideIndex + 1}`;
   }, [currentSlideIndex]);
 
   const currentSlide = slidesData[currentSlideIndex];
 
   // Routing Logic based on Slide Content
-  const renderSlideContent = () => {
-    if (currentSlideIndex === 0) {
-      return <StarkTitleSlide slide={currentSlide} />;
+  const renderSlideContent = (index: number, slide: any) => {
+    if (index === 0) {
+      return <StarkTitleSlide slide={slide} />;
     }
 
-    const slideType = (currentSlide as any).type;
+    const slideType = slide.type;
 
     if (slideType === 'matrix') {
-      return <StarkMatrixSlide slide={currentSlide} />;
+      return <StarkMatrixSlide slide={slide} />;
     }
 
     if (slideType === 'pillar') {
-      return <StarkPillarSlide slide={currentSlide} />;
+      return <StarkPillarSlide slide={slide} />;
     }
 
     if (slideType === 'grid') {
-      return <StarkGridSlide slide={currentSlide} />;
+      return <StarkGridSlide slide={slide} />;
     }
 
     if (slideType === 'data') {
-      return <StarkDataSlide slide={currentSlide} />;
+      return <StarkDataSlide slide={slide} />;
     }
 
     if (slideType === 'card') {
-      return <StarkCardSlide slide={currentSlide} />;
+      return <StarkCardSlide slide={slide} />;
     }
 
     if (slideType === 'split') {
-      return <StarkSplitSlide slide={currentSlide} />;
+      return <StarkSplitSlide slide={slide} />;
     }
 
     // Default to the versatile Text Slide for now
-    return <StarkTextSlide slide={currentSlide} />;
+    return <StarkTextSlide slide={slide} />;
   };
 
   return (
     <>
-      <MobileOverlay />
-      <Layout
-        currentSlide={currentSlideIndex}
-        totalSlides={slidesData.length}
-        phase={currentSlide.phase?.toUpperCase() || "PRESENTATION"}
-        slide={currentSlide}
-        onOpenSorter={() => setSorterOpen(true)}
-        onNext={() => setCurrentSlideIndex((prev) => Math.min(slidesData.length - 1, prev + 1))}
-        onPrev={() => setCurrentSlideIndex((prev) => Math.max(0, prev - 1))}
-      >
-        {renderSlideContent()}
-      </Layout>
-      <SlideSorter
-        slides={slidesData}
-        isOpen={sorterOpen}
-        onClose={() => setSorterOpen(false)}
-        onSelectSlide={(idx: number) => setCurrentSlideIndex(idx)}
-        currentSlideIndex={currentSlideIndex}
-      />
+      <div className="print:hidden h-[100dvh]">
+        <MobileOverlay />
+        <Layout
+          currentSlide={currentSlideIndex}
+          totalSlides={slidesData.length}
+          phase={currentSlide.phase?.toUpperCase() || "PRESENTATION"}
+          slide={currentSlide}
+          onOpenSorter={() => setSorterOpen(true)}
+          onNext={() => setCurrentSlideIndex((prev) => Math.min(slidesData.length - 1, prev + 1))}
+          onPrev={() => setCurrentSlideIndex((prev) => Math.max(0, prev - 1))}
+        >
+          {renderSlideContent(currentSlideIndex, currentSlide)}
+        </Layout>
+        <SlideSorter
+          slides={slidesData}
+          isOpen={sorterOpen}
+          onClose={() => setSorterOpen(false)}
+          onSelectSlide={(idx: number) => setCurrentSlideIndex(idx)}
+          currentSlideIndex={currentSlideIndex}
+        />
+      </div>
+
+      {/* Hidden container that only shows during printing */}
+      <div className="hidden print:block">
+        {slidesData.map((slide: any, idx: number) => (
+          <div key={idx} style={{ pageBreakAfter: 'always', width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
+            <Layout
+              currentSlide={idx}
+              totalSlides={slidesData.length}
+              phase={slide.phase?.toUpperCase() || "PRESENTATION"}
+              slide={slide}
+            >
+              {renderSlideContent(idx, slide)}
+            </Layout>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
