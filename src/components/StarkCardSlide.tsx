@@ -1,16 +1,17 @@
 import { motion } from 'framer-motion';
 
-export function StarkCardSlide({ slide }: { slide: any }) {
+export function StarkCardSlide({ slide, isBackward }: { slide: any; isBackward?: boolean }) {
     const card = slide.card || {};
     const fields = card.fields || [];
+    const skip = isBackward;
 
     return (
         <div className="flex flex-col h-full w-full justify-center items-center py-8">
             {/* The Claim Card */}
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={skip ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 className="w-full max-w-3xl border-[2px] border-ink bg-white"
             >
                 {/* Card Header */}
@@ -36,9 +37,9 @@ export function StarkCardSlide({ slide }: { slide: any }) {
                     {fields.map((field: any, i: number) => (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0 }}
+                            initial={skip ? false : { opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 0.3, delay: 0.3 + (i * 0.08) }}
+                            transition={{ duration: 0.3, delay: 0.2 + (i * 0.06), ease: "easeOut" }}
                             className={`px-8 py-5 border-b-[1px] border-ink ${i % 2 === 0 ? 'border-r-[1px]' : ''}`}
                         >
                             <div className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-ink-soft mb-1">

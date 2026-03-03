@@ -2,35 +2,23 @@ import { motion } from 'framer-motion';
 
 // Helper component for a single Harvey Ball
 function HarveyBall({ score }: { score: number }) {
-    // Score should be 0, 1, 2, 3, or 4 (empty to full)
     const normalizedScore = Math.max(0, Math.min(4, Math.floor(score)));
 
     return (
         <div className="relative w-6 h-6 md:w-8 md:h-8 rounded-full border-[2px] border-ink bg-white overflow-hidden flex-shrink-0">
-            {/* Shading logic via simple absolute divs */}
-            {normalizedScore >= 1 && (
-                <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-ink" />
-            )}
-            {normalizedScore >= 2 && (
-                <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-ink" />
-            )}
-            {normalizedScore >= 3 && (
-                <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-ink" />
-            )}
-            {normalizedScore === 4 && (
-                <div className="absolute inset-0 bg-ink" />
-            )}
-            {/* Crosshairs to maintain the rigid structural look */}
+            {normalizedScore >= 1 && <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-ink" />}
+            {normalizedScore >= 2 && <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-ink" />}
+            {normalizedScore >= 3 && <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-ink" />}
+            {normalizedScore === 4 && <div className="absolute inset-0 bg-ink" />}
             <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-ink opacity-20" />
             <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-ink opacity-20" />
         </div>
     );
 }
 
-export function StarkGridSlide({ slide }: { slide: any }) {
-    // Expects slide to have a `gridData` object:
-    // { columns: ['Crit 1', 'Crit 2'], rows: [ { name: 'Vendor 1', scores: [4, 2] } ] }
+export function StarkGridSlide({ slide, isBackward }: { slide: any; isBackward?: boolean }) {
     const gd = slide.gridData || { columns: [], rows: [] };
+    const skip = isBackward;
 
     return (
         <div className="flex flex-col h-full w-full justify-center pt-8 pb-12 max-w-6xl mx-auto">
@@ -61,9 +49,9 @@ export function StarkGridSlide({ slide }: { slide: any }) {
                         {gd.rows.map((row: any, i: number) => (
                             <motion.tr
                                 key={i}
-                                initial={{ opacity: 0, x: -20 }}
+                                initial={skip ? false : { opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.3, delay: 0.1 * i }}
+                                transition={{ duration: 0.3, delay: 0.05 * i, ease: "easeOut" }}
                                 className="border-b-[1.5px] border-ink hover:bg-gray-50/30 transition-colors"
                             >
                                 <td className="p-4 md:p-6 border-r-[1.5px] border-ink font-serif text-lg md:text-2xl text-ink font-bold">

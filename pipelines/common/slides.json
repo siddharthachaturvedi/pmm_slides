@@ -485,7 +485,8 @@
     {
       "title": "What you leave with",
       "phase": "close",
-      "lead": "Yes, we're marketers. We don't do vows. Except brand promises — which are vows with better typography.",
+      "lead": "Yes, we're marketers. We don't do vows.",
+      "leadSub": "(Except brand promises — which are vows with better typography.)",
       "bullets": [
         "Five held tensions — not rules. A practice you run every time you ship.",
         "A toolkit — Claim Card, Benefit Alignment Test, Brand Signature Test, Coverage Review, Style Card. All promptable.",

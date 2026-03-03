@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Layout } from './components/Layout';
 import { StarkTitleSlide } from './components/StarkTitleSlide';
 import { StarkTextSlide } from './components/StarkTextSlide';
@@ -17,32 +18,41 @@ const slidesData = rawSlidesData.slides;
 
 function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
   const [sorterOpen, setSorterOpen] = useState(false);
+  const directionRef = useRef<1 | -1>(1); // 1 = forward, -1 = backward
+
+  const goTo = (idx: number) => {
+    directionRef.current = idx >= currentSlideIndex ? 1 : -1;
+    setCurrentSlideIndex(idx);
+  };
+
+  const goNext = () => {
+    directionRef.current = 1;
+    setCurrentSlideIndex((prev) => Math.min(slidesData.length - 1, prev + 1));
+  };
+
+  const goPrev = () => {
+    directionRef.current = -1;
+    setCurrentSlideIndex((prev) => Math.max(0, prev - 1));
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger slide navigation if sorter is open
       if (sorterOpen) {
-        if (e.key === 'Escape') {
-          setSorterOpen(false);
-        }
+        if (e.key === 'Escape') setSorterOpen(false);
         return;
       }
-
       if (e.key === 'ArrowRight' || e.key === ' ') {
-        setCurrentSlideIndex((prev) => Math.min(slidesData.length - 1, prev + 1));
+        goNext();
       } else if (e.key === 'ArrowLeft') {
-        setCurrentSlideIndex((prev) => Math.max(0, prev - 1));
+        goPrev();
       } else if (e.key === 'g' || e.key === 'G') {
-        // Optional quick shortcut to open sorter
         setSorterOpen(true);
       }
     };
-
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [sorterOpen]);
+  }, [sorterOpen, currentSlideIndex]);
 
   // Use URL hash for routing
   useEffect(() => {
@@ -62,40 +72,26 @@ function App() {
   const currentSlide = slidesData[currentSlideIndex];
 
   // Routing Logic based on Slide Content
-  const renderSlideContent = (index: number, slide: any) => {
-    if (index === 0) {
-      return <StarkTitleSlide slide={slide} />;
-    }
-
+  const renderSlideContent = (index: number, slide: any, isBackward: boolean) => {
+    const props = { slide, isBackward };
+    if (index === 0) return <StarkTitleSlide {...props} />;
     const slideType = slide.type;
-
-    if (slideType === 'matrix') {
-      return <StarkMatrixSlide slide={slide} />;
-    }
-
-    if (slideType === 'pillar') {
-      return <StarkPillarSlide slide={slide} />;
-    }
-
-    if (slideType === 'grid') {
-      return <StarkGridSlide slide={slide} />;
-    }
-
-    if (slideType === 'data') {
-      return <StarkDataSlide slide={slide} />;
-    }
-
-    if (slideType === 'card') {
-      return <StarkCardSlide slide={slide} />;
-    }
-
-    if (slideType === 'split') {
-      return <StarkSplitSlide slide={slide} />;
-    }
-
-    // Default to the versatile Text Slide for now
-    return <StarkTextSlide slide={slide} />;
+    if (slideType === 'matrix') return <StarkMatrixSlide {...props} />;
+    if (slideType === 'pillar') return <StarkPillarSlide {...props} />;
+    if (slideType === 'grid') return <StarkGridSlide {...props} />;
+    if (slideType === 'data') return <StarkDataSlide {...props} />;
+    if (slideType === 'card') return <StarkCardSlide {...props} />;
+    if (slideType === 'split') return <StarkSplitSlide {...props} />;
+    return <StarkTextSlide {...props} />;
   };
+
+  // Slide transition variants — direction-aware, spring-based for snappy rapid clicks (#9)
+  const slideVariants = {
+    enter: (dir: number) => ({ opacity: 0, y: dir > 0 ? 14 : -14 }),
+    center: { opacity: 1, y: 0 },
+    exit: (dir: number) => ({ opacity: 0, y: dir > 0 ? -14 : 14 }),
+  };
+  const slideTransition = { type: 'spring' as const, stiffness: 500, damping: 38, mass: 0.8 };
 
   return (
     <>
@@ -107,16 +103,29 @@ function App() {
           phase={currentSlide.phase?.toUpperCase() || "PRESENTATION"}
           slide={currentSlide}
           onOpenSorter={() => setSorterOpen(true)}
-          onNext={() => setCurrentSlideIndex((prev) => Math.min(slidesData.length - 1, prev + 1))}
-          onPrev={() => setCurrentSlideIndex((prev) => Math.max(0, prev - 1))}
+          onNext={goNext}
+          onPrev={goPrev}
         >
-          {renderSlideContent(currentSlideIndex, currentSlide)}
+          <AnimatePresence custom={directionRef.current} mode="wait" initial={false}>
+            <motion.div
+              key={currentSlideIndex}
+              custom={directionRef.current}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={slideTransition}
+              className="w-full h-full"
+            >
+              {renderSlideContent(currentSlideIndex, currentSlide, directionRef.current < 0)}
+            </motion.div>
+          </AnimatePresence>
         </Layout>
         <SlideSorter
           slides={slidesData}
           isOpen={sorterOpen}
           onClose={() => setSorterOpen(false)}
-          onSelectSlide={(idx: number) => setCurrentSlideIndex(idx)}
+          onSelectSlide={(idx: number) => goTo(idx)}
           currentSlideIndex={currentSlideIndex}
         />
       </div>
@@ -131,7 +140,7 @@ function App() {
               phase={slide.phase?.toUpperCase() || "PRESENTATION"}
               slide={slide}
             >
-              {renderSlideContent(idx, slide)}
+              {renderSlideContent(idx, slide, false)}
             </Layout>
           </div>
         ))}

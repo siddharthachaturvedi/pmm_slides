@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 
 // Define the slide content structure properly
@@ -45,75 +46,186 @@ interface SlideSorterProps {
     currentSlideIndex: number;
 }
 
-export function SlideSorter({ slides, isOpen, onClose, onSelectSlide, currentSlideIndex }: SlideSorterProps) {
-    if (!isOpen) return null;
+/** Returns an abstract visual "silhouette" representing the slide type */
+function SlideThumbnail({ slide, index }: { slide: SlideContent; index: number }) {
+    const type = index === 0 ? 'title' : (slide.type || 'text');
 
-    return (
-        <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-md flex flex-col overflow-hidden">
-            {/* Header */}
-            <div className="flex justify-between items-center px-6 md:px-16 py-4 border-b border-ink/10 shrink-0 bg-white">
-                <h2 className="font-serif text-2xl font-bold text-ink">Slide Sorter</h2>
-                <button
-                    onClick={onClose}
-                    className="p-2 hover:bg-ink-soft/10 rounded-full transition-colors opacity-70 hover:opacity-100"
-                    aria-label="Close Slide Sorter"
-                >
-                    <X size={24} />
-                </button>
+    if (type === 'title') {
+        return (
+            <div className="flex flex-col items-center justify-center h-full gap-1 py-2">
+                <div className="w-10 h-1.5 bg-ink/30 mb-1" />
+                <div className="w-16 h-1 bg-ink/20" />
+                <div className="w-10 h-0.5 bg-ink/10 mt-1" />
             </div>
-
-            {/* Grid Container */}
-            <div className="flex-1 overflow-y-auto p-6 md:p-16">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
-                    {slides.map((slide, index) => {
-                        const isCurrent = index === currentSlideIndex;
-                        return (
-                            <button
-                                key={index}
-                                onClick={() => {
-                                    onSelectSlide(index);
-                                    onClose();
-                                }}
-                                className={`
-                  relative flex flex-col items-start text-left h-32 md:h-40 p-4 border transition-all duration-200 group
-                  ${isCurrent
-                                        ? 'border-vermillion bg-vermillion/5 shadow-sm'
-                                        : 'border-line bg-white hover:border-ink/30 hover:shadow-md'
-                                    }
-                `}
-                            >
-                                {/* Slide Number */}
-                                <div className={`
-                  text-[10px] font-mono mb-2
-                  ${isCurrent ? 'text-vermillion font-bold' : 'text-ink-soft'}
-                `}>
-                                    {String(index + 1).padStart(2, '0')}
-                                </div>
-
-                                {/* Slide Title */}
-                                <div className="font-serif text-sm md:text-base font-bold text-ink leading-tight line-clamp-2 mt-1 w-full relative z-10 group-hover:text-ink transition-colors">
-                                    {slide.title || "Untitled Slide"}
-                                </div>
-
-                                {/* Phase Indicator */}
-                                {slide.phase && (
-                                    <div className={`
-                    text-[9px] uppercase tracking-widest font-bold mt-auto pt-2
-                    ${slide.phase.toLowerCase() === 'peril' ? 'text-vermillion/70' :
-                                            slide.phase.toLowerCase() === 'path' || slide.phase.toLowerCase() === 'promise' ? 'text-forest/70' :
-                                                'text-ink-soft/70'}
-                  `}>
-                                        {slide.phase}
-                                    </div>
-                                )}
-
-                                {/* Thumbnail Visual Hint (Abstract representation) */}
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 pointer-events-none transition-opacity bg-gradient-to-br from-transparent to-ink/20" />
-                            </button>
-                        );
-                    })}
+        );
+    }
+    if (type === 'matrix') {
+        return (
+            <div className="grid grid-cols-2 grid-rows-2 gap-0.5 w-14 h-10 border border-ink/30 shrink-0">
+                <div className="bg-ink/10 border-r border-b border-ink/20" />
+                <div className="bg-ink/25 border-b border-ink/20" />
+                <div className="bg-ink/10 border-r border-ink/20" />
+                <div className="bg-ink/10" />
+            </div>
+        );
+    }
+    if (type === 'pillar') {
+        const n = slide.pillars?.length || 3;
+        return (
+            <div className="flex items-end gap-0.5 h-10 w-14 shrink-0">
+                {Array.from({ length: Math.min(n, 5) }).map((_, i) => (
+                    <div key={i} className="flex-1 bg-ink/25 border border-ink/20" style={{ height: `${60 + (i % 3) * 15}%` }} />
+                ))}
+            </div>
+        );
+    }
+    if (type === 'grid') {
+        const cols = slide.gridData?.columns?.length || 4;
+        const rows = slide.gridData?.rows?.length || 4;
+        return (
+            <div className="border border-ink/30 w-14 h-10 shrink-0 overflow-hidden">
+                <div className="grid h-full" style={{ gridTemplateColumns: `repeat(${Math.min(cols + 1, 6)}, 1fr)`, gridTemplateRows: `repeat(${Math.min(rows + 1, 5)}, 1fr)` }}>
+                    {Array.from({ length: (Math.min(cols + 1, 6)) * (Math.min(rows + 1, 5)) }).map((_, i) => (
+                        <div key={i} className={`border-r border-b border-ink/10 ${i < Math.min(cols + 1, 6) || i % Math.min(cols + 1, 6) === 0 ? 'bg-ink/10' : ''}`} />
+                    ))}
                 </div>
             </div>
+        );
+    }
+    if (type === 'split') {
+        return (
+            <div className="flex h-10 w-14 border border-ink/30 shrink-0 overflow-hidden">
+                <div className="w-1/2 border-r border-ink/20 flex flex-col gap-0.5 p-1">
+                    <div className="h-1 bg-vermillion/40 w-full" />
+                    <div className="h-0.5 bg-ink/20 w-3/4" />
+                    <div className="h-0.5 bg-ink/15 w-1/2" />
+                </div>
+                <div className="w-1/2 flex flex-col gap-0.5 p-1">
+                    <div className="h-1 bg-forest/40 w-full" />
+                    <div className="h-0.5 bg-ink/20 w-3/4" />
+                    <div className="h-0.5 bg-ink/15 w-1/2" />
+                </div>
+            </div>
+        );
+    }
+    if (type === 'data') {
+        return (
+            <div className="flex items-end gap-1 h-10 w-14 shrink-0 border-b border-l border-ink/30 px-1">
+                {[40, 65, 50, 80, 55].map((h, i) => (
+                    <div key={i} className="flex-1 bg-ink/20" style={{ height: `${h}%` }} />
+                ))}
+            </div>
+        );
+    }
+    if (type === 'card') {
+        return (
+            <div className="grid grid-cols-2 gap-0.5 w-14 h-10 shrink-0">
+                {[0, 1, 2, 3].map(i => (
+                    <div key={i} className="border border-ink/20 bg-ink/5 flex flex-col gap-0.5 p-0.5">
+                        <div className="h-0.5 w-full bg-ink/25" />
+                        <div className="h-0.5 w-2/3 bg-ink/15" />
+                    </div>
+                ))}
+            </div>
+        );
+    }
+    // text (default)
+    return (
+        <div className="flex h-10 w-14 shrink-0 gap-1">
+            <div className="w-1/3 flex flex-col gap-0.5 py-0.5">
+                <div className="h-1.5 w-full bg-ink/30" />
+                <div className="h-0.5 w-full bg-ink/15" />
+            </div>
+            <div className="flex-1 border-l border-ink/20 pl-1 flex flex-col gap-0.5 py-0.5">
+                <div className="h-0.5 w-full bg-ink/15" />
+                <div className="h-0.5 w-3/4 bg-ink/15" />
+                <div className="h-0.5 w-full bg-ink/15" />
+                <div className="h-0.5 w-2/3 bg-ink/15" />
+            </div>
         </div>
+    );
+}
+
+export function SlideSorter({ slides, isOpen, onClose, onSelectSlide, currentSlideIndex }: SlideSorterProps) {
+    return (
+        <AnimatePresence>
+            {isOpen && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
+                    className="fixed inset-0 z-50 bg-white/95 backdrop-blur-md flex flex-col overflow-hidden"
+                >
+                    {/* Header */}
+                    <div className="flex justify-between items-center px-6 md:px-16 py-4 border-b border-ink/10 shrink-0 bg-white">
+                        <h2 className="font-serif text-2xl font-bold text-ink">Slide Sorter</h2>
+                        {/* #8: square close button — no rounded-full */}
+                        <button
+                            onClick={onClose}
+                            className="p-2 hover:bg-ink hover:text-white transition-colors opacity-70 hover:opacity-100"
+                            aria-label="Close Slide Sorter"
+                        >
+                            <X size={20} />
+                        </button>
+                    </div>
+
+                    {/* Grid Container */}
+                    <div className="flex-1 overflow-y-auto p-6 md:p-16">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
+                            {slides.map((slide, index) => {
+                                const isCurrent = index === currentSlideIndex;
+                                return (
+                                    <button
+                                        key={index}
+                                        onClick={() => {
+                                            onSelectSlide(index);
+                                            onClose();
+                                        }}
+                                        className={`
+                      relative flex flex-col items-start text-left h-36 md:h-44 p-4 border transition-all duration-200 group
+                      ${isCurrent
+                                                ? 'border-vermillion bg-vermillion/5'
+                                                : 'border-line bg-white hover:border-ink/30 hover:shadow-md'
+                                            }
+                    `}
+                                    >
+                                        {/* Slide Number */}
+                                        <div className={`
+                      text-[10px] font-mono mb-2
+                      ${isCurrent ? 'text-vermillion font-bold' : 'text-ink-soft'}
+                    `}>
+                                            {String(index + 1).padStart(2, '0')}
+                                        </div>
+
+                                        {/* Type-aware visual thumbnail — #1 */}
+                                        <div className={`mb-2 transition-opacity ${isCurrent ? 'opacity-80' : 'opacity-40 group-hover:opacity-70'}`}>
+                                            <SlideThumbnail slide={slide} index={index} />
+                                        </div>
+
+                                        {/* Slide Title */}
+                                        <div className="font-serif text-xs md:text-sm font-bold text-ink leading-tight line-clamp-2 mt-auto w-full relative z-10 group-hover:text-ink transition-colors">
+                                            {slide.title || "Untitled Slide"}
+                                        </div>
+
+                                        {/* Phase Indicator */}
+                                        {slide.phase && (
+                                            <div className={`
+                        text-[9px] uppercase tracking-widest font-bold mt-1
+                        ${slide.phase.toLowerCase() === 'peril' ? 'text-vermillion/70' :
+                                                    slide.phase.toLowerCase() === 'path' || slide.phase.toLowerCase() === 'promise' ? 'text-forest/70' :
+                                                        'text-ink-soft/70'}
+                      `}>
+                                                {slide.phase}
+                                            </div>
+                                        )}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
     );
 }

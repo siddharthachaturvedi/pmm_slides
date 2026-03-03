@@ -7,12 +7,13 @@ function splitQuadrant(text: string) {
     return { label: text.slice(0, idx).trim(), desc: text.slice(idx + 1).trim() };
 }
 
-export function StarkMatrixSlide({ slide }: { slide: any }) {
+export function StarkMatrixSlide({ slide, isBackward }: { slide: any; isBackward?: boolean }) {
     const m = slide.matrix || { xAxis: 'X Axis', yAxis: 'Y Axis', q1: 'Q1', q2: 'Q2', q3: 'Q3', q4: 'Q4' };
     const q1 = splitQuadrant(m.q1);
     const q2 = splitQuadrant(m.q2);
     const q3 = splitQuadrant(m.q3);
     const q4 = splitQuadrant(m.q4);
+    const skip = isBackward;
 
     return (
         <div className="flex flex-col h-full w-full justify-center items-center py-6 px-2 md:px-8">
@@ -33,9 +34,9 @@ export function StarkMatrixSlide({ slide }: { slide: any }) {
 
                         {/* Top Left - Q2 */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
+                            initial={skip ? false : { opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.4, delay: 0.1 }}
+                            transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
                             className="border-r-[1px] border-b-[1px] border-ink p-3 md:p-8 flex flex-col items-center justify-center text-center bg-gray-50/50"
                         >
                             <span className="text-sm md:text-lg font-mono uppercase tracking-wider text-ink-soft mb-1 md:mb-2">{q2.label}</span>
@@ -44,9 +45,9 @@ export function StarkMatrixSlide({ slide }: { slide: any }) {
 
                         {/* Top Right - Q1 (Target) */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
+                            initial={skip ? false : { opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.4, delay: 0.2 }}
+                            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
                             className="border-b-[1px] border-l-[1px] border-ink p-3 md:p-8 flex flex-col items-center justify-center text-center"
                         >
                             <span className="text-sm md:text-lg font-mono uppercase tracking-wider font-bold text-ink mb-1 md:mb-2">{q1.label}</span>
@@ -55,9 +56,9 @@ export function StarkMatrixSlide({ slide }: { slide: any }) {
 
                         {/* Bottom Left - Q3 */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
+                            initial={skip ? false : { opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.4, delay: 0.3 }}
+                            transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
                             className="border-r-[1px] border-t-[1px] border-ink p-3 md:p-8 flex flex-col items-center justify-center text-center"
                         >
                             <span className="text-sm md:text-lg font-mono uppercase tracking-wider text-ink-soft mb-1 md:mb-2">{q3.label}</span>
@@ -66,9 +67,9 @@ export function StarkMatrixSlide({ slide }: { slide: any }) {
 
                         {/* Bottom Right - Q4 (Danger) */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
+                            initial={skip ? false : { opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.4, delay: 0.4 }}
+                            transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
                             className="border-l-[1px] border-t-[1px] border-ink p-3 md:p-8 flex flex-col items-center justify-center text-center bg-gray-50/50"
                         >
                             <span className="text-sm md:text-lg font-mono uppercase tracking-wider text-ink-soft mb-1 md:mb-2">{q4.label}</span>

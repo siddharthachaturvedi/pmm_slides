@@ -6,20 +6,21 @@ interface SplitSide {
     details?: string[];
 }
 
-export function StarkSplitSlide({ slide }: { slide: any }) {
+export function StarkSplitSlide({ slide, isBackward }: { slide: any; isBackward?: boolean }) {
     const left: SplitSide = slide.split?.left || { label: '✗', body: '' };
     const right: SplitSide = slide.split?.right || { label: '✓', body: '' };
-    const leftTheme = slide.leftTheme || 'default'; // 'tension' or 'default'
-    const rightTheme = slide.rightTheme || 'default'; // 'resolution' or 'default'
+    const leftTheme = slide.leftTheme || 'default';
+    const rightTheme = slide.rightTheme || 'default';
+    const skip = isBackward;
 
     return (
         <div className="flex flex-col md:flex-row h-full w-full">
 
             {/* LEFT — Danger / Before */}
             <motion.div
-                initial={{ opacity: 0, x: -20 }}
+                initial={skip ? false : { opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
+                transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
                 className={`flex-1 flex flex-col justify-center p-8 md:p-16 border-b md:border-b-0 md:border-r border-ink ${leftTheme === 'tension' ? 'bg-vermillion/5 border-t-2 border-t-vermillion md:border-t-0 md:border-l-2 md:border-l-vermillion' : 'bg-gray-50'
                     }`}
             >
@@ -44,9 +45,9 @@ export function StarkSplitSlide({ slide }: { slide: any }) {
 
             {/* RIGHT — Correct / After */}
             <motion.div
-                initial={{ opacity: 0, x: 20 }}
+                initial={skip ? false : { opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.25 }}
+                transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
                 className={`flex-1 flex flex-col justify-center p-8 md:p-16 ${rightTheme === 'resolution' ? 'bg-forest/5 border-t-2 border-t-forest md:border-t-0 md:border-r-2 md:border-r-forest' : 'bg-white'
                     }`}
             >

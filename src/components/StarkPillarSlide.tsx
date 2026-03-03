@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 
-export function StarkPillarSlide({ slide }: { slide: any }) {
+export function StarkPillarSlide({ slide, isBackward }: { slide: any; isBackward?: boolean }) {
     // Expects slide to have a `pillars` array
     const pillars = slide.pillars || [];
     const roof = slide.roof;
+    const skip = isBackward;
 
     return (
         <div className="flex flex-col h-full w-full pt-8 pb-12">
@@ -11,9 +12,9 @@ export function StarkPillarSlide({ slide }: { slide: any }) {
             {/* The Roof (Overarching Strategy / Goal) */}
             {roof && (
                 <motion.div
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={skip ? false : { opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                     className="w-full border-[2px] border-ink py-6 md:py-8 px-8 text-center bg-white z-10 relative mb-8"
                 >
                     <h2 className="text-2xl md:text-4xl font-black font-serif text-ink uppercase tracking-wide">
@@ -28,9 +29,9 @@ export function StarkPillarSlide({ slide }: { slide: any }) {
                 {pillars.map((pillar: any, i: number) => (
                     <motion.div
                         key={i}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={skip ? false : { opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 + (i * 0.1) }}
+                        transition={{ duration: 0.4, delay: 0.1 + (i * 0.08), ease: "easeOut" }}
                         className="flex flex-col border-[1.5px] border-ink h-full p-6 md:p-8 bg-white relative"
                     >
                         {/* Number Indicator */}
@@ -59,9 +60,9 @@ export function StarkPillarSlide({ slide }: { slide: any }) {
             {/* The Foundation (Optional) */}
             {slide.foundation && (
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={skip ? false : { opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
+                    transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
                     className="w-full border-t-[2px] border-b-[2px] border-ink py-4 px-8 text-center bg-gray-50 mt-8"
                 >
                     <h3 className="text-lg md:text-xl font-sans uppercase tracking-widest font-bold text-ink-soft">

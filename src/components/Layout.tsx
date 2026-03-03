@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
-import { MessageSquare, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MessageSquare, ChevronLeft, ChevronRight, HelpCircle, X } from 'lucide-react';
 import { RovoDevIcon } from '@atlaskit/logo';
 import { CommentPanel } from './CommentPanel';
 
@@ -12,7 +12,7 @@ export function Layout({
     slide,
     onOpenSorter,
     onNext,
-    onPrev
+    onPrev,
 }: {
     children: ReactNode,
     currentSlide: number,
@@ -21,9 +21,23 @@ export function Layout({
     slide?: any,
     onOpenSorter?: () => void,
     onNext?: () => void,
-    onPrev?: () => void
+    onPrev?: () => void,
 }) {
     const [commentsPanelOpen, setCommentsPanelOpen] = useState(false);
+    const [commentCount, setCommentCount] = useState(0);
+    const [shortcutsOpen, setShortcutsOpen] = useState(false);
+
+    // Phase tracking for pulse animation
+    const prevPhaseRef = useRef(phase);
+    const [phasePulse, setPhasePulse] = useState(false);
+    useEffect(() => {
+        if (phase !== prevPhaseRef.current) {
+            prevPhaseRef.current = phase;
+            setPhasePulse(true);
+            const t = setTimeout(() => setPhasePulse(false), 600);
+            return () => clearTimeout(t);
+        }
+    }, [phase]);
 
     const [scale, setScale] = useState(1);
     const [dimensions, setDimensions] = useState({ width: '100vw', height: '100dvh' });
@@ -57,6 +71,14 @@ export function Layout({
         };
     }, []);
 
+    const progressPct = totalSlides > 1 ? (currentSlide / (totalSlides - 1)) * 100 : 100;
+
+    const phaseColorClass = phase?.toLowerCase() === 'peril'
+        ? 'text-vermillion'
+        : (phase?.toLowerCase() === 'path' || phase?.toLowerCase() === 'promise')
+            ? 'text-forest'
+            : 'text-ink-soft';
+
     return (
         <div className="w-screen h-[100dvh] overflow-hidden bg-white">
             <div
@@ -71,27 +93,59 @@ export function Layout({
                 <header className="flex justify-between items-center px-6 md:px-16 py-4 md:py-8 border-b-[2px] border-ink shrink-0">
                     <div className="flex items-baseline space-x-4 md:space-x-6">
                         <span className="font-serif text-lg md:text-2xl font-bold tracking-tight">The PMM's Hippocratic Oath</span>
-                        <span className={`font-sans text-xs md:text-sm tracking-widest uppercase font-bold border-l border-ink pl-4 md:pl-6 ${phase?.toLowerCase() === 'peril' ? 'text-vermillion' : phase?.toLowerCase() === 'path' || phase?.toLowerCase() === 'promise' ? 'text-forest' : 'text-ink-soft'}`}>
+                        <span
+                            className={`
+                                font-sans text-xs md:text-sm tracking-widest uppercase font-bold border-l border-ink pl-4 md:pl-6
+                                transition-all duration-300
+                                ${phaseColorClass}
+                                ${phasePulse ? 'scale-110 tracking-[0.2em]' : 'scale-100'}
+                            `}
+                            style={{ display: 'inline-block', transformOrigin: 'left center' }}
+                        >
                             {phase}
                         </span>
                     </div>
-                    <button
-                        onClick={onOpenSorter}
-                        className="font-mono text-xs md:text-sm tracking-widest shrink-0 ml-4 hover:text-vermillion transition-colors border-b border-transparent hover:border-vermillion cursor-pointer"
-                        aria-label="Open slide sorter"
-                    >
-                        Slide {currentSlide + 1} / {totalSlides}
-                    </button>
+                    <div className="flex items-center gap-3 md:gap-4 ml-4 shrink-0">
+                        {/* Keyboard shortcuts help — #3 */}
+                        <button
+                            onClick={() => setShortcutsOpen(true)}
+                            className="text-ink-soft/40 hover:text-ink-soft transition-colors print:hidden"
+                            aria-label="Keyboard shortcuts"
+                            title="Keyboard shortcuts"
+                        >
+                            <HelpCircle size={16} strokeWidth={1.5} />
+                        </button>
+                        <button
+                            onClick={onOpenSorter}
+                            className="font-mono text-xs md:text-sm tracking-widest shrink-0 hover:text-vermillion transition-colors border-b border-transparent hover:border-vermillion cursor-pointer"
+                            aria-label="Open slide sorter"
+                        >
+                            Slide {currentSlide + 1} / {totalSlides}
+                        </button>
+                    </div>
                 </header>
 
                 {/* Slide Lead / Kicker: Hard Synthesizing Assertion */}
                 {slide?.lead && (
-                    <div className="px-6 md:px-16 py-4 border-b-[1.5px] border-ink shrink-0 bg-white z-10">
+                    <div className="px-6 md:px-16 py-3 md:py-5 border-b-[1.5px] border-ink shrink-0 bg-white z-10">
                         <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-black leading-tight text-ink max-w-6xl">
                             {slide.lead}
                         </h2>
+                        {slide?.leadSub && (
+                            <p className="mt-1 text-sm md:text-base font-serif text-ink-soft/70 italic">
+                                {slide.leadSub}
+                            </p>
+                        )}
                     </div>
                 )}
+
+                {/* Progress Bar — #2 */}
+                <div className="w-full h-[2px] bg-line shrink-0 relative overflow-hidden">
+                    <div
+                        className="absolute left-0 top-0 h-full bg-ink transition-all duration-300 ease-out"
+                        style={{ width: `${progressPct}%` }}
+                    />
+                </div>
 
                 {/* Main Content Area: 12-column grid */}
                 <main className="flex-1 w-full relative min-h-0">
@@ -113,7 +167,7 @@ export function Layout({
                             className="w-full h-full flex items-center justify-start pl-4 group bg-transparent hover:bg-zinc-900/5 active:bg-zinc-900/10 transition-all disabled:opacity-0"
                             aria-label="Previous slide"
                         >
-                            <ChevronLeft size={36} strokeWidth={1} className="text-ink/10 group-hover:text-ink/60 transition-colors" />
+                            <ChevronLeft size={36} strokeWidth={1} className="text-ink/10 group-hover:text-ink/60 transition-colors group-active:scale-90" />
                         </button>
                     </div>
                     <div className="absolute inset-y-0 right-0 w-24 lg:hidden flex items-stretch justify-end z-20 pointer-events-auto">
@@ -123,14 +177,14 @@ export function Layout({
                             className="w-full h-full flex items-center justify-end pr-4 group bg-transparent hover:bg-zinc-900/5 active:bg-zinc-900/10 transition-all disabled:opacity-0"
                             aria-label="Next slide"
                         >
-                            <ChevronRight size={36} strokeWidth={1} className="text-ink/10 group-hover:text-ink/60 transition-colors" />
+                            <ChevronRight size={36} strokeWidth={1} className="text-ink/10 group-hover:text-ink/60 transition-colors group-active:scale-90" />
                         </button>
                     </div>
                 </main>
 
-                {/* Footer: Date, Citations, and Author */}
-                <footer className="flex justify-between items-end px-6 md:px-16 py-4 md:py-6 border-t border-line text-[10px] md:text-xs font-mono tracking-widest text-ink-soft shrink-0 z-10 bg-white">
-                    <div className="flex flex-col space-y-2 max-w-3xl">
+                {/* Footer: Date, Citations, and Author — #5 improved hierarchy */}
+                <footer className="flex justify-between items-end px-6 md:px-16 py-3 md:py-4 border-t border-line text-[10px] md:text-xs font-mono tracking-widest text-ink-soft shrink-0 z-10 bg-white">
+                    <div className="flex flex-col space-y-1.5 max-w-3xl">
                         {slide?.footnotes && slide.footnotes.length > 0 && (
                             <div className="flex flex-col space-y-1 text-ink-soft/80 pr-8">
                                 {slide.footnotes.map((fn: string, i: number) => (
@@ -139,19 +193,21 @@ export function Layout({
                             </div>
                         )}
                         {slide?.source && (
-                            <div className="uppercase font-bold text-ink mb-1">
+                            <div className="uppercase font-bold text-ink mb-0.5">
                                 SOURCE: {slide.source}
                             </div>
                         )}
-                        <span className="uppercase flex items-center flex-wrap gap-x-1">
+                        <span className="uppercase flex items-center flex-wrap gap-x-1 text-ink-soft/60">
                             © 2026 Built with <a href="https://www.atlassian.com/software/rovo-dev" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:text-forest transition-colors border-b border-transparent hover:border-forest"><RovoDevIcon size="small" appearance="brand" /> RovoDev</a> &amp; <a href="https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design" target="_blank" rel="noreferrer" className="hover:text-forest transition-colors border-b border-transparent hover:border-forest">Claude Skills</a>
                         </span>
                     </div>
-                    <div className="flex items-center gap-4 ml-4 shrink-0">
+
+                    {/* Right side actions — higher visual weight for Comments and Export */}
+                    <div className="flex items-center gap-3 md:gap-5 ml-4 shrink-0">
                         {currentSlide === totalSlides - 1 && (
                             <button
                                 onClick={() => window.print()}
-                                className="flex items-center gap-2 uppercase whitespace-nowrap hover:text-forest transition-colors border-b border-ink-soft hover:border-forest py-1 cursor-pointer text-forest font-bold print:hidden"
+                                className="flex items-center gap-2 uppercase whitespace-nowrap text-forest font-bold hover:text-forest/70 transition-colors border-b-2 border-forest hover:border-forest/70 py-1 cursor-pointer print:hidden text-[11px] md:text-xs"
                                 aria-label="Export to PDF"
                             >
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -162,14 +218,22 @@ export function Layout({
                                 <span className="hidden sm:inline">Export PDF</span>
                             </button>
                         )}
+
+                        {/* Comments button with badge — #10 */}
                         <button
                             onClick={() => setCommentsPanelOpen(true)}
-                            className="flex items-center gap-2 uppercase whitespace-nowrap hover:text-vermillion transition-colors border-b border-ink-soft hover:border-vermillion py-1 cursor-pointer print:hidden"
+                            className="relative flex items-center gap-2 uppercase whitespace-nowrap font-bold hover:text-vermillion transition-colors border-b-2 border-ink-soft/50 hover:border-vermillion py-1 cursor-pointer print:hidden text-[11px] md:text-xs"
                             aria-label="Open comments"
                         >
                             <MessageSquare size={14} strokeWidth={2.5} />
                             <span className="hidden sm:inline">Comments</span>
+                            {commentCount > 0 && (
+                                <span className="absolute -top-2 -right-3 bg-vermillion text-white text-[9px] font-bold font-mono min-w-[16px] h-[16px] flex items-center justify-center px-0.5 leading-none">
+                                    {commentCount > 99 ? '99' : commentCount}
+                                </span>
+                            )}
                         </button>
+
                         <a href="https://sidc.ai" target="_blank" rel="noreferrer" className="uppercase whitespace-nowrap hover:text-forest transition-colors border-b border-ink-soft hover:border-forest print:hidden">
                             Siddhartha Chaturvedi
                         </a>
@@ -181,7 +245,45 @@ export function Layout({
                     slideIndex={currentSlide}
                     isOpen={commentsPanelOpen}
                     onClose={() => setCommentsPanelOpen(false)}
+                    onCountChange={(count) => setCommentCount(count)}
                 />
+
+                {/* Keyboard Shortcuts Modal — #3 */}
+                {shortcutsOpen && (
+                    <div
+                        className="fixed inset-0 z-[60] bg-black/30 flex items-center justify-center print:hidden"
+                        onClick={() => setShortcutsOpen(false)}
+                    >
+                        <div
+                            className="bg-white border-2 border-ink p-8 min-w-[320px] max-w-sm relative"
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="font-serif text-xl font-bold">Keyboard Shortcuts</h2>
+                                <button
+                                    onClick={() => setShortcutsOpen(false)}
+                                    className="p-1 hover:bg-ink hover:text-white transition-colors"
+                                    aria-label="Close shortcuts"
+                                >
+                                    <X size={18} strokeWidth={2} />
+                                </button>
+                            </div>
+                            <div className="space-y-3 font-mono text-sm">
+                                {[
+                                    ['→ / Space', 'Next slide'],
+                                    ['←', 'Previous slide'],
+                                    ['G', 'Open slide sorter'],
+                                    ['Esc', 'Close panel'],
+                                ].map(([key, desc]) => (
+                                    <div key={key} className="flex items-center justify-between gap-8">
+                                        <kbd className="bg-ink text-white text-xs px-2 py-1 font-mono tracking-wider shrink-0">{key}</kbd>
+                                        <span className="text-ink-soft text-xs tracking-widest uppercase text-right">{desc}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

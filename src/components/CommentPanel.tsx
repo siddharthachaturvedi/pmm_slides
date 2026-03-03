@@ -14,10 +14,12 @@ export function CommentPanel({
     slideIndex,
     isOpen,
     onClose,
+    onCountChange,
 }: {
     slideIndex: number;
     isOpen: boolean;
     onClose: () => void;
+    onCountChange?: (count: number) => void;
 }) {
     const [comments, setComments] = useState<Comment[]>([]);
     const [loading, setLoading] = useState(false);
@@ -26,7 +28,19 @@ export function CommentPanel({
     const [authorName, setAuthorName] = useState('');
     const [body, setBody] = useState('');
     const [error, setError] = useState<string | null>(null);
+    const [backdropVisible, setBackdropVisible] = useState(false);
     const listRef = useRef<HTMLDivElement>(null);
+
+    // Drive backdrop fade separately from isOpen so it eases-in
+    useEffect(() => {
+        if (isOpen) {
+            // tiny delay lets the DOM paint before opacity transition fires
+            const t = setTimeout(() => setBackdropVisible(true), 10);
+            return () => clearTimeout(t);
+        } else {
+            setBackdropVisible(false);
+        }
+    }, [isOpen]);
 
     // Load comments for the current slide
     useEffect(() => {
@@ -53,11 +67,12 @@ export function CommentPanel({
         fetchComments();
     }, [slideIndex, isOpen]);
 
-    // Scroll to bottom when new comments arrive
+    // Scroll to bottom when new comments arrive + notify parent of count
     useEffect(() => {
         if (listRef.current) {
             listRef.current.scrollTop = listRef.current.scrollHeight;
         }
+        onCountChange?.(comments.length);
     }, [comments]);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -140,7 +155,7 @@ export function CommentPanel({
             {/* Backdrop */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 bg-black/20 z-40 transition-opacity"
+                    className={`fixed inset-0 bg-black/20 z-40 transition-opacity duration-300 ${backdropVisible ? 'opacity-100' : 'opacity-0'}`}
                     onClick={onClose}
                 />
             )}
@@ -230,16 +245,8 @@ export function CommentPanel({
                     </div>
                 )}
 
-                {/* Submit form */}
+                {/* Submit form — textarea first, name below (#4) */}
                 <form onSubmit={handleSubmit} className="border-t-2 border-ink px-6 py-4 shrink-0 space-y-3 bg-white">
-                    <input
-                        type="text"
-                        placeholder="Your name (optional)"
-                        value={authorName}
-                        onChange={(e) => setAuthorName(e.target.value)}
-                        className="w-full bg-transparent border-b border-line py-2 font-sans text-sm placeholder:text-ink-soft/50 focus:outline-none focus:border-ink transition-colors"
-                        maxLength={50}
-                    />
                     <div className="flex items-end gap-2">
                         <textarea
                             placeholder="Leave a comment..."
@@ -268,6 +275,14 @@ export function CommentPanel({
                             )}
                         </button>
                     </div>
+                    <input
+                        type="text"
+                        placeholder="Your name (optional)"
+                        value={authorName}
+                        onChange={(e) => setAuthorName(e.target.value)}
+                        className="w-full bg-transparent border-b border-line py-1.5 font-sans text-xs text-ink-soft placeholder:text-ink-soft/40 focus:outline-none focus:border-ink transition-colors"
+                        maxLength={50}
+                    />
                 </form>
             </div>
         </>

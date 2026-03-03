@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 
-export function StarkDataSlide({ slide }: { slide: any }) {
+export function StarkDataSlide({ slide, isBackward }: { slide: any; isBackward?: boolean }) {
     // Expects `chartData` to be an array: [{ label: 'Q1', value: 45, suffix: '%' }, { label: 'Q2', value: 75, suffix: '%' }]
     const data = slide.chartData || [];
+    const skip = isBackward;
 
     // Find max value to determine relative heights of the bars
     const maxValue = Math.max(...data.map((d: any) => d.value), 1); // Avoid division by zero
@@ -20,9 +21,9 @@ export function StarkDataSlide({ slide }: { slide: any }) {
 
                             {/* Data Value Label (Top of Bar) */}
                             <motion.div
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={skip ? false : { opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.4 + (i * 0.1) }}
+                                transition={{ duration: 0.3, delay: 0.3 + (i * 0.07), ease: "easeOut" }}
                                 className="mb-3 text-lg sm:text-2xl md:text-4xl lg:text-5xl font-serif font-black text-ink whitespace-nowrap"
                             >
                                 {item.prefix || ''}{item.value}{item.suffix || ''}
@@ -30,9 +31,9 @@ export function StarkDataSlide({ slide }: { slide: any }) {
 
                             {/* The Bar */}
                             <motion.div
-                                initial={{ height: 0 }}
+                                initial={skip ? false : { height: 0 }}
                                 animate={{ height: `${heightPercent}%` }}
-                                transition={{ duration: 0.8, ease: "circOut", delay: i * 0.1 }}
+                                transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.07 }}
                                 className="w-full bg-ink relative"
                             >
                                 {/* Micro-interaction overlay just to make it barely reactive */}
