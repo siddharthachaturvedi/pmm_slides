@@ -11,6 +11,7 @@ import { StarkCardSlide } from './components/StarkCardSlide';
 import { StarkSplitSlide } from './components/StarkSplitSlide';
 import { SlideSorter } from './components/SlideSorter';
 import { MobileOverlay } from './components/MobileOverlay';
+import type { Comment } from './components/CommentPanel';
 
 // @ts-ignore
 import rawSlidesData from '../pipelines/common/slides.json';
@@ -19,12 +20,48 @@ const slidesData = rawSlidesData.slides;
 function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [sorterOpen, setSorterOpen] = useState(false);
-  const directionRef = useRef<1 | -1>(1); // 1 = forward, -1 = backward
+  // Trello comment preload — fetched once on mount, grouped by slide index
+  const [commentsBySlide, setCommentsBySlide] = useState<Record<number, Comment[]>>({});
+  const directionRef = useRef<1 | -1>(1);
 
   const goTo = (idx: number) => {
     directionRef.current = idx >= currentSlideIndex ? 1 : -1;
     setCurrentSlideIndex(idx);
   };
+
+  // On mount: fetch ALL Trello cards and group by slide index
+  useEffect(() => {
+    const key = import.meta.env.VITE_TRELLO_KEY;
+    const token = import.meta.env.VITE_TRELLO_TOKEN;
+    const listId = import.meta.env.VITE_TRELLO_LIST_ID;
+    if (!key || !token || !listId) return;
+
+    fetch(`https://api.trello.com/1/lists/${listId}/cards?key=${key}&token=${token}&fields=id,name,desc`)
+      .then(r => r.json())
+      .then((cards: { id: string; name: string; desc: string }[]) => {
+        const grouped: Record<number, Comment[]> = {};
+        for (const card of cards) {
+          const lines = card.desc?.split('\n') ?? [];
+          const slideRaw = lines.find(l => l.startsWith('SLIDE:'))?.slice(6);
+          const author = lines.find(l => l.startsWith('AUTHOR:'))?.slice(7) ?? 'Anonymous';
+          const at = lines.find(l => l.startsWith('AT:'))?.slice(3) ?? new Date().toISOString();
+          const bodyStart = lines.findIndex(l => l === '---');
+          // Strict format check — ignore cards that don't match exactly
+          if (slideRaw === undefined || isNaN(parseInt(slideRaw, 10)) || bodyStart === -1) continue;
+          const idx = parseInt(slideRaw, 10);
+          const body = lines.slice(bodyStart + 1).join('\n');
+          if (!body.trim()) continue;
+          const comment: Comment = { id: card.id, slide_index: idx, author_name: author, body, created_at: at };
+          grouped[idx] = [...(grouped[idx] ?? []), comment];
+        }
+        // Sort each slide's comments by created_at
+        for (const k of Object.keys(grouped)) {
+          grouped[+k].sort((a, b) => a.created_at.localeCompare(b.created_at));
+        }
+        setCommentsBySlide(grouped);
+      })
+      .catch(() => { }); // silently fail — panel will fetch on open as fallback
+  }, []);
 
   const goNext = () => {
     directionRef.current = 1;
@@ -105,6 +142,7 @@ function App() {
           onOpenSorter={() => setSorterOpen(true)}
           onNext={goNext}
           onPrev={goPrev}
+          preloadedComments={commentsBySlide[currentSlideIndex] ?? []}
         >
           <AnimatePresence custom={directionRef.current} mode="wait" initial={false}>
             <motion.div

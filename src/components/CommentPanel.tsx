@@ -41,7 +41,7 @@ function parseCard(card: { id: string; name: string; desc: string }): Comment | 
 
 // ─── Types ───────────────────────────────────────────────────────────────────────
 
-interface Comment {
+export interface Comment {
     id: string;          // Trello card ID
     slide_index: number;
     author_name: string;
@@ -56,11 +56,13 @@ export function CommentPanel({
     isOpen,
     onClose,
     onCountChange,
+    preloadedComments = [],
 }: {
     slideIndex: number;
     isOpen: boolean;
     onClose: () => void;
     onCountChange?: (count: number) => void;
+    preloadedComments?: Comment[];
 }) {
     const [comments, setComments] = useState<Comment[]>([]);
     const [loading, setLoading] = useState(false);
@@ -82,10 +84,17 @@ export function CommentPanel({
         }
     }, [isOpen]);
 
-    // Fetch comments for current slide from Trello
+    // Fetch comments for current slide from Trello.
+    // If preloadedComments are available (from App-level on-mount fetch), use them
+    // and skip the network call. Fall back to fetching if panel is opened cold.
     useEffect(() => {
         if (!isOpen) return;
-
+        // Use preloaded data immediately if available
+        if (preloadedComments.length > 0) {
+            setComments(preloadedComments);
+            setLoading(false);
+            return;
+        }
         const fetchComments = async () => {
             setLoading(true);
             setError(null);
@@ -104,9 +113,8 @@ export function CommentPanel({
             }
             setLoading(false);
         };
-
         fetchComments();
-    }, [slideIndex, isOpen]);
+    }, [slideIndex, isOpen, preloadedComments]);
 
     // Scroll to bottom + notify parent of count
     useEffect(() => {

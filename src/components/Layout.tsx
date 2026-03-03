@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { MessageSquare, ChevronLeft, ChevronRight, HelpCircle, X } from 'lucide-react';
 import { RovoDevIcon } from '@atlaskit/logo';
 import { CommentPanel } from './CommentPanel';
+import type { Comment } from './CommentPanel';
 
 export function Layout({
     children,
@@ -13,6 +14,7 @@ export function Layout({
     onOpenSorter,
     onNext,
     onPrev,
+    preloadedComments = [],
 }: {
     children: ReactNode,
     currentSlide: number,
@@ -22,9 +24,12 @@ export function Layout({
     onOpenSorter?: () => void,
     onNext?: () => void,
     onPrev?: () => void,
+    preloadedComments?: Comment[],
 }) {
     const [commentsPanelOpen, setCommentsPanelOpen] = useState(false);
+    // Seed badge count from preloaded data; onCountChange overrides when panel opens
     const [commentCount, setCommentCount] = useState(0);
+    useEffect(() => { setCommentCount(preloadedComments.length); }, [preloadedComments]);
     const [shortcutsOpen, setShortcutsOpen] = useState(false);
 
     // Phase tracking for pulse animation
@@ -246,6 +251,7 @@ export function Layout({
                     isOpen={commentsPanelOpen}
                     onClose={() => setCommentsPanelOpen(false)}
                     onCountChange={(count) => setCommentCount(count)}
+                    preloadedComments={preloadedComments}
                 />
 
                 {/* Keyboard Shortcuts Modal — #3 */}
