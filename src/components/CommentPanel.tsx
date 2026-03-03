@@ -75,6 +75,21 @@ export function CommentPanel({
         onCountChange?.(comments.length);
     }, [comments]);
 
+    const TRELLO_KEY = import.meta.env.VITE_TRELLO_KEY as string;
+    const TRELLO_TOKEN = import.meta.env.VITE_TRELLO_TOKEN as string;
+    const TRELLO_LIST_ID = import.meta.env.VITE_TRELLO_LIST_ID as string;
+
+    const postToTrello = async (slideIdx: number, author: string, commentBody: string) => {
+        const cardName = `💬 Slide ${slideIdx + 1} — ${author}: ${commentBody.slice(0, 60)}${commentBody.length > 60 ? '…' : ''}`;
+        const cardDesc = `**Slide:** ${slideIdx + 1}\n**Author:** ${author}\n**Time:** ${new Date().toLocaleString()}\n\n---\n\n${commentBody}`;
+        const url = `https://api.trello.com/1/cards?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}` +
+            `&idList=${TRELLO_LIST_ID}` +
+            `&name=${encodeURIComponent(cardName)}` +
+            `&desc=${encodeURIComponent(cardDesc)}`;
+        const res = await fetch(url, { method: 'POST' });
+        if (!res.ok) console.error('Trello card creation failed', await res.text());
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!body.trim()) return;
@@ -82,11 +97,13 @@ export function CommentPanel({
         setSubmitting(true);
         setError(null);
 
+        const authorDisplay = authorName.trim() || 'Anonymous';
+
         const { data, error: insertError } = await supabase
             .from('comments')
             .insert({
                 slide_index: slideIndex,
-                author_name: authorName.trim() || 'Anonymous',
+                author_name: authorDisplay,
                 body: body.trim(),
             })
             .select()
@@ -98,9 +115,12 @@ export function CommentPanel({
         } else if (data) {
             setComments((prev) => [...prev, data]);
             setBody('');
+            // Fire-and-forget to Trello — non-blocking
+            postToTrello(slideIndex, authorDisplay, body.trim()).catch(console.error);
         }
         setSubmitting(false);
     };
+
 
     const handleDelete = async (commentId: number) => {
         const funPrompts = [
