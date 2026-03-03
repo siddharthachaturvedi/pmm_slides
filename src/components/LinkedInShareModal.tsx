@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { X, Linkedin, Copy, Check } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
+import CrossIcon from '@atlaskit/icon/core/cross';
+import CopyIcon from '@atlaskit/icon/core/copy';
+import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 
 // ─── Deep handcrafted insights for each slide ────────────────────────────────────
 const SLIDE_INSIGHTS = [
@@ -158,7 +161,7 @@ export function LinkedInShareModal({
                         className="p-1.5 hover:bg-ink hover:text-white transition-colors"
                         aria-label="Close"
                     >
-                        <X size={18} strokeWidth={2} />
+                        <CrossIcon label="Close" size="small" />
                     </button>
                 </div>
 
@@ -192,8 +195,8 @@ export function LinkedInShareModal({
                             `}
                         >
                             {copyState === 'copied'
-                                ? <Check size={14} strokeWidth={2.5} />
-                                : <Copy size={14} strokeWidth={2.5} />
+                                ? <CheckMarkIcon label="Copied" size="small" />
+                                : <CopyIcon label="Copy" size="small" />
                             }
                             {imageLabel}
                         </button>
@@ -222,7 +225,7 @@ export function LinkedInShareModal({
                                 onClick={handleCopyText}
                                 className="flex items-center gap-1.5 px-3 py-2 font-mono text-[10px] uppercase tracking-widest border border-line hover:border-ink text-ink-soft hover:text-ink transition-colors"
                             >
-                                {textCopied ? <Check size={12} strokeWidth={2.5} /> : <Copy size={12} strokeWidth={2} />}
+                                {textCopied ? <CheckMarkIcon label="Copied" size="small" /> : <CopyIcon label="Copy" size="small" />}
                                 {textCopied ? 'Copied' : 'Copy text'}
                             </button>
 

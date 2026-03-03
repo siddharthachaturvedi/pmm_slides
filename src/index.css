@@ -1,19 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #ffffff;
-  --color-ink: #000000;
-  --color-ink-soft: #333333;
-  --color-line: rgba(0, 0, 0, 0.15);
-  --color-line-strong: #000000;
+  /* Mapped to Atlassian Light tokens */
+  --color-bg: var(--ds-background-neutral, #ffffff);
+  --color-ink: var(--ds-text, #172B4D);
+  --color-ink-soft: var(--ds-text-subtle, #6B778C);
+  --color-line: var(--ds-border, #DFE1E6);
+  --color-line-strong: var(--ds-border-bold, #7A869A);
   
-  /* Brand Accents */
-  --color-vermillion: #e64a19;
-  --color-forest: #2e7d32;
+  /* Brand Accents mapped to Atlassian brand colors */
+  --color-vermillion: var(--ds-icon-danger, #DE350B);
+  --color-forest: var(--ds-icon-success, #00875A);
 
-  --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-serif: "Georgia", "Merriweather", "Playfair Display", serif;
-  --font-mono: "JetBrains Mono", "Courier New", monospace;
+  /* Atlassian Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-mono: "Charlie Sans", "SF Mono", "Segoe UI Mono", "Roboto Mono", "Ubuntu Mono", menlo, consolas, monospace;
 }
 
 @layer base {

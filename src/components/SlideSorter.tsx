@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import CrossIcon from '@atlaskit/icon/core/cross';
 
 // Define the slide content structure properly
 interface SlideContent {
@@ -166,7 +166,7 @@ export function SlideSorter({ slides, isOpen, onClose, onSelectSlide, currentSli
                             className="p-2 hover:bg-ink hover:text-white transition-colors opacity-70 hover:opacity-100"
                             aria-label="Close Slide Sorter"
                         >
-                            <X size={20} />
+                            <CrossIcon label="Close" size="medium" />
                         </button>
                     </div>
 

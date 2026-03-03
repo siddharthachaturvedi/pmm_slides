@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
-import { MessageSquare, ChevronLeft, ChevronRight, HelpCircle, X, Linkedin } from 'lucide-react';
+import CommentIcon from '@atlaskit/icon/core/comment';
+import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import { RovoDevIcon, TrelloIcon } from '@atlaskit/logo';
+import { Linkedin } from 'lucide-react'; // Atlassian doesn't have a specific LinkedIn icon in core, keeping this one for now unless a brand icon is better
 import { CommentPanel } from './CommentPanel';
 import type { Comment } from './CommentPanel';
 import { LinkedInShareModal } from './LinkedInShareModal';
@@ -160,11 +165,11 @@ export function Layout({
                         {/* Keyboard shortcuts help — #3 */}
                         <button
                             onClick={() => setShortcutsOpen(true)}
-                            className="text-ink-soft/40 hover:text-ink-soft transition-colors print:hidden"
+                            className="text-ink-soft/40 hover:text-ink-soft transition-colors print:hidden flex items-center justify-center w-6 h-6"
                             aria-label="Keyboard shortcuts"
                             title="Keyboard shortcuts"
                         >
-                            <HelpCircle size={16} strokeWidth={1.5} />
+                            <QuestionCircleIcon label="Help" size="small" />
                         </button>
                         <button
                             onClick={onOpenSorter}
@@ -218,7 +223,7 @@ export function Layout({
                             className="w-full h-full flex items-center justify-start pl-4 group bg-transparent hover:bg-zinc-900/5 active:bg-zinc-900/10 transition-all disabled:opacity-0"
                             aria-label="Previous slide"
                         >
-                            <ChevronLeft size={36} strokeWidth={1} className="text-ink/10 group-hover:text-ink/60 transition-colors group-active:scale-90" />
+                            <ChevronLeftIcon label="Previous" size="medium" />
                         </button>
                     </div>
                     <div className="absolute inset-y-0 right-0 w-24 lg:hidden flex items-stretch justify-end z-20 pointer-events-auto">
@@ -228,7 +233,7 @@ export function Layout({
                             className="w-full h-full flex items-center justify-end pr-4 group bg-transparent hover:bg-zinc-900/5 active:bg-zinc-900/10 transition-all disabled:opacity-0"
                             aria-label="Next slide"
                         >
-                            <ChevronRight size={36} strokeWidth={1} className="text-ink/10 group-hover:text-ink/60 transition-colors group-active:scale-90" />
+                            <ChevronRightIcon label="Next" size="medium" />
                         </button>
                     </div>
                 </main>
@@ -295,7 +300,7 @@ export function Layout({
                             className="relative flex items-center gap-2 uppercase whitespace-nowrap font-bold hover:text-vermillion transition-colors border-b-2 border-ink-soft/50 hover:border-vermillion py-1 cursor-pointer print:hidden text-[11px] md:text-xs"
                             aria-label="Open comments"
                         >
-                            <MessageSquare size={14} strokeWidth={2.5} />
+                            <CommentIcon label="Comments" size="small" />
                             <span className="hidden sm:inline">Comments</span>
                             {commentCount > 0 && (
                                 <span className="absolute -top-2 -right-3 bg-vermillion text-white text-[9px] font-bold font-mono min-w-[16px] h-[16px] flex items-center justify-center px-0.5 leading-none">
@@ -346,7 +351,7 @@ export function Layout({
                                 className="p-1 hover:bg-ink hover:text-white transition-colors"
                                 aria-label="Close shortcuts"
                             >
-                                <X size={18} strokeWidth={2} />
+                                <CrossIcon label="Close" size="small" />
                             </button>
                         </div>
                         <div className="space-y-3 font-mono text-sm">

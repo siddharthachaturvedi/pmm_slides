@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@atlaskit/icon": "^32.0.0",
     "@atlaskit/logo": "^19.10.2",
+    "@atlaskit/theme": "^21.0.5",
+    "@atlaskit/tokens": "^11.0.1",
     "@tailwindcss/vite": "^4.2.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.3",

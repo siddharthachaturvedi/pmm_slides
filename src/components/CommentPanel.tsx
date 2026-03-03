@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { MessageSquare, X, Send, Loader2, Trash2 } from 'lucide-react';
+import CommentIcon from '@atlaskit/icon/core/comment';
+import CrossIcon from '@atlaskit/icon/core/cross';
+import SendIcon from '@atlaskit/icon/core/send';
+import RetryIcon from '@atlaskit/icon/core/retry';
+import DeleteIcon from '@atlaskit/icon/core/delete';
 
 // ─── Trello config (injected at build time via .env.local / Netlify env vars) ───
 const TRELLO_KEY = import.meta.env.VITE_TRELLO_KEY as string;
@@ -223,7 +227,7 @@ export function CommentPanel({
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-5 border-b-2 border-ink shrink-0">
                     <div className="flex items-center gap-3">
-                        <MessageSquare size={18} strokeWidth={2.5} />
+                        <CommentIcon label="Comments" size="small" />
                         <span className="font-serif text-lg font-bold tracking-tight">
                             Comments
                         </span>
@@ -236,7 +240,7 @@ export function CommentPanel({
                         className="p-1 hover:bg-ink hover:text-white transition-colors"
                         aria-label="Close comments"
                     >
-                        <X size={18} strokeWidth={2.5} />
+                        <CrossIcon label="Close" size="small" />
                     </button>
                 </div>
 
@@ -244,14 +248,16 @@ export function CommentPanel({
                 <div ref={listRef} className="flex-1 overflow-y-auto px-6 py-4 space-y-4 min-h-0">
                     {loading && (
                         <div className="flex items-center justify-center py-12 text-ink-soft">
-                            <Loader2 size={20} className="animate-spin mr-2" />
+                            <span className="animate-spin mr-2 flex items-center justify-center">
+                                <RetryIcon label="Loading" size="small" />
+                            </span>
                             <span className="font-mono text-xs tracking-widest uppercase">Loading</span>
                         </div>
                     )}
 
                     {!loading && comments.length === 0 && (
                         <div className="flex flex-col items-center justify-center py-12 text-ink-soft">
-                            <MessageSquare size={32} strokeWidth={1.5} className="mb-3 opacity-30" />
+                            <CommentIcon label="No comments" size="medium" />
                             <p className="font-mono text-xs tracking-widest uppercase">No comments yet</p>
                             <p className="font-sans text-sm mt-2 text-ink-soft/70">Be the first to share your thoughts.</p>
                         </div>
@@ -275,9 +281,11 @@ export function CommentPanel({
                                         title="Delete comment (Admin only)"
                                     >
                                         {deletingId === c.id ? (
-                                            <Loader2 size={12} className="animate-spin" />
+                                            <span className="animate-spin flex items-center justify-center">
+                                                <RetryIcon label="Deleting" size="small" />
+                                            </span>
                                         ) : (
-                                            <Trash2 size={12} strokeWidth={2.5} />
+                                            <DeleteIcon label="Delete" size="small" />
                                         )}
                                     </button>
                                 </div>
@@ -320,9 +328,11 @@ export function CommentPanel({
                             aria-label="Submit comment"
                         >
                             {submitting ? (
-                                <Loader2 size={16} className="animate-spin" />
+                                <span className="animate-spin flex items-center justify-center">
+                                    <RetryIcon label="Submitting" size="small" />
+                                </span>
                             ) : (
-                                <Send size={16} strokeWidth={2.5} />
+                                <SendIcon label="Send" size="small" />
                             )}
                         </button>
                     </div>
