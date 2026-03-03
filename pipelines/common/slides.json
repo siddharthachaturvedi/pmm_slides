@@ -11,9 +11,9 @@
       ]
     },
     {
-      "title": "Persuasion scaled. Verification didn't.",
+      "title": "We built a Ferrari with the brakes of a bicycle",
       "phase": "intro",
-      "lead": "We built a Ferrari with the brakes of a bicycle",
+      "lead": "Persuasion scaled. Verification didn't.",
       "bullets": [
         "GenAI turns messaging into an always-on persuasion machine — volume, personalization, experimentation, all at once.",
         "The question isn't whether we use it. The question is whether we've built the check engine light.",
@@ -21,9 +21,9 @@
       ]
     },
     {
-      "title": "The leverage is real",
+      "title": "We went from 'launch in a quarter' to 'launch in a browser tab.' That's genuine leverage.",
       "phase": "promise",
-      "lead": "We went from 'launch in a quarter' to 'launch in a browser tab.' That's genuine leverage.",
+      "lead": "The leverage is real",
       "bullets": [
         "Battlecards: 12 variants in 2 hours, not 2 weeks",
         "Positioning: 8 angles tested in one sprint, not 2",
@@ -456,9 +456,9 @@
       }
     },
     {
-      "title": "Close + Q&A",
+      "title": "Your team does not need an AI policy first. It needs a pre-publish discipline.",
       "phase": "close",
-      "lead": "Your team does not need an AI policy first. It needs a pre-publish discipline.",
+      "lead": "Close + Q&A",
       "bullets": [
         "What is the riskiest claim in market right now?",
         "Where can AI publish faster than you can verify?",
@@ -571,9 +571,9 @@
       }
     },
     {
-      "title": "Starter prompts — use GenAI for all of this",
+      "title": "The whole point is that these tools are promptable. Copy, paste, adapt.",
       "phase": "appendix",
-      "lead": "The whole point is that these tools are promptable. Copy, paste, adapt.",
+      "lead": "Starter prompts — use GenAI for all of this",
       "bullets": [
         {
           "title": "Claim Extraction",
