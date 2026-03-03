@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { MessageSquare, ChevronLeft, ChevronRight, HelpCircle, X } from 'lucide-react';
-import { RovoDevIcon } from '@atlaskit/logo';
+import { RovoDevIcon, TrelloIcon } from '@atlaskit/logo';
 import { CommentPanel } from './CommentPanel';
 import type { Comment } from './CommentPanel';
 
@@ -203,7 +203,7 @@ export function Layout({
                             </div>
                         )}
                         <span className="uppercase flex items-center flex-wrap gap-x-1 text-ink-soft/60">
-                            © 2026 Built with <a href="https://www.atlassian.com/software/rovo-dev" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:text-forest transition-colors border-b border-transparent hover:border-forest"><RovoDevIcon size="small" appearance="brand" /> RovoDev</a> &amp; <a href="https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design" target="_blank" rel="noreferrer" className="hover:text-forest transition-colors border-b border-transparent hover:border-forest">Claude Skills</a>
+                            © 2026 Built with <a href="https://trello.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:text-forest transition-colors border-b border-transparent hover:border-forest"><TrelloIcon size="small" appearance="brand" /> Trello</a>, <a href="https://www.atlassian.com/software/rovo-dev" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:text-forest transition-colors border-b border-transparent hover:border-forest"><RovoDevIcon size="small" appearance="brand" /> RovoDev</a> &amp; <a href="https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design" target="_blank" rel="noreferrer" className="hover:text-forest transition-colors border-b border-transparent hover:border-forest">Claude Skills</a>
                         </span>
                     </div>
 
