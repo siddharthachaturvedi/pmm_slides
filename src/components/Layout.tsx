@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
-import { MessageSquare, ChevronLeft, ChevronRight, HelpCircle, X } from 'lucide-react';
+import { MessageSquare, ChevronLeft, ChevronRight, HelpCircle, X, Linkedin } from 'lucide-react';
 import { RovoDevIcon, TrelloIcon } from '@atlaskit/logo';
 import { CommentPanel } from './CommentPanel';
 import type { Comment } from './CommentPanel';
+import { LinkedInShareModal } from './LinkedInShareModal';
+import { toPng } from 'html-to-image';
 
 export function Layout({
     children,
@@ -27,6 +29,11 @@ export function Layout({
     preloadedComments?: Comment[],
 }) {
     const [commentsPanelOpen, setCommentsPanelOpen] = useState(false);
+    const [shareModalOpen, setShareModalOpen] = useState(false);
+    const [capturedSlideUrl, setCapturedSlideUrl] = useState<string | null>(null);
+    const [isPreparingShare, setIsPreparingShare] = useState(false);
+
+    const slideRef = useRef<HTMLDivElement>(null);
     // Seed badge count from preloaded data; onCountChange overrides when panel opens
     const [commentCount, setCommentCount] = useState(0);
     useEffect(() => { setCommentCount(preloadedComments.length); }, [preloadedComments]);
@@ -76,6 +83,44 @@ export function Layout({
         };
     }, []);
 
+    // Capture the slide visually BEFORE opening the modal so the modal doesn't exist in DOM
+    const handleShareClick = async () => {
+        if (!slideRef.current || isPreparingShare) return;
+        setIsPreparingShare(true);
+        // Ensure scale is factored in by taking the raw unscaled bounds
+        const target = slideRef.current;
+        const unscaledWidth = target.offsetWidth;
+        const unscaledHeight = target.offsetHeight;
+
+        try {
+            const url = await toPng(target, {
+                cacheBust: true,
+                pixelRatio: 2, // retina quality
+                backgroundColor: '#ffffff',
+                style: {
+                    transform: 'scale(1)',
+                    transformOrigin: 'top left',
+                    width: `${unscaledWidth}px`,
+                    height: `${unscaledHeight}px`
+                },
+                filter: (node: HTMLElement) => {
+                    const exclusionClasses = ['print:hidden', 'print-hidden'];
+                    if (node.classList && typeof node.classList.contains === 'function') {
+                        return !exclusionClasses.some(c => node.classList.contains(c));
+                    }
+                    return true;
+                }
+            });
+
+            setCapturedSlideUrl(url);
+            setShareModalOpen(true);
+        } catch (error) {
+            console.error("Failed to capture slide for sharing", error);
+        } finally {
+            setIsPreparingShare(false);
+        }
+    };
+
     const progressPct = totalSlides > 1 ? (currentSlide / (totalSlides - 1)) * 100 : 100;
 
     const phaseColorClass = phase?.toLowerCase() === 'peril'
@@ -87,6 +132,7 @@ export function Layout({
     return (
         <div className="w-screen h-[100dvh] overflow-hidden bg-white">
             <div
+                ref={slideRef}
                 className="flex flex-col bg-white overflow-hidden origin-top-left"
                 style={{
                     width: dimensions.width,
@@ -209,6 +255,25 @@ export function Layout({
 
                     {/* Right side actions — higher visual weight for Comments and Export */}
                     <div className="flex items-center gap-3 md:gap-5 ml-4 shrink-0">
+                        {/* LinkedIn Share */}
+                        <button
+                            onClick={handleShareClick}
+                            disabled={isPreparingShare}
+                            className={`flex items-center gap-1.5 uppercase whitespace-nowrap font-bold transition-colors border-b-2 border-transparent py-1 cursor-pointer print:hidden text-[11px] md:text-xs ${isPreparingShare ? 'text-ink-soft/30 cursor-wait' : 'hover:text-[#0A66C2] hover:border-[#0A66C2] text-ink-soft/60'}`}
+                            aria-label="Share to LinkedIn"
+                            title="Share this slide to LinkedIn"
+                        >
+                            {isPreparingShare ? (
+                                <svg className="animate-spin h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            ) : (
+                                <Linkedin size={13} strokeWidth={2.5} />
+                            )}
+                            <span className="hidden sm:inline">{isPreparingShare ? 'Capturing...' : 'Share'}</span>
+                        </button>
+
                         {currentSlide === totalSlides - 1 && (
                             <button
                                 onClick={() => window.print()}
@@ -244,53 +309,62 @@ export function Layout({
                         </a>
                     </div>
                 </footer>
+            </div>
 
-                {/* Comment Panel Overlay */}
-                <CommentPanel
-                    slideIndex={currentSlide}
-                    isOpen={commentsPanelOpen}
-                    onClose={() => setCommentsPanelOpen(false)}
-                    onCountChange={(count) => setCommentCount(count)}
-                    preloadedComments={preloadedComments}
-                />
+            {/* Modals & Overlays (Outside of the scaled slide presentation to prevent html2canvas recursive capture and scaling issues) */}
+            {/* Comment Panel Overlay */}
+            <CommentPanel
+                slideIndex={currentSlide}
+                isOpen={commentsPanelOpen}
+                onClose={() => setCommentsPanelOpen(false)}
+                onCountChange={(count) => setCommentCount(count)}
+                preloadedComments={preloadedComments}
+            />
 
-                {/* Keyboard Shortcuts Modal — #3 */}
-                {shortcutsOpen && (
+            {/* LinkedIn Share Modal */}
+            <LinkedInShareModal
+                isOpen={shareModalOpen}
+                onClose={() => setShareModalOpen(false)}
+                slideNumber={currentSlide + 1}
+                capturedUrl={capturedSlideUrl}
+            />
+
+            {/* Keyboard Shortcuts Modal — #3 */}
+            {shortcutsOpen && (
+                <div
+                    className="fixed inset-0 z-[60] bg-black/30 flex items-center justify-center print:hidden"
+                    onClick={() => setShortcutsOpen(false)}
+                >
                     <div
-                        className="fixed inset-0 z-[60] bg-black/30 flex items-center justify-center print:hidden"
-                        onClick={() => setShortcutsOpen(false)}
+                        className="bg-white border-2 border-ink p-8 min-w-[320px] max-w-sm relative"
+                        onClick={e => e.stopPropagation()}
                     >
-                        <div
-                            className="bg-white border-2 border-ink p-8 min-w-[320px] max-w-sm relative"
-                            onClick={e => e.stopPropagation()}
-                        >
-                            <div className="flex items-center justify-between mb-6">
-                                <h2 className="font-serif text-xl font-bold">Keyboard Shortcuts</h2>
-                                <button
-                                    onClick={() => setShortcutsOpen(false)}
-                                    className="p-1 hover:bg-ink hover:text-white transition-colors"
-                                    aria-label="Close shortcuts"
-                                >
-                                    <X size={18} strokeWidth={2} />
-                                </button>
-                            </div>
-                            <div className="space-y-3 font-mono text-sm">
-                                {[
-                                    ['→ / Space', 'Next slide'],
-                                    ['←', 'Previous slide'],
-                                    ['G', 'Open slide sorter'],
-                                    ['Esc', 'Close panel'],
-                                ].map(([key, desc]) => (
-                                    <div key={key} className="flex items-center justify-between gap-8">
-                                        <kbd className="bg-ink text-white text-xs px-2 py-1 font-mono tracking-wider shrink-0">{key}</kbd>
-                                        <span className="text-ink-soft text-xs tracking-widest uppercase text-right">{desc}</span>
-                                    </div>
-                                ))}
-                            </div>
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="font-serif text-xl font-bold">Keyboard Shortcuts</h2>
+                            <button
+                                onClick={() => setShortcutsOpen(false)}
+                                className="p-1 hover:bg-ink hover:text-white transition-colors"
+                                aria-label="Close shortcuts"
+                            >
+                                <X size={18} strokeWidth={2} />
+                            </button>
+                        </div>
+                        <div className="space-y-3 font-mono text-sm">
+                            {[
+                                ['→ / Space', 'Next slide'],
+                                ['←', 'Previous slide'],
+                                ['G', 'Open slide sorter'],
+                                ['Esc', 'Close panel'],
+                            ].map(([key, desc]) => (
+                                <div key={key} className="flex items-center justify-between gap-8">
+                                    <kbd className="bg-ink text-white text-xs px-2 py-1 font-mono tracking-wider shrink-0">{key}</kbd>
+                                    <span className="text-ink-soft text-xs tracking-widest uppercase text-right">{desc}</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 }
