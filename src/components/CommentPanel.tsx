@@ -1,14 +1,55 @@
 import { useState, useEffect, useRef } from 'react';
-import { supabase } from '../supabaseClient';
 import { MessageSquare, X, Send, Loader2, Trash2 } from 'lucide-react';
 
+// ─── Trello config (injected at build time via .env.local / Netlify env vars) ───
+const TRELLO_KEY = import.meta.env.VITE_TRELLO_KEY as string;
+const TRELLO_TOKEN = import.meta.env.VITE_TRELLO_TOKEN as string;
+const TRELLO_LIST_ID = import.meta.env.VITE_TRELLO_LIST_ID as string;
+const ADMIN_PASSWORD = 'rovo';
+
+// ─── Trello helpers ──────────────────────────────────────────────────────────────
+
+function trelloUrl(path: string, params: Record<string, string> = {}) {
+    const base = `https://api.trello.com/1${path}?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}`;
+    const extra = Object.entries(params).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&');
+    return extra ? `${base}&${extra}` : base;
+}
+
+/** Encode comment metadata into the Trello card description */
+function encodeDesc(slideIndex: number, author: string, body: string, createdAt: string) {
+    return `SLIDE:${slideIndex}\nAUTHOR:${author}\nAT:${createdAt}\n---\n${body}`;
+}
+
+/** Parse a Trello card back into a Comment */
+function parseCard(card: { id: string; name: string; desc: string }): Comment | null {
+    const lines = card.desc.split('\n');
+    const get = (prefix: string) => {
+        const line = lines.find(l => l.startsWith(prefix));
+        return line ? line.slice(prefix.length) : null;
+    };
+    const slideRaw = get('SLIDE:');
+    if (slideRaw === null) return null; // not our card
+    const bodyStart = lines.findIndex(l => l === '---');
+    return {
+        id: card.id,
+        slide_index: parseInt(slideRaw, 10),
+        author_name: get('AUTHOR:') || 'Anonymous',
+        body: bodyStart !== -1 ? lines.slice(bodyStart + 1).join('\n') : '',
+        created_at: get('AT:') || new Date().toISOString(),
+    };
+}
+
+// ─── Types ───────────────────────────────────────────────────────────────────────
+
 interface Comment {
-    id: number;
+    id: string;          // Trello card ID
     slide_index: number;
     author_name: string;
     body: string;
     created_at: string;
 }
+
+// ─── Component ───────────────────────────────────────────────────────────────────
 
 export function CommentPanel({
     slideIndex,
@@ -24,17 +65,16 @@ export function CommentPanel({
     const [comments, setComments] = useState<Comment[]>([]);
     const [loading, setLoading] = useState(false);
     const [submitting, setSubmitting] = useState(false);
-    const [deletingId, setDeletingId] = useState<number | null>(null);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
     const [authorName, setAuthorName] = useState('');
     const [body, setBody] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [backdropVisible, setBackdropVisible] = useState(false);
     const listRef = useRef<HTMLDivElement>(null);
 
-    // Drive backdrop fade separately from isOpen so it eases-in
+    // Backdrop fade
     useEffect(() => {
         if (isOpen) {
-            // tiny delay lets the DOM paint before opacity transition fires
             const t = setTimeout(() => setBackdropVisible(true), 10);
             return () => clearTimeout(t);
         } else {
@@ -42,24 +82,25 @@ export function CommentPanel({
         }
     }, [isOpen]);
 
-    // Load comments for the current slide
+    // Fetch comments for current slide from Trello
     useEffect(() => {
         if (!isOpen) return;
 
         const fetchComments = async () => {
             setLoading(true);
             setError(null);
-            const { data, error: fetchError } = await supabase
-                .from('comments')
-                .select('*')
-                .eq('slide_index', slideIndex)
-                .order('created_at', { ascending: true });
-
-            if (fetchError) {
+            try {
+                const res = await fetch(trelloUrl(`/lists/${TRELLO_LIST_ID}/cards`, { fields: 'id,name,desc' }));
+                if (!res.ok) throw new Error('Failed to fetch');
+                const cards: { id: string; name: string; desc: string }[] = await res.json();
+                const parsed = cards
+                    .map(parseCard)
+                    .filter((c): c is Comment => c !== null && c.slide_index === slideIndex)
+                    .sort((a, b) => a.created_at.localeCompare(b.created_at));
+                setComments(parsed);
+            } catch (err) {
                 setError('Could not load comments.');
-                console.error(fetchError);
-            } else {
-                setComments(data || []);
+                console.error(err);
             }
             setLoading(false);
         };
@@ -67,28 +108,13 @@ export function CommentPanel({
         fetchComments();
     }, [slideIndex, isOpen]);
 
-    // Scroll to bottom when new comments arrive + notify parent of count
+    // Scroll to bottom + notify parent of count
     useEffect(() => {
         if (listRef.current) {
             listRef.current.scrollTop = listRef.current.scrollHeight;
         }
         onCountChange?.(comments.length);
     }, [comments]);
-
-    const TRELLO_KEY = import.meta.env.VITE_TRELLO_KEY as string;
-    const TRELLO_TOKEN = import.meta.env.VITE_TRELLO_TOKEN as string;
-    const TRELLO_LIST_ID = import.meta.env.VITE_TRELLO_LIST_ID as string;
-
-    const postToTrello = async (slideIdx: number, author: string, commentBody: string) => {
-        const cardName = `💬 Slide ${slideIdx + 1} — ${author}: ${commentBody.slice(0, 60)}${commentBody.length > 60 ? '…' : ''}`;
-        const cardDesc = `**Slide:** ${slideIdx + 1}\n**Author:** ${author}\n**Time:** ${new Date().toLocaleString()}\n\n---\n\n${commentBody}`;
-        const url = `https://api.trello.com/1/cards?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}` +
-            `&idList=${TRELLO_LIST_ID}` +
-            `&name=${encodeURIComponent(cardName)}` +
-            `&desc=${encodeURIComponent(cardDesc)}`;
-        const res = await fetch(url, { method: 'POST' });
-        if (!res.ok) console.error('Trello card creation failed', await res.text());
-    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -98,31 +124,35 @@ export function CommentPanel({
         setError(null);
 
         const authorDisplay = authorName.trim() || 'Anonymous';
+        const now = new Date().toISOString();
+        const cardName = `💬 Slide ${slideIndex + 1} — ${authorDisplay}: ${body.trim().slice(0, 60)}${body.trim().length > 60 ? '…' : ''}`;
+        const cardDesc = encodeDesc(slideIndex, authorDisplay, body.trim(), now);
 
-        const { data, error: insertError } = await supabase
-            .from('comments')
-            .insert({
+        try {
+            const res = await fetch(trelloUrl('/cards'), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idList: TRELLO_LIST_ID, name: cardName, desc: cardDesc }),
+            });
+            if (!res.ok) throw new Error(await res.text());
+            const card = await res.json();
+            const newComment: Comment = {
+                id: card.id,
                 slide_index: slideIndex,
                 author_name: authorDisplay,
                 body: body.trim(),
-            })
-            .select()
-            .single();
-
-        if (insertError) {
-            setError('Could not post comment. Please try again.');
-            console.error(insertError);
-        } else if (data) {
-            setComments((prev) => [...prev, data]);
+                created_at: now,
+            };
+            setComments(prev => [...prev, newComment]);
             setBody('');
-            // Fire-and-forget to Trello — non-blocking
-            postToTrello(slideIndex, authorDisplay, body.trim()).catch(console.error);
+        } catch (err) {
+            setError('Could not post comment. Please try again.');
+            console.error(err);
         }
         setSubmitting(false);
     };
 
-
-    const handleDelete = async (commentId: number) => {
+    const handleDelete = async (commentId: string) => {
         const funPrompts = [
             "Oops, made a boo boo? We've all been there. Password please:",
             "Deploying the 'Undo' button. What's the secret code?",
@@ -130,30 +160,24 @@ export function CommentPanel({
             "Mistakes happen. That's why we have passwords. What's yours?",
             "Let's sweep this under the rug. Password needed:"
         ];
-        const randomPrompt = funPrompts[Math.floor(Math.random() * funPrompts.length)];
-
-        const pwd = window.prompt(randomPrompt);
+        const pwd = window.prompt(funPrompts[Math.floor(Math.random() * funPrompts.length)]);
         if (!pwd) return;
+        if (pwd !== ADMIN_PASSWORD) {
+            setError('Incorrect admin password.');
+            return;
+        }
 
         setDeletingId(commentId);
         setError(null);
 
-        // Call the secure RPC function
-        const { data, error: deleteError } = await supabase.rpc('delete_comment_secure', {
-            p_comment_id: commentId,
-            p_password: pwd
-        });
-
-        if (deleteError) {
-            setError('Error connecting to delete comment.');
-            console.error(deleteError);
-        } else if (data === false) {
-            setError('Incorrect admin password.');
-        } else if (data === true) {
-            // Delete successful, remove from local state
+        try {
+            const res = await fetch(trelloUrl(`/cards/${commentId}`), { method: 'DELETE' });
+            if (!res.ok) throw new Error(await res.text());
             setComments(comments.filter(c => c.id !== commentId));
+        } catch (err) {
+            setError('Could not delete comment.');
+            console.error(err);
         }
-
         setDeletingId(null);
     };
 
@@ -166,8 +190,7 @@ export function CommentPanel({
         if (diffMin < 60) return `${diffMin}m ago`;
         const diffHr = Math.floor(diffMin / 60);
         if (diffHr < 24) return `${diffHr}h ago`;
-        const diffDay = Math.floor(diffHr / 24);
-        return `${diffDay}d ago`;
+        return `${Math.floor(diffHr / 24)}d ago`;
     };
 
     return (
@@ -265,7 +288,7 @@ export function CommentPanel({
                     </div>
                 )}
 
-                {/* Submit form — textarea first, name below (#4) */}
+                {/* Submit form — textarea first, name below */}
                 <form onSubmit={handleSubmit} className="border-t-2 border-ink px-6 py-4 shrink-0 space-y-3 bg-white">
                     <div className="flex items-end gap-2">
                         <textarea
