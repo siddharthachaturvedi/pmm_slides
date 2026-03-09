@@ -48,7 +48,7 @@ interface SlideSorterProps {
 }
 
 /** Returns an abstract visual "silhouette" representing the slide type */
-function SlideThumbnail({ slide, index }: { slide: SlideContent; index: number }) {
+function SlideThumbnail({ slide }: { slide: SlideContent }) {
     const type = slide.type || 'text';
 
     if (type === 'image') {
@@ -212,7 +212,7 @@ export function SlideSorter({ slides, isOpen, onClose, onSelectSlide, currentSli
 
                                         {/* Type-aware visual thumbnail — #1 */}
                                         <div className={`mb-2 transition-opacity ${isCurrent ? 'opacity-80' : 'opacity-40 group-hover:opacity-70'}`}>
-                                            <SlideThumbnail slide={slide} index={index} />
+                                            <SlideThumbnail slide={slide} />
                                         </div>
 
                                         {/* Slide Title */}

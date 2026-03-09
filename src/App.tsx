@@ -114,7 +114,7 @@ function App() {
   const currentSlide = slidesData[currentSlideIndex];
 
   // Routing Logic based on Slide Content
-  const renderSlideContent = (index: number, slide: any, isBackward: boolean) => {
+  const renderSlideContent = (_index: number, slide: any, isBackward: boolean) => {
     const props = { slide, isBackward };
     const slideType = slide.type;
     if (slideType === 'image') return <StarkImageSlide {...props} />;
