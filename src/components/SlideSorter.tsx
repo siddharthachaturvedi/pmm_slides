@@ -8,6 +8,7 @@ interface SlideContent {
     phase?: string;
     subtitle?: string;
     type?: string;
+    imageSrc?: string;
     roof?: string;
     foundation?: string;
     preamble?: string;
@@ -48,8 +49,19 @@ interface SlideSorterProps {
 
 /** Returns an abstract visual "silhouette" representing the slide type */
 function SlideThumbnail({ slide, index }: { slide: SlideContent; index: number }) {
-    const type = index === 0 ? 'title' : (slide.type || 'text');
+    const type = slide.type || 'text';
 
+    if (type === 'image') {
+        return (
+            <div className="flex items-center justify-center h-10 w-14 border border-ink/30 shrink-0 overflow-hidden bg-ink/5">
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" className="text-ink/30">
+                    <rect x="0.5" y="0.5" width="15" height="11" rx="1" stroke="currentColor" />
+                    <circle cx="5" cy="4" r="1.5" fill="currentColor" />
+                    <path d="M2 10l3.5-4 2.5 3 2-2L14 10H2z" fill="currentColor" />
+                </svg>
+            </div>
+        );
+    }
     if (type === 'title') {
         return (
             <div className="flex flex-col items-center justify-center h-full gap-1 py-2">

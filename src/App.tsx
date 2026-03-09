@@ -9,6 +9,7 @@ import { StarkGridSlide } from './components/StarkGridSlide';
 import { StarkDataSlide } from './components/StarkDataSlide';
 import { StarkCardSlide } from './components/StarkCardSlide';
 import { StarkSplitSlide } from './components/StarkSplitSlide';
+import { StarkImageSlide } from './components/StarkImageSlide';
 import { SlideSorter } from './components/SlideSorter';
 import { MobileOverlay } from './components/MobileOverlay';
 import type { Comment } from './components/CommentPanel';
@@ -115,8 +116,9 @@ function App() {
   // Routing Logic based on Slide Content
   const renderSlideContent = (index: number, slide: any, isBackward: boolean) => {
     const props = { slide, isBackward };
-    if (index === 0) return <StarkTitleSlide {...props} />;
     const slideType = slide.type;
+    if (slideType === 'image') return <StarkImageSlide {...props} />;
+    if (slideType === 'title') return <StarkTitleSlide {...props} />;
     if (slideType === 'matrix') return <StarkMatrixSlide {...props} />;
     if (slideType === 'pillar') return <StarkPillarSlide {...props} />;
     if (slideType === 'grid') return <StarkGridSlide {...props} />;
@@ -138,16 +140,7 @@ function App() {
     <>
       <div className="print:hidden h-[100dvh]">
         <MobileOverlay />
-        <Layout
-          currentSlide={currentSlideIndex}
-          totalSlides={slidesData.length}
-          phase={currentSlide.phase?.toUpperCase() || "PRESENTATION"}
-          slide={currentSlide}
-          onOpenSorter={() => setSorterOpen(true)}
-          onNext={goNext}
-          onPrev={goPrev}
-          preloadedComments={commentsBySlide[currentSlideIndex] ?? []}
-        >
+        {currentSlide.type === 'image' ? (
           <AnimatePresence custom={directionRef.current} mode="wait" initial={false}>
             <motion.div
               key={currentSlideIndex}
@@ -162,7 +155,33 @@ function App() {
               {renderSlideContent(currentSlideIndex, currentSlide, directionRef.current < 0)}
             </motion.div>
           </AnimatePresence>
-        </Layout>
+        ) : (
+          <Layout
+            currentSlide={currentSlideIndex}
+            totalSlides={slidesData.length}
+            phase={currentSlide.phase?.toUpperCase() || "PRESENTATION"}
+            slide={currentSlide}
+            onOpenSorter={() => setSorterOpen(true)}
+            onNext={goNext}
+            onPrev={goPrev}
+            preloadedComments={commentsBySlide[currentSlideIndex] ?? []}
+          >
+            <AnimatePresence custom={directionRef.current} mode="wait" initial={false}>
+              <motion.div
+                key={currentSlideIndex}
+                custom={directionRef.current}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={slideTransition}
+                className="w-full h-full"
+              >
+                {renderSlideContent(currentSlideIndex, currentSlide, directionRef.current < 0)}
+              </motion.div>
+            </AnimatePresence>
+          </Layout>
+        )}
         <SlideSorter
           slides={slidesData}
           isOpen={sorterOpen}
@@ -176,14 +195,18 @@ function App() {
       <div className="hidden print:block">
         {slidesData.map((slide: any, idx: number) => (
           <div key={idx} style={{ pageBreakAfter: 'always', width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
-            <Layout
-              currentSlide={idx}
-              totalSlides={slidesData.length}
-              phase={slide.phase?.toUpperCase() || "PRESENTATION"}
-              slide={slide}
-            >
-              {renderSlideContent(idx, slide, false)}
-            </Layout>
+            {slide.type === 'image' ? (
+              renderSlideContent(idx, slide, false)
+            ) : (
+              <Layout
+                currentSlide={idx}
+                totalSlides={slidesData.length}
+                phase={slide.phase?.toUpperCase() || "PRESENTATION"}
+                slide={slide}
+              >
+                {renderSlideContent(idx, slide, false)}
+              </Layout>
+            )}
           </div>
         ))}
       </div>

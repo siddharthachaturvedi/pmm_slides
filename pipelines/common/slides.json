@@ -3,7 +3,26 @@
   "subtitle": "Responsible GenAI in an era of infinite persuasion",
   "slides": [
     {
+      "title": "PMM AI School",
+      "type": "image",
+      "phase": "event",
+      "imageSrc": "/slides/pdf-slide-1.png"
+    },
+    {
+      "title": "Welcome — PMM AI Success",
+      "type": "image",
+      "phase": "event",
+      "imageSrc": "/slides/pdf-slide-2.png"
+    },
+    {
+      "title": "PMM AI School Workshop Series",
+      "type": "image",
+      "phase": "event",
+      "imageSrc": "/slides/pdf-slide-3.png"
+    },
+    {
       "title": "The PMM's Hippocratic Oath",
+      "type": "title",
       "phase": "intro",
       "subtitle": "Responsible GenAI in an era of infinite persuasion.",
       "bullets": [
