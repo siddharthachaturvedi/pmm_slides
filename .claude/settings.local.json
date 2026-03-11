@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mdls \"/Users/sidc/Downloads/04_Projects/PMM_Presentation/files/PMM AI School 2026.pdf\")",
+      "Bash(python3 -c \"import sys; print\\(sys.version\\)\")",
+      "Bash(python3 -c \":*)",
+      "Bash(pdftoppm -png -r 300 \"PMM AI School 2026.pdf\" public/slides/pdf-slide)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/slides/pdf-slide-1.png)",
+      "Bash(for f in public/slides/pdf-slide-*.png)",
+      "Bash(do)",
+      "Bash(sips --resampleWidth 2880 \"$f\" --out \"$f\")",
+      "Bash(done)",
+      "Bash(npx tsc --noEmit)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git add src/components/StarkImageSlide.tsx src/App.tsx src/components/SlideSorter.tsx pipelines/common/slides.json public/slides/pdf-slide-1.png public/slides/pdf-slide-2.png public/slides/pdf-slide-3.png \"PMM AI School 2026.pdf\" .claude/launch.json)",
+      "Bash(git commit:*)",
+      "Bash(git push origin main)"
+    ]
+  }
+}
