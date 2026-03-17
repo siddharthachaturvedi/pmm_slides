@@ -21,6 +21,7 @@ export function Layout({
     onOpenSorter,
     onNext,
     onPrev,
+    onOverlayStateChange,
     preloadedComments = [],
     printMode = false,
 }: {
@@ -32,6 +33,7 @@ export function Layout({
     onOpenSorter?: () => void,
     onNext?: () => void,
     onPrev?: () => void,
+    onOverlayStateChange?: (isOpen: boolean) => void,
     preloadedComments?: Comment[],
     printMode?: boolean,
 }) {
@@ -45,6 +47,16 @@ export function Layout({
     const [commentCount, setCommentCount] = useState(0);
     useEffect(() => { setCommentCount(preloadedComments.length); }, [preloadedComments]);
     const [shortcutsOpen, setShortcutsOpen] = useState(false);
+
+    useEffect(() => {
+        onOverlayStateChange?.(commentsPanelOpen || shortcutsOpen || shareModalOpen);
+    }, [commentsPanelOpen, shortcutsOpen, shareModalOpen, onOverlayStateChange]);
+
+    useEffect(() => {
+        const handleCloseComments = () => setCommentsPanelOpen(false);
+        window.addEventListener('requestCloseCommentsPanel', handleCloseComments);
+        return () => window.removeEventListener('requestCloseCommentsPanel', handleCloseComments);
+    }, []);
 
     // Phase tracking for pulse animation
     const prevPhaseRef = useRef(phase);

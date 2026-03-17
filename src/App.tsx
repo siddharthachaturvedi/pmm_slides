@@ -18,9 +18,19 @@ import type { Comment } from './components/CommentPanel';
 import rawSlidesData from '../pipelines/common/slides.json';
 const slidesData = rawSlidesData.slides;
 
+function isTypingTarget(target: EventTarget | null): boolean {
+  const el = target as HTMLElement | null;
+  if (!el) return false;
+  const tag = el.tagName?.toLowerCase();
+  if (tag === 'input' || tag === 'textarea' || tag === 'select') return true;
+  if (el.isContentEditable) return true;
+  return el.closest('[contenteditable="true"]') !== null;
+}
+
 function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [sorterOpen, setSorterOpen] = useState(false);
+  const [overlayOpen, setOverlayOpen] = useState(false);
   // Trello comment preload — fetched once on mount, grouped by slide index
   const [commentsBySlide, setCommentsBySlide] = useState<Record<number, Comment[]>>({});
   const directionRef = useRef<1 | -1>(1);
@@ -80,8 +90,16 @@ function App() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (sorterOpen) {
-        if (e.key === 'Escape') setSorterOpen(false);
+      const isEscape = e.key === 'Escape';
+      if (isTypingTarget(e.target) && !isEscape) return;
+
+      if (isEscape) {
+        setSorterOpen(false);
+        window.dispatchEvent(new Event('requestCloseCommentsPanel'));
+        return;
+      }
+
+      if (sorterOpen || overlayOpen) {
         return;
       }
       if (e.key === 'ArrowRight' || e.key === ' ') {
@@ -94,7 +112,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [sorterOpen, currentSlideIndex]);
+  }, [sorterOpen, overlayOpen, currentSlideIndex]);
 
   // Use URL hash for routing
   useEffect(() => {
@@ -164,6 +182,7 @@ function App() {
             onOpenSorter={() => setSorterOpen(true)}
             onNext={goNext}
             onPrev={goPrev}
+            onOverlayStateChange={setOverlayOpen}
             preloadedComments={commentsBySlide[currentSlideIndex] ?? []}
           >
             <AnimatePresence custom={directionRef.current} mode="wait" initial={false}>
