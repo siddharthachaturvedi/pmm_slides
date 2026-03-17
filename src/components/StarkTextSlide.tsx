@@ -1,5 +1,11 @@
 import { motion } from 'framer-motion';
 
+function splitQuadrant(text: string) {
+    const idx = text.indexOf(':');
+    if (idx === -1) return { label: text, desc: '' };
+    return { label: text.slice(0, idx).trim(), desc: text.slice(idx + 1).trim() };
+}
+
 export function StarkTextSlide({ slide, isBackward }: { slide: any; isBackward?: boolean }) {
     const skip = isBackward;
     return (
@@ -24,7 +30,7 @@ export function StarkTextSlide({ slide, isBackward }: { slide: any; isBackward?:
                         {slide.subtitle}
                     </motion.p>
                 )}
-                {slide.link && (
+                {slide.link && !slide.linkOnRight && (
                     <motion.a
                         href={slide.link}
                         target="_blank"
@@ -34,13 +40,71 @@ export function StarkTextSlide({ slide, isBackward }: { slide: any; isBackward?:
                         transition={{ duration: 0.3, delay: 0.16, ease: "easeOut" }}
                         className="mt-8 text-sm md:text-base font-mono uppercase tracking-widest text-ink font-bold border-b border-ink self-start hover:text-ink-soft hover:border-ink-soft transition-colors"
                     >
-                        View External Source ↗
+                        {slide.linkLabel ?? 'View External Source ↗'}
                     </motion.a>
                 )}
             </div>
 
             {/* Supporting Evidence / Bullets (Right 7 cols) */}
             <div className="w-full md:col-span-7 h-auto md:h-full flex flex-col justify-start md:justify-center border-t-[1.5px] md:border-t-0 md:border-l-[1.5px] border-ink pt-8 md:pt-0 md:pl-16 mt-4 md:mt-0">
+                {/* Link on right (e.g. survey go link) */}
+                {slide.link && slide.linkOnRight && (
+                    <motion.a
+                        href={slide.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        initial={skip ? false : { opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="text-2xl sm:text-3xl md:text-4xl font-mono font-bold tracking-tight text-ink border-b-2 border-ink self-start hover:text-ink-soft hover:border-ink-soft transition-colors"
+                    >
+                        {slide.linkLabel ?? slide.link}
+                    </motion.a>
+                )}
+                {slide.rightMatrix && (() => {
+                    const m = slide.rightMatrix;
+                    const q1 = splitQuadrant(m.q1 || '');
+                    const q2 = splitQuadrant(m.q2 || '');
+                    const q3 = splitQuadrant(m.q3 || '');
+                    const q4 = splitQuadrant(m.q4 || '');
+                    return (
+                        <motion.div
+                            initial={skip ? false : { opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeOut' }}
+                            className="w-full mb-6"
+                        >
+                            <div className="flex items-center w-full">
+                                <div className="shrink-0 flex items-center justify-center w-8 md:w-10 mr-2 md:mr-3">
+                                    <div className="transform -rotate-90 origin-center text-[10px] md:text-xs font-mono tracking-widest uppercase text-ink-soft whitespace-nowrap">
+                                        {m.yAxis} &rarr;
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 grid-rows-2 w-full min-h-[34vh] border-[1.5px] border-ink">
+                                    <div className="border-r border-b border-ink p-3 md:p-4 flex flex-col items-center justify-center text-center bg-gray-50/50">
+                                        <span className="text-[10px] md:text-xs font-mono uppercase tracking-wider font-bold text-ink mb-1">{q2.label}</span>
+                                        {q2.desc && <span className="text-[10px] md:text-xs font-serif font-bold text-ink leading-snug">{q2.desc}</span>}
+                                    </div>
+                                    <div className="border-b border-l border-ink p-3 md:p-4 flex flex-col items-center justify-center text-center">
+                                        <span className="text-[10px] md:text-xs font-mono uppercase tracking-wider font-bold text-ink mb-1">{q1.label}</span>
+                                        {q1.desc && <span className="text-[10px] md:text-xs font-serif font-bold text-ink leading-snug">{q1.desc}</span>}
+                                    </div>
+                                    <div className="border-r border-t border-ink p-3 md:p-4 flex flex-col items-center justify-center text-center">
+                                        <span className="text-[10px] md:text-xs font-mono uppercase tracking-wider font-bold text-ink mb-1">{q3.label}</span>
+                                        {q3.desc && <span className="text-[10px] md:text-xs font-serif font-bold text-ink leading-snug">{q3.desc}</span>}
+                                    </div>
+                                    <div className="border-l border-t border-ink p-3 md:p-4 flex flex-col items-center justify-center text-center bg-gray-50/50">
+                                        <span className="text-[10px] md:text-xs font-mono uppercase tracking-wider font-bold text-ink mb-1">{q4.label}</span>
+                                        {q4.desc && <span className="text-[10px] md:text-xs font-serif font-bold text-ink leading-snug">{q4.desc}</span>}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="pl-10 md:pl-12 text-center mt-2 text-[10px] md:text-xs font-mono tracking-widest uppercase text-ink-soft">
+                                {m.xAxis} &rarr;
+                            </div>
+                        </motion.div>
+                    );
+                })()}
                 {/* Preamble text (non-bulleted intro above bullets) */}
                 {slide.preamble && (
                     <motion.div

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 export function StarkImageSlide({ slide, isBackward }: { slide: any; isBackward?: boolean }) {
     const skip = isBackward;
     return (
-        <div className="flex items-center justify-center w-screen h-[100dvh] bg-white">
+        <div className="flex items-center justify-center w-full h-full min-h-0 bg-white">
             <motion.img
                 src={slide.imageSrc}
                 alt={slide.title || 'Slide'}

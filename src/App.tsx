@@ -194,7 +194,7 @@ function App() {
       {/* Hidden container that only shows during printing */}
       <div className="hidden print:block">
         {slidesData.map((slide: any, idx: number) => (
-          <div key={idx} style={{ pageBreakAfter: 'always', width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
+          <div key={idx} style={{ pageBreakAfter: 'always', width: '16in', height: '9in', position: 'relative', overflow: 'hidden' }}>
             {slide.type === 'image' ? (
               renderSlideContent(idx, slide, false)
             ) : (
@@ -203,6 +203,7 @@ function App() {
                 totalSlides={slidesData.length}
                 phase={slide.phase?.toUpperCase() || "PRESENTATION"}
                 slide={slide}
+                printMode
               >
                 {renderSlideContent(idx, slide, false)}
               </Layout>

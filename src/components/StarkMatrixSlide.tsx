@@ -39,8 +39,8 @@ export function StarkMatrixSlide({ slide, isBackward }: { slide: any; isBackward
                             transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
                             className="border-r-[1px] border-b-[1px] border-ink p-3 md:p-8 flex flex-col items-center justify-center text-center bg-gray-50/50"
                         >
-                            <span className="text-sm md:text-lg font-mono uppercase tracking-wider text-ink-soft mb-1 md:mb-2">{q2.label}</span>
-                            {q2.desc && <span className="text-xs md:text-base font-sans text-ink-soft/70 leading-snug">{q2.desc}</span>}
+                            <span className="text-sm md:text-lg font-mono uppercase tracking-wider font-bold text-ink mb-1 md:mb-2">{q2.label}</span>
+                            {q2.desc && <span className="text-xs md:text-base font-serif font-bold text-ink leading-snug">{q2.desc}</span>}
                         </motion.div>
 
                         {/* Top Right - Q1 (Target) */}
@@ -61,8 +61,8 @@ export function StarkMatrixSlide({ slide, isBackward }: { slide: any; isBackward
                             transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
                             className="border-r-[1px] border-t-[1px] border-ink p-3 md:p-8 flex flex-col items-center justify-center text-center"
                         >
-                            <span className="text-sm md:text-lg font-mono uppercase tracking-wider text-ink-soft mb-1 md:mb-2">{q3.label}</span>
-                            {q3.desc && <span className="text-xs md:text-base font-sans text-ink-soft/70 leading-snug">{q3.desc}</span>}
+                            <span className="text-sm md:text-lg font-mono uppercase tracking-wider font-bold text-ink mb-1 md:mb-2">{q3.label}</span>
+                            {q3.desc && <span className="text-xs md:text-base font-serif font-bold text-ink leading-snug">{q3.desc}</span>}
                         </motion.div>
 
                         {/* Bottom Right - Q4 (Danger) */}
@@ -72,8 +72,8 @@ export function StarkMatrixSlide({ slide, isBackward }: { slide: any; isBackward
                             transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
                             className="border-l-[1px] border-t-[1px] border-ink p-3 md:p-8 flex flex-col items-center justify-center text-center bg-gray-50/50"
                         >
-                            <span className="text-sm md:text-lg font-mono uppercase tracking-wider text-ink-soft mb-1 md:mb-2">{q4.label}</span>
-                            {q4.desc && <span className="text-xs md:text-base font-sans text-ink-soft/70 leading-snug">{q4.desc}</span>}
+                            <span className="text-sm md:text-lg font-mono uppercase tracking-wider font-bold text-ink mb-1 md:mb-2">{q4.label}</span>
+                            {q4.desc && <span className="text-xs md:text-base font-serif font-bold text-ink leading-snug">{q4.desc}</span>}
                         </motion.div>
 
                     </div>

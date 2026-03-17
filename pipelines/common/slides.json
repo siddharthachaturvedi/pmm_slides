@@ -21,6 +21,14 @@
       "imageSrc": "/slides/pdf-slide-3.png"
     },
     {
+      "title": "Before we start — quick survey",
+      "phase": "event",
+      "link": "/go/aipmm1-start",
+      "linkLabel": "go/aipmm1-start",
+      "linkOnRight": true,
+      "bullets": []
+    },
+    {
       "title": "The PMM's Hippocratic Oath",
       "type": "title",
       "phase": "intro",
@@ -54,14 +62,14 @@
       "title": "The failure modes of infinite persuasion",
       "type": "matrix",
       "phase": "peril",
-      "lead": "These aren't edge cases. They're default bugs. The system ships them unless you design them out.",
+      "lead": "These aren't edge cases. They're default bugs.",
       "matrix": {
         "xAxis": "Automation Level",
         "yAxis": "Trust Exposure",
-        "q1": "Liability laundering:   the model said it, but your brand published it",
-        "q2": "Hallucinated authority: evidence posture outpaces evidence checking",
-        "q3": "Authenticity drift: style matches, values do not",
-        "q4": "Persona erasure: optimization smooths away edge users"
+        "q1": "Hallucinated authority: evidence posture outpaces evidence checking",
+        "q2": "Accountability gap: the model said it, but your brand published it",
+        "q3": "Persona erasure: optimization smooths away edge users",
+        "q4": "Authenticity drift: style matches, values do not"
       }
     },
     {
@@ -475,14 +483,33 @@
       }
     },
     {
-      "title": "Your team does not need an AI policy first. It needs a pre-publish discipline.",
+      "title": "Experiment. Document. Share.",
       "phase": "close",
       "lead": "Close + Q&A",
-      "bullets": [
-        "What is the riskiest claim in market right now?",
-        "Where can AI publish faster than you can verify?",
-        "What can you pilot next week?"
-      ]
+      "subtitle": "PS — Stay Tuned for Andrew & Daniella covering some of the more practical ways to do what you saw (like this deck) in Session 3",
+      "bullets": [],
+      "rightMatrix": {
+        "xAxis": "Automation Level",
+        "yAxis": "Trust Exposure",
+        "q1": "Hallucinated authority: evidence posture outpaces evidence checking",
+        "q2": "Accountability gap: the model said it, but your brand published it",
+        "q3": "Persona erasure: optimization smooths away edge users",
+        "q4": "Authenticity drift: style matches, values do not"
+      }
+    },
+    {
+      "title": "Thank you — share your feedback",
+      "phase": "close",
+      "link": "/go/aipmm1-end",
+      "linkLabel": "go/aipmm1-end",
+      "linkOnRight": true,
+      "bullets": []
+    },
+    {
+      "title": "PMM AI School Workshop Series",
+      "type": "image",
+      "phase": "event",
+      "imageSrc": "/slides/pdf-slide-3.png"
     },
     {
       "title": "Toolkit: Claim Card",

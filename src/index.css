@@ -70,6 +70,7 @@
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    font-size: 16px !important;
   }
 
   /* Force landscape and scale exactly to the page if needed */
@@ -78,9 +79,16 @@
     /* Tailwind print:hidden usually takes care of this, but we hide UI just in case */
   }
 
-  /* Ensure the main presentation container fills the page */
+  /* Keep flex layout in charge during print; avoid forced viewport heights */
   main {
-    height: 100vh !important;
+    height: auto !important;
+    min-height: 0 !important;
+    flex: 1 1 auto !important;
     overflow: hidden !important;
+  }
+
+  /* Prevent vh-based matrix blocks from overflowing printed pages */
+  .grid.grid-cols-2.grid-rows-2 {
+    min-height: 3.9in !important;
   }
 }

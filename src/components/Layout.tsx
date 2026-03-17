@@ -22,6 +22,7 @@ export function Layout({
     onNext,
     onPrev,
     preloadedComments = [],
+    printMode = false,
 }: {
     children: ReactNode,
     currentSlide: number,
@@ -32,6 +33,7 @@ export function Layout({
     onNext?: () => void,
     onPrev?: () => void,
     preloadedComments?: Comment[],
+    printMode?: boolean,
 }) {
     const [commentsPanelOpen, setCommentsPanelOpen] = useState(false);
     const [shareModalOpen, setShareModalOpen] = useState(false);
@@ -60,6 +62,12 @@ export function Layout({
     const [dimensions, setDimensions] = useState({ width: '100vw', height: '100dvh' });
 
     useEffect(() => {
+        if (printMode) {
+            setScale(1);
+            setDimensions({ width: '16in', height: '9in' });
+            return;
+        }
+
         const updateScale = () => {
             const hasTouch = navigator.maxTouchPoints > 0 || (window.matchMedia && window.matchMedia("(any-pointer: coarse)").matches);
             const isLandscape = window.innerWidth > window.innerHeight;
@@ -86,7 +94,7 @@ export function Layout({
             window.removeEventListener('resize', updateScale);
             window.removeEventListener('orientationchange', updateScale);
         };
-    }, []);
+    }, [printMode]);
 
     // Capture the slide visually BEFORE opening the modal so the modal doesn't exist in DOM
     const handleShareClick = async () => {
@@ -129,14 +137,14 @@ export function Layout({
     const progressPct = totalSlides > 1 ? (currentSlide / (totalSlides - 1)) * 100 : 100;
 
     return (
-        <div className="w-screen h-[100dvh] overflow-hidden bg-white">
+        <div className={printMode ? "w-[16in] h-[9in] overflow-hidden bg-white" : "w-screen h-[100dvh] overflow-hidden bg-white"}>
             <div
                 ref={slideRef}
                 className="flex flex-col bg-white overflow-hidden origin-top-left"
                 style={{
-                    width: dimensions.width,
-                    height: dimensions.height,
-                    transform: `scale(${scale})`,
+                    width: printMode ? '16in' : dimensions.width,
+                    height: printMode ? '9in' : dimensions.height,
+                    transform: printMode ? 'none' : `scale(${scale})`,
                 }}
             >
                 {/* Top Navigation Bar: Severe, Data-driven */}
